@@ -11,6 +11,8 @@ public class Categories {
     
     private static final SlimeChem instance = SlimeChem.getInstance();
     
+    public static final Category MACHINES = new Category(new NamespacedKey(instance, "machines"), new CustomItem(Material.DIAMOND, "test"), 3);
+    public static final Category MOLECULES = new Category(new NamespacedKey(instance, "molecules"), new CustomItem(Material.DIAMOND, "test"), 3);
     public static final Category ELEMENTS = new Category(new NamespacedKey(instance, "elements"), new CustomItem(Material.DIAMOND, "test"), 3);
     
 }

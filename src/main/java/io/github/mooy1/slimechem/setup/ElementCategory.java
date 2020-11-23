@@ -26,11 +26,16 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Periodic table flex category
+ * 
+ * @author Mooy1
+ * 
+ */
 public class ElementCategory extends FlexCategory implements Listener {
     
     private final ItemStack BACKGROUND = new CustomItem(Material.BLACK_STAINED_GLASS_PANE, "");
     private final SlimefunGuideImplementation GUIDE = SlimefunPlugin.getRegistry().getGuideLayout(SlimefunGuideLayout.CHEST);
-    
     private final ChestMenu[] menus = new ChestMenu[4];
     private final Map<Player, Integer> history;
     
@@ -129,7 +134,6 @@ public class ElementCategory extends FlexCategory implements Listener {
         
         return menu;
     }
-    
     private void addElements(ChestMenu menu, int slot, int min, int max) {
         for (int i = min ; i <= max ; i++, slot++) {
             menu.addItem(slot, makeItem(Element.getByNumber(i)), ChestMenuUtils.getEmptyClickHandler());
@@ -147,9 +151,9 @@ public class ElementCategory extends FlexCategory implements Listener {
     private ItemStack makeItem(Element e) {
         return new CustomItem(
                 Objects.requireNonNull(Material.getMaterial(e.getSeries().getColor() + "_STAINED_GLASS_PANE")),
-                ChatColor.AQUA + "" + e.getSymbol() + " " + e.getAtomicNumber(),
+                ChatColor.AQUA + "" + e.getSymbol() + " " + e.getNumber(),
                 ChatColor.AQUA + e.getName(),
-                ChatColor.AQUA + "Mass: " + e.getAtomicMass()
+                ChatColor.AQUA + "Mass: " + e.getMass()
         );
     }
     
@@ -157,9 +161,9 @@ public class ElementCategory extends FlexCategory implements Listener {
     private ItemStack makeItem(Element e, String lore) {
         return new CustomItem(
                 Objects.requireNonNull(Material.getMaterial(e.getSeries().getColor() + "_STAINED_GLASS_PANE")),
-                ChatColor.AQUA + "" + e.getSymbol() + " " + e.getAtomicNumber(),
+                ChatColor.AQUA + "" + e.getSymbol() + " " + e.getNumber(),
                 ChatColor.AQUA + e.getName(),
-                ChatColor.AQUA + "Mass: " + e.getAtomicMass(),
+                ChatColor.AQUA + "Mass: " + e.getMass(),
                 "",
                 lore
         );
@@ -198,14 +202,14 @@ public class ElementCategory extends FlexCategory implements Listener {
             optional.ifPresent(playerProfile -> playerProfile.getGuideHistory().goBack(GUIDE));
             return false;
         });
-    
+        
         menu.addMenuClickHandler(45, (p, i, itemStack, clickAction) -> {
             if (page > 0) {
                 menus[page - 1].open(p);
             }
             return false;
         });
-    
+        
         menu.addMenuClickHandler(53, (p, i, itemStack, clickAction) -> {
             if (page < 3) {
                 menus[page + 1].open(p);

@@ -1,33 +1,61 @@
 package io.github.mooy1.slimechem.implementation;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import io.github.mooy1.slimechem.utils.SubNum;
 import lombok.Getter;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import org.bukkit.Material;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Enum of molecules: name, formula, ingredients
+ * 
+ * @author Seggan
+ * @author Mooy1
+ * 
+ */
 @Getter
-public enum Molecule implements Ingredient {
-    WATER("Water", "H" + SubNum.TWO + "O", new Ingredient[]{Element.HYDROGEN, Element.OXYGEN},
-        new int[]{2, 1});
+public enum Molecule implements Ingredient.IngredientObject {
+    
+    WATER("Water", new Ingredient(Element.HYDROGEN, 2), new Ingredient(Element.OXYGEN, 1)),
+    CARBON_DIOXIDE("Carbon Dioxide", new Ingredient(Element.CARBON, 1), Ingredient.DIOXIDE);
 
     private final String name;
     private final String formula;
     private final Map<Ingredient, Integer> ingredients;
+    @Nonnull
+    private final SlimefunItemStack item;
+    
+    public static final BiMap<Molecule, SlimefunItem> ITEMS = HashBiMap.create(values().length);
 
     // I use a constructor here instead of lombok for the ingredients
-    Molecule(String name, String formula, Ingredient[] ingredients, int[] amounts) {
+    Molecule(String name, Ingredient... ingredients) {
         this.name = name;
-        this.formula = formula;
         this.ingredients = new HashMap<>();
-
-        for (int i = 0; i < ingredients.length; i++) {
-            this.ingredients.put(ingredients[i], amounts[i]);
+        
+        StringBuilder formula = new StringBuilder();
+        for (Ingredient ingredient : ingredients) {
+            formula.append(ingredient.getFormula());
+            this.ingredients.put(ingredient, ingredient.getAmount());
         }
+        this.formula = formula.toString();
+    
+        this.item = new SlimefunItemStack(
+                "MOLECULE_" + this.name(),
+                Material.SPONGE,
+                "&b" + name,
+                "&7" + formula
+        );
     }
-
+    
+    @Nonnull
     @Override
-    public boolean isElement() {
-        return false;
+    public String getFormula(int i) {
+        return "(" + this.formula + ")" + SubNum.fromInt(i);
     }
 }

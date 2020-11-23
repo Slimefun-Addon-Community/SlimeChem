@@ -1,8 +1,8 @@
 package io.github.mooy1.slimechem;
 
-import io.github.mooy1.slimechem.implementation.Registry;
 import io.github.mooy1.slimechem.setup.Setup;
 import lombok.Getter;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
@@ -13,20 +13,16 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
     
     @Getter
     private static SlimeChem instance;
-    @Getter
-    private static Registry registry;
-
+    
     @Override
     public void onEnable() {
         instance = this;
         
         updateConfig();
-
-        //stats
-        //@SuppressWarnings("unused")
-        //final Metrics metrics = new Metrics(this, REPLACE);
-
-        //auto update
+        
+        @SuppressWarnings("unused")
+        final Metrics metrics = new Metrics(this, 9490);
+        
         /*if (getDescription().getVersion().startsWith("DEV - ")) {
             getLogger().log(Level.INFO, "Starting auto update");
             Updater updater = new GitHubBuildsUpdater(this, this.getFile(), "Mooy1/SlimeChem/master");
@@ -35,9 +31,7 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
             getLogger().log(Level.WARNING, "You must be on a DEV build to auto update!");
         }*/
         
-        registry = new Registry();
-
-        Setup.setup(this, registry);
+        Setup.setup(this);
     }
     
     private void updateConfig() {

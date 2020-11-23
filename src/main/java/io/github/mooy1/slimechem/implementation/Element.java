@@ -1,14 +1,26 @@
 package io.github.mooy1.slimechem.implementation;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import io.github.mooy1.slimechem.utils.SubNum;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 
+/**
+ * Enum of chemical elements: name, mass, number, symbol, series
+ * 
+ * @author Mooy1
+ * 
+ */
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum Element implements Ingredient {
+public enum Element implements Ingredient.IngredientObject {
 
     HYDROGEN(1.0079, "Hydrogen", "H", 1, Series.NONMETALS),
     HELIUM(4.0026, "Helium", "He", 2, Series.NOBLE_GASES),
@@ -128,33 +140,50 @@ public enum Element implements Ingredient {
     LIVERMORIUM(293, "Livermorium", "Lv", 116, Series.UNKNOWN),
     TENNESSINE(294, "Tennessine", "Ts", 117, Series.UNKNOWN),
     OGANESSON(294, "Oganesson", "Og", 118, Series.UNKNOWN);
-
-    private final double atomicMass;
+    
+    private final double mass;
     @Nonnull
     private final String name;
     @Nonnull
     private final String symbol;
-    private final int atomicNumber;
+    private final int number;
     @Nonnull
     private final Series series;
-
-    public int getNeutrons() {
-        return (int) Math.round(this.atomicMass) - this.atomicNumber;
-    }
+    private final int neutrons;
+    @Nonnull
+    private final SlimefunItemStack item;
     
+    public static final BiMap<Element, SlimefunItem> ITEMS = HashBiMap.create(values().length);
+    
+    Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series) {
+        this.mass = mass;
+        this.name = name;
+        this.symbol = symbol;
+        this.number = number;
+        this.series = series;
+        this.neutrons = (int) Math.round(mass) - number;
+        this.item = new SlimefunItemStack(
+                "ELEMENT_" + this.name(),
+                Objects.requireNonNull(Material.getMaterial(series.getColor() + "_DYE")),
+                "&b" + name,
+                "&7Mass: " + mass
+        );
+    }
+
     @Nonnull
     public static Element getByNumber(int i) {
         for (Element e : values()) {
-            if (e.getAtomicNumber() == i) return e;
+            if (e.getNumber() == i) return e;
         }
         return HYDROGEN;
     }
-
+    
+    @Nonnull
     @Override
-    public boolean isElement() {
-        return true;
+    public String getFormula(int i) {
+        return this.symbol + SubNum.fromInt(i);
     }
-
+    
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public enum Series {

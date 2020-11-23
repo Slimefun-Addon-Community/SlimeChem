@@ -3,30 +3,28 @@ package io.github.mooy1.slimechem.utils;
 import javax.annotation.Nonnull;
 
 /**
- * Subscript numbers and getter
+ * Superscript numbers and getter
  * 
- * @author TheBusyBiscuit
  * @author Mooy1
  * 
  */
-public class SubNum {
-
-    public static final String ZERO = "\u2080";
-    public static final String ONE = "\u2081";
-    public static final String TWO = "\u2082";
-    public static final String THREE = "\u2083";
-    public static final String FOUR = "\u2084";
-    public static final String FIVE = "\u2085";
-    public static final String SIX = "\u2086";
-    public static final String SEVEN = "\u2087";
-    public static final String EIGHT = "\u2088";
-    public static final String NINE = "\u2089";
+public class SuperNum {
+    
+    //I tried unicode but it messes up
+    public static final String ZERO = "⁰"; 
+    public static final String ONE = "¹";
+    public static final String TWO = "²";
+    public static final String THREE = "³";
+    public static final String FOUR = "⁴";
+    public static final String FIVE = "⁵";
+    public static final String SIX = "⁶";
+    public static final String SEVEN = "⁷";
+    public static final String EIGHT = "⁸";
+    public static final String NINE = "⁹";
     
     
     @Nonnull
     public static String fromInt(int i) {
-        if (i == 1) return "";
-        
         StringBuilder builder = new StringBuilder();
         
         for (char c : String.valueOf(i).toCharArray()) {
@@ -43,7 +41,7 @@ public class SubNum {
                 case '9': builder.append(NINE); break;
             }
         }
-        
+
         return builder.toString();
     }
 }
