@@ -159,9 +159,9 @@ public enum Element {
         LANTHANOIDS("Lanthanoids", "LIME"),
         ACTINOIDS("Actinoids", "GREEN"),
         TRANSITION_METALS("Transition Metals", "GRAY"),
-        POST_TRANSITION_METALS("Post Transition Metals", "LIGHT_BLUE"),
+        POST_TRANSITION_METALS("Post Transition Metals", "BLUE"),
         METALLOIDS("Metalloids", "CYAN"),
-        NONMETALS("Nonmetals", "BLUE"),
+        NONMETALS("Nonmetals", "LIGHT_BLUE"),
         NOBLE_GASES("Noble Gases", "PINK"),
         UNKNOWN("Unknown", "PURPLE");
     

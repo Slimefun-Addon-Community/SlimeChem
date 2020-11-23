@@ -15,13 +15,17 @@ public class Registry {
     public Registry() {
         
         for (Element element : Element.values()) {
-            new SlimefunItemStack(
-                    "ELEMENT_" + element.name(),
-                    Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
-                    element.getName()
-                    
-                    );
+            ELEMENT_STACKS.put(element, new SlimefunItemStack(
+                            "ELEMENT_" + element.name(),
+                            Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
+                            "&b" + element.getName(),
+                            "&7Protons: " + element.getAtomicNumber(),
+                            "&7Neutrons: " + element.getNeutrons(),
+                            "&7Electrons: " + element.getAtomicNumber()
+                    )
+            );
         }
+        
     }
     
 }
