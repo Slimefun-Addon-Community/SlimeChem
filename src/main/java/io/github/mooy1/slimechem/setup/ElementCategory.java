@@ -171,12 +171,16 @@ public class ElementCategory extends FlexCategory implements Listener {
         
         menu.setEmptySlotsClickable(false);
         menu.setPlayerInventoryClickable(false);
-    
-        for (int i = 1 ; i < 9 ; i++) {
-            menu.addItem(i, BACKGROUND, ChestMenuUtils.getEmptyClickHandler());
-        }
         
         menu.addMenuCloseHandler(player -> history.put(player, page));
+    
+        for (int i = 0 ; i < 9 ; i++) {
+            menu.addItem(i, BACKGROUND, ChestMenuUtils.getEmptyClickHandler());
+        }
+    
+        for (int i = 45 ; i < 54 ; i++) {
+            menu.addItem(i, BACKGROUND, ChestMenuUtils.getEmptyClickHandler());
+        }
         
         menu.addMenuOpeningHandler(player -> {
             player.playSound(player.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1, 1);
@@ -188,30 +192,26 @@ public class ElementCategory extends FlexCategory implements Listener {
             menu.replaceExistingItem(53, ChestMenuUtils.getNextButton(player, page + 1, 4));
             
         });
-    
+        
         menu.addMenuClickHandler(0, (p, slot, item, action) -> {
             Optional<PlayerProfile> optional = PlayerProfile.find(p);
             optional.ifPresent(playerProfile -> playerProfile.getGuideHistory().goBack(GUIDE));
             return false;
         });
     
-        menu.addMenuClickHandler(0, (p, i, itemStack, clickAction) -> {
+        menu.addMenuClickHandler(45, (p, i, itemStack, clickAction) -> {
             if (page > 0) {
                 menus[page - 1].open(p);
             }
             return false;
         });
     
-        menu.addMenuClickHandler(8, (p, i, itemStack, clickAction) -> {
+        menu.addMenuClickHandler(53, (p, i, itemStack, clickAction) -> {
             if (page < 3) {
                 menus[page + 1].open(p);
             }
             return false;
         });
-    
-        for (int i = 2 ; i < 8 ; i++) {
-            menu.addItem(i, BACKGROUND, ChestMenuUtils.getEmptyClickHandler());
-        }
         
         return menu;
     }
