@@ -34,10 +34,11 @@ public class Ingredient {
      * @author Mooy1
      *
      */
-    @FunctionalInterface
     interface IngredientObject {
         @Nonnull
         String getFormula(int i);
+
+        boolean isElement();
     }
 }
 

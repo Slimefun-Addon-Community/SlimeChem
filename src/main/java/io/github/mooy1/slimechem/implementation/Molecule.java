@@ -47,7 +47,7 @@ public enum Molecule implements Ingredient.IngredientObject {
     
         this.item = new SlimefunItemStack(
                 "MOLECULE_" + this.name(),
-                Material.SPONGE,
+                Material.HONEY_BOTTLE,
                 "&b" + name,
                 "&7" + formula
         );
@@ -57,5 +57,10 @@ public enum Molecule implements Ingredient.IngredientObject {
     @Override
     public String getFormula(int i) {
         return "(" + this.formula + ")" + SubNum.fromInt(i);
+    }
+
+    @Override
+    public boolean isElement() {
+        return false;
     }
 }

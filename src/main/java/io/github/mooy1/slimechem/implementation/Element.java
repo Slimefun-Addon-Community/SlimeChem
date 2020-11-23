@@ -183,7 +183,12 @@ public enum Element implements Ingredient.IngredientObject {
     public String getFormula(int i) {
         return this.symbol + SubNum.fromInt(i);
     }
-    
+
+    @Override
+    public boolean isElement() {
+        return true;
+    }
+
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public enum Series {
