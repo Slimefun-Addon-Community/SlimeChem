@@ -1,5 +1,7 @@
 package io.github.mooy1.slimechem;
 
+import io.github.mooy1.slimechem.implementation.Registry;
+import io.github.mooy1.slimechem.setup.Setup;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -11,7 +13,8 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
     
     @Getter
     private static SlimeChem instance;
-    
+    @Getter
+    private static Registry registry;
 
     @Override
     public void onEnable() {
@@ -32,7 +35,9 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
             getLogger().log(Level.WARNING, "You must be on a DEV build to auto update!");
         }*/
         
-        
+        registry = new Registry();
+
+        Setup.setup(this, registry);
     }
     
     private void updateConfig() {
