@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public enum Element {
+public enum Element implements Ingredient {
 
     HYDROGEN(1.0079, "Hydrogen", "H", 1, Series.NONMETALS),
     HELIUM(4.0026, "Helium", "He", 2, Series.NOBLE_GASES),
@@ -149,7 +149,12 @@ public enum Element {
         }
         return HYDROGEN;
     }
-    
+
+    @Override
+    public boolean isElement() {
+        return true;
+    }
+
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public enum Series {
