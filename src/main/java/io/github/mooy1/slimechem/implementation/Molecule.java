@@ -21,7 +21,13 @@ import java.util.Map;
  */
 @Getter
 public enum Molecule implements Ingredient.IngredientObject {
-    
+
+    // Radicals. We don't have a clean way of implementing these yet
+    CARBONATE("Carbonate", new Ingredient(Element.CARBON, 1), new Ingredient(Element.OXYGEN, 3)),
+    SULFATE("Sulfate", new Ingredient(Element.SULFUR, 1), new Ingredient(Element.OXYGEN, 4)),
+    HYDROXIDE("Hydroxide", new Ingredient(Element.HYDROGEN, 1), new Ingredient(Element.OXYGEN, 1)),
+    NITRATE("Nitrate", new Ingredient(Element.NITROGEN, 1), new Ingredient(Element.OXYGEN, 3)),
+
     WATER("Water", new Ingredient(Element.HYDROGEN, 2), new Ingredient(Element.OXYGEN, 1)),
     CARBON_DIOXIDE("Carbon Dioxide", new Ingredient(Element.CARBON, 1), Ingredient.DIOXIDE);
 
