@@ -35,10 +35,21 @@ public enum Molecule implements Ingredient.IngredientObject {
     SILICON_DIOXIDE("Silicon Dioxide", new Ingredient(Element.SILICON, 1), Ingredient.DIOXIDE),
 
     // Ores
-    IRON_II_OXIDE("Iron(II,III) Oxide (Magnetite)", new Ingredient(Element.IRON, 3), new Ingredient(Element.OXYGEN, 4)),
+
+    // Iron
     IRON_III_OXIDE("Iron(III) Oxide (Hematite)", new Ingredient(Element.IRON, 2), new Ingredient(Element.OXYGEN, 3)),
+    IRON_II_OXIDE("Iron(II,III) Oxide (Magnetite)", new Ingredient(Element.IRON, 3), new Ingredient(Element.OXYGEN, 4)),
     IRON_PERSULFIDE("Iron Persulfide (Pyrite)", new Ingredient(Element.IRON, 2), new Ingredient(Element.OXYGEN, 3)),
-    IRON_ARSENOSULFIDE("Iron Arsenosulfide (Arsenopyrite)", new Ingredient(Element.IRON, 2), new Ingredient(Element.OXYGEN, 3)),
+    COPPER_IRON_SULFIDE("Copper Iron Sulfide (Chalcopyrite)", new Ingredient(Element.COPPER, 1), new Ingredient(Element.IRON, 1),
+        new Ingredient(Element.SULFUR, 1)),
+    // Gold
+    GOLD_TELLURIDE("Gold Telluride (Calaverite)", new Ingredient(Element.GOLD, 1), new Ingredient(Element.TELLURIUM, 2)),
+    GOLD_ANTIMONIDE("Gold Antimonide (Aurostibite)", new Ingredient(Element.GOLD, 1), new Ingredient(Element.ANTIMONY, 2)),
+    // Redstone (assuming copper)
+    COPPER_I_OXIDE("Copper(I) Oxide (Cuprite)", new Ingredient(Element.COPPER, 2), new Ingredient(Element.OXYGEN, 1)),
+    PENTACOPPER_IRON_TETRASULFIDE("Pentacopper(I) Iron(III) Tetrasulfide (Bornite)", new Ingredient(Element.COPPER, 5),
+        new Ingredient(Element.IRON, 1), new Ingredient(Element.SULFUR, 4)),
+    COPPER_II_OXIDE("Copper(II) Oxide (Tenorite)", new Ingredient(Element.COPPER, 1), new Ingredient(Element.OXYGEN, 1)),
     ;
 
     private final String name;
