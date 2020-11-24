@@ -17,6 +17,7 @@ import java.util.Objects;
  * Enum of isotopes: name, mass, element, neutrons
  *
  * @author Mooy1
+ * 
  */
 @Getter
 public enum Isotope implements Ingredient.IngredientObject {
@@ -38,17 +39,15 @@ public enum Isotope implements Ingredient.IngredientObject {
     
     Isotope(@Nonnull Element element, @Nullable String name, double mass) {
         this.element = element;
-        this.name = name;
         this.mass = mass;
         this.number = (int) Math.round(mass);
+        this.name = name != null ? name : element.getName() + "-" + this.number;
         this.neutrons = this.number - element.getNumber();
         this.item = new SlimefunItemStack(
                 "ISOTOPE_" + this.name(),
                 Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
-                "&b" + (name != null ? name : element.getName() + "-" + this.number) + " " + getFormula(1),
-                "&7Protons: " + element.getNumber(),
-                "&7Neutrons: " + neutrons,
-                "&7Electrons: " + element.getNumber()
+                "&b" + name,
+                "Mass: " + this.mass
         );
     }
     

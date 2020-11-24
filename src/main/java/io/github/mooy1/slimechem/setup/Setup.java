@@ -31,9 +31,11 @@ public final class Setup {
         plugin.getLogger().log(Level.INFO, "Registered " + Isotope.values().length + " Isotopes!");
     
         for (Molecule molecule : Molecule.values()) {
-            SlimefunItem slimefunItem = new SlimefunItem(Categories.MOLECULES, molecule.getItem(), RecipeType.ENHANCED_CRAFTING_TABLE, null);
-            slimefunItem.register(plugin);
-            Molecule.ITEMS.put(molecule, slimefunItem);
+            if (molecule.isReal()) {
+                SlimefunItem slimefunItem = new SlimefunItem(Categories.MOLECULES, molecule.getItem(), RecipeType.ENHANCED_CRAFTING_TABLE, null);
+                slimefunItem.register(plugin);
+                Molecule.ITEMS.put(molecule, slimefunItem);
+            }
         }
         plugin.getLogger().log(Level.INFO, "Registered " + Molecule.values().length + " Molecules!");
         

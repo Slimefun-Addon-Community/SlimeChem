@@ -9,8 +9,8 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Enum of molecules: name, formula, ingredients
@@ -22,27 +22,31 @@ import java.util.Map;
 @Getter
 public enum Molecule implements Ingredient.IngredientObject {
     
-    WATER("Water", new Ingredient(Element.HYDROGEN, 2), new Ingredient(Element.OXYGEN, 1)),
+    WATER("Water", new Ingredient(Element.HYDROGEN, 2), Ingredient.MONOXIDE),
     CARBON_DIOXIDE("Carbon Dioxide", new Ingredient(Element.CARBON, 1), Ingredient.DIOXIDE);
-
+    
+    @Nonnull
     private final String name;
+    @Nonnull
     private final String formula;
-    private final Map<Ingredient, Integer> ingredients;
+    @Nonnull
+    private final List<Ingredient> ingredients;
     @Nonnull
     private final SlimefunItemStack item;
     
     public static final BiMap<Molecule, SlimefunItem> ITEMS = HashBiMap.create(values().length);
-
-    // I use a constructor here instead of lombok for the ingredients
-    Molecule(String name, Ingredient... ingredients) {
+    
+    Molecule(@Nonnull String name, @Nonnull Ingredient... ingredients) {
         this.name = name;
-        this.ingredients = new HashMap<>();
+        this.ingredients = new ArrayList<>();
         
         StringBuilder formula = new StringBuilder();
+        
         for (Ingredient ingredient : ingredients) {
             formula.append(ingredient.getFormula());
-            this.ingredients.put(ingredient, ingredient.getAmount());
+            this.ingredients.add(ingredient);
         }
+        
         this.formula = formula.toString();
     
         this.item = new SlimefunItemStack(
@@ -56,6 +60,7 @@ public enum Molecule implements Ingredient.IngredientObject {
     @Nonnull
     @Override
     public String getFormula(int i) {
-        return "(" + this.formula + ")" + SubNum.fromInt(i);
+        return (i != 1 ? "(" : "") + this.formula + (i != 1 ? ")" : "") + SubNum.fromInt(i);
     }
+    
 }

@@ -149,6 +149,7 @@ public enum Element implements Ingredient.IngredientObject {
     private final int number;
     @Nonnull
     private final Series series;
+    
     private final int neutrons;
     @Nonnull
     private final SlimefunItemStack item;
@@ -177,7 +178,7 @@ public enum Element implements Ingredient.IngredientObject {
         }
         return HYDROGEN;
     }
-    
+
     @Nonnull
     @Override
     public String getFormula(int i) {
