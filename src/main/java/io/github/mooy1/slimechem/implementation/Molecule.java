@@ -28,8 +28,18 @@ public enum Molecule implements Ingredient.IngredientObject {
     HYDROXIDE("Hydroxide", new Ingredient(Element.HYDROGEN, 1), new Ingredient(Element.OXYGEN, 1)),
     NITRATE("Nitrate", new Ingredient(Element.NITROGEN, 1), new Ingredient(Element.OXYGEN, 3)),
 
+    // Oxides
     WATER("Water", new Ingredient(Element.HYDROGEN, 2), new Ingredient(Element.OXYGEN, 1)),
-    CARBON_DIOXIDE("Carbon Dioxide", new Ingredient(Element.CARBON, 1), Ingredient.DIOXIDE);
+    HYDROGEN_PEROXIDE("Hydrogen Peroxide", new Ingredient(Element.HYDROGEN, 2), Ingredient.DIOXIDE),
+    CARBON_DIOXIDE("Carbon Dioxide", new Ingredient(Element.CARBON, 1), Ingredient.DIOXIDE),
+    SILICON_DIOXIDE("Silicon Dioxide", new Ingredient(Element.SILICON, 1), Ingredient.DIOXIDE),
+
+    // Ores
+    IRON_II_OXIDE("Iron(II,III) Oxide (Magnetite)", new Ingredient(Element.IRON, 3), new Ingredient(Element.OXYGEN, 4)),
+    IRON_III_OXIDE("Iron(III) Oxide (Hematite)", new Ingredient(Element.IRON, 2), new Ingredient(Element.OXYGEN, 3)),
+    IRON_PERSULFIDE("Iron Persulfide (Pyrite)", new Ingredient(Element.IRON, 2), new Ingredient(Element.OXYGEN, 3)),
+    IRON_ARSENOSULFIDE("Iron Arsenosulfide (Arsenopyrite)", new Ingredient(Element.IRON, 2), new Ingredient(Element.OXYGEN, 3)),
+    ;
 
     private final String name;
     private final String formula;
