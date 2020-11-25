@@ -50,6 +50,8 @@ public enum Molecule implements Ingredient.IngredientObject {
     PENTACOPPER_IRON_TETRASULFIDE("Pentacopper(I) Iron(III) Tetrasulfide (Bornite)", new Ingredient(Element.COPPER, 5),
         new Ingredient(Element.IRON, 1), new Ingredient(Element.SULFUR, 4)),
     COPPER_II_OXIDE("Copper(II) Oxide (Tenorite)", new Ingredient(Element.COPPER, 1), new Ingredient(Element.OXYGEN, 1)),
+    // Netherite (assuming netherite is a seaborgium/gold alloy)
+    SEABORGIUM_III_OXIDE("Seaborgium(III) Oxide", new Ingredient(Element.SEABORGIUM, 2), new Ingredient(Element.OXYGEN, 3)),
     ;
 
     private final String name;
