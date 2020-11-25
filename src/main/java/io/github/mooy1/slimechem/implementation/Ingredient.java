@@ -34,10 +34,12 @@ public class Ingredient {
      * This interface should be implemented by any {@link Object}
      * that could be an {@link Ingredient} of a {@link Molecule}
      */
-    @FunctionalInterface
-    public interface IngredientObject {
+    interface IngredientObject {
         @Nonnull
         String getFormula(int i);
+
+        boolean isElement();
+        
     }
     
 }
