@@ -1,4 +1,4 @@
-package io.github.mooy1.slimechem.implementation.machines;
+package io.github.mooy1.slimechem.implementation.machines.abstractmachine;
 
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
@@ -27,7 +27,7 @@ public abstract class Machine extends TickerBlock implements EnergyNetComponent 
     private final int[] outputSlots;
     private final int statusSlot;
     
-    public Machine(SlimefunItemStack item, ItemStack[] recipe, int energy, int[] inputSlots, int[] outputSlots, int statusSlot) {
+    public Machine(SlimefunItemStack item, int energy, int[] inputSlots, int[] outputSlots, int statusSlot, ItemStack[] recipe) {
         super(Categories.MACHINES, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
         this.energy = energy;
         this.inputSlots = inputSlots;
@@ -50,7 +50,7 @@ public abstract class Machine extends TickerBlock implements EnergyNetComponent 
     
     public void setupInv(@Nonnull BlockMenuPreset preset) {
         preset.addItem(statusSlot, LOW_ENERGY, ChestMenuUtils.getEmptyClickHandler());
-        
+        //override and call super to add the rest
     }
     
     public abstract void setupMenu(@Nonnull BlockMenuPreset preset);
@@ -66,9 +66,12 @@ public abstract class Machine extends TickerBlock implements EnergyNetComponent 
             }
             return;
         }
+
+        process(menu, b, l);
         
-        //
     }
+    
+    public abstract void process(@Nonnull BlockMenu menu, @Nonnull Block b, @Nonnull Location l);
     
     @Nonnull
     @Override
@@ -88,4 +91,5 @@ public abstract class Machine extends TickerBlock implements EnergyNetComponent 
         if (flow == ItemTransportFlow.WITHDRAW) return outputSlots;
         return new int[0];
     }
+    
 }

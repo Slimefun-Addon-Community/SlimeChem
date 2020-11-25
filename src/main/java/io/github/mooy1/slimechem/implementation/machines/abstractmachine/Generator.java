@@ -1,4 +1,4 @@
-package io.github.mooy1.slimechem.implementation.machines;
+package io.github.mooy1.slimechem.implementation.machines.abstractmachine;
 
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
