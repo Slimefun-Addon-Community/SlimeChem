@@ -107,10 +107,5 @@ public enum Molecule implements Ingredient.IngredientObject {
     public String getFormula(int i) {
         return (i != 1 ? "(" : "") + this.formula + (i != 1 ? ")" : "") + SubNum.fromInt(i);
     }
-
-    @Override
-    public boolean isElement() {
-        return false;
-    }
     
 }

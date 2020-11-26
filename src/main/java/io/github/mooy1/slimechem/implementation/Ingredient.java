@@ -37,9 +37,6 @@ public class Ingredient {
     interface IngredientObject {
         @Nonnull
         String getFormula(int i);
-
-        boolean isElement();
-        
     }
     
 }

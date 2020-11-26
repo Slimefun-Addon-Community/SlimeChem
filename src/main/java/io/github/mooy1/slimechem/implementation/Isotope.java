@@ -57,9 +57,4 @@ public enum Isotope implements Ingredient.IngredientObject {
         return SuperNum.fromInt(this.number) + element.getSymbol() + SubNum.fromInt(i);
     }
 
-    @Override
-    public boolean isElement() {
-        return true;
-    }
-
 }
