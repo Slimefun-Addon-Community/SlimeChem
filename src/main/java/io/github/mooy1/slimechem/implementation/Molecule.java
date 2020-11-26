@@ -52,6 +52,23 @@ public enum Molecule implements Ingredient.IngredientObject {
     COPPER_II_OXIDE("Copper(II) Oxide (Tenorite)", new Ingredient(Element.COPPER, 1), new Ingredient(Element.OXYGEN, 1)),
     // Netherite (assuming netherite is a seaborgium/gold alloy)
     SEABORGIUM_III_OXIDE("Seaborgium(III) Oxide", new Ingredient(Element.SEABORGIUM, 2), new Ingredient(Element.OXYGEN, 3)),
+
+    // Organic compounds
+
+    // Plant stuff
+    CELLULOSE("Cellulose", new Ingredient(Element.CARBON, 6), new Ingredient(Element.HYDROGEN, 10),
+        new Ingredient(Element.OXYGEN, 5)),
+    SUCROSE("Sucrose", new Ingredient(Element.CARBON, 12), new Ingredient(Element.HYDROGEN, 22),
+        new Ingredient(Element.OXYGEN, 11)),
+    CHLOROPHYLL("Chlorophyll", new Ingredient(Element.CARBON, 55), new Ingredient(Element.HYDROGEN, 72),
+        new Ingredient(Element.OXYGEN, 5), new Ingredient(Element.NITROGEN, 4), new Ingredient(Element.MAGNESIUM, 1)),
+
+    // Animal stuff
+
+    // Using the amino acid methionine as a base; it's the first amino acid in all proteins
+    PROTEIN("Protein", new Ingredient(Element.CARBON, 5), new Ingredient(Element.HYDROGEN, 11),
+        new Ingredient(Element.NITROGEN, 1), new Ingredient(Element.OXYGEN, 2), new Ingredient(Element.SULFUR, 1)),
+
     ;
     
     private final String name;
