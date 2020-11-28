@@ -4,7 +4,6 @@ import io.github.mooy1.slimechem.SlimeChem;
 import io.github.mooy1.slimechem.implementation.Registry;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.atomic.Isotope;
-import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.mooy1.slimechem.lists.Items;
