@@ -1,16 +1,12 @@
-package io.github.mooy1.slimechem.implementation;
+package io.github.mooy1.slimechem.implementation.atomic;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import io.github.mooy1.slimechem.utils.SubNum;
 import io.github.mooy1.slimechem.utils.SuperNum;
 import lombok.Getter;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
@@ -20,46 +16,50 @@ import java.util.Objects;
  * 
  */
 @Getter
-public enum Isotope implements Ingredient.IngredientObject {
+public enum Isotope implements Ingredient {
     
     DEUTERIUM(Element.HYDROGEN, "Deuterium", 2.014),
-    TRITIUM(Element.HYDROGEN, "Tritium", 3.016);
+    TRITIUM(Element.HYDROGEN, "Tritium", 3.016),
+    URANIUM235(Element.PLUTONIUM, 235),
+    PLUTONIUM239(Element.PLUTONIUM, 239),
+    ;
     
     @Nonnull
     private final Element element;
-    @Nullable
+    @Nonnull
     private final String name;
     private final double mass;
     private final int number;
+    @Nonnull
+    private final String formula;
     private final int neutrons;
     @Nonnull
     private final SlimefunItemStack item;
     
-    public static final BiMap<Isotope, SlimefunItem> ITEMS = HashBiMap.create(values().length);
-    
-    Isotope(@Nonnull Element element, @Nullable String name, double mass) {
+    Isotope(@Nonnull Element element, @Nonnull String name, double mass) {
         this.element = element;
         this.mass = mass;
         this.number = (int) Math.round(mass);
-        this.name = name != null ? name : element.getName() + "-" + this.number;
+        this.name = name;
+        this.formula = SuperNum.fromInt(this.number) + element.getSymbol();
         this.neutrons = this.number - element.getNumber();
         this.item = new SlimefunItemStack(
                 "ISOTOPE_" + this.name(),
                 Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
                 "&b" + name,
-                "Mass: " + this.mass
+                "&7" +  this.formula,
+                "&7Mass: " + this.mass
         );
+    }
+    
+    Isotope(@Nonnull Element element, double mass) {
+        this(element, (element.getName() + "-" + Math.round(mass)), mass);
     }
     
     @Nonnull
     @Override
     public String getFormula(int i) {
-        return SuperNum.fromInt(this.number) + element.getSymbol() + SubNum.fromInt(i);
-    }
-
-    @Override
-    public boolean isElement() {
-        return true;
+        return this.formula + SubNum.fromInt(i);
     }
 
 }

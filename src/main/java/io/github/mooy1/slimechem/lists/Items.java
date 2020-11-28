@@ -13,7 +13,7 @@ public final class Items {
             Material.DIAMOND_BLOCK,
             "&bChemical Dissolver",
             "",
-            LoreUtils.energyPerSecond(ChemicalDissolver.ENERGY)
+            LoreUtils.energy(ChemicalDissolver.ENERGY) + "per item"
     );
 
     // add ur discord or smth if u want

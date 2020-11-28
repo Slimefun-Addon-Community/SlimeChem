@@ -1,7 +1,7 @@
 package io.github.mooy1.slimechem.setup;
 
 import io.github.mooy1.slimechem.SlimeChem;
-import io.github.mooy1.slimechem.implementation.Element;
+import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.core.categories.FlexCategory;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideImplementation;

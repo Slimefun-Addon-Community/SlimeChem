@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
  * @author Mooy1
  * 
  */
-public class SuperNum {
+public final class SuperNum {
     
     //I tried unicode but it messes up
     public static final String ZERO = "⁰"; 

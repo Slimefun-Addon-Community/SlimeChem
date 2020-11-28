@@ -9,7 +9,8 @@ import org.bukkit.NamespacedKey;
 public class RecipeTypes {
     
     private static final SlimeChem instance = SlimeChem.getInstance();
-    
+
+    public static final RecipeType DECAY = new RecipeType(new NamespacedKey(instance, "decay"), new CustomItem(Material.EMERALD_BLOCK, "test"));
     public static final RecipeType FUSION = new RecipeType(new NamespacedKey(instance, "fusion"), new CustomItem(Material.EMERALD_BLOCK, "test"));
     public static final RecipeType DISSOLVER = new RecipeType(new NamespacedKey(instance, "dissolver"), new CustomItem(Material.EMERALD_BLOCK, "test"));
     public static final RecipeType COMBINER = new RecipeType(new NamespacedKey(instance, "combiner"), new CustomItem(Material.EMERALD_BLOCK, "test"));

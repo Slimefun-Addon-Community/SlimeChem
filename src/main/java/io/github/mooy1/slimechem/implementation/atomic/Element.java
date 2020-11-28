@@ -1,12 +1,10 @@
-package io.github.mooy1.slimechem.implementation;
+package io.github.mooy1.slimechem.implementation.atomic;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import io.github.mooy1.slimechem.utils.SubNum;
+import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
 
@@ -18,9 +16,12 @@ import java.util.Objects;
  * 
  * @author Mooy1
  * 
+ * @see Ingredient
+ * @see Nucleon
+ * 
  */
 @Getter
-public enum Element implements Ingredient.IngredientObject {
+public enum Element implements Ingredient {
 
     HYDROGEN(1.0079, "Hydrogen", "H", 1, Series.NONMETALS),
     HELIUM(4.0026, "Helium", "He", 2, Series.NOBLE_GASES),
@@ -149,12 +150,9 @@ public enum Element implements Ingredient.IngredientObject {
     private final int number;
     @Nonnull
     private final Series series;
-    
     private final int neutrons;
     @Nonnull
     private final SlimefunItemStack item;
-    
-    public static final BiMap<Element, SlimefunItem> ITEMS = HashBiMap.create(values().length);
     
     Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series) {
         this.mass = mass;
@@ -167,6 +165,7 @@ public enum Element implements Ingredient.IngredientObject {
                 "ELEMENT_" + this.name(),
                 Objects.requireNonNull(Material.getMaterial(series.getColor() + "_DYE")),
                 "&b" + name,
+                "&7" + symbol + " " + number,
                 "&7Mass: " + mass
         );
     }
@@ -184,12 +183,7 @@ public enum Element implements Ingredient.IngredientObject {
     public String getFormula(int i) {
         return this.symbol + SubNum.fromInt(i);
     }
-
-    @Override
-    public boolean isElement() {
-        return true;
-    }
-
+    
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public enum Series {

@@ -1,4 +1,4 @@
-package io.github.mooy1.slimechem.implementation.machines.abstractmachine;
+package io.github.mooy1.slimechem.implementation.machines.abstractmachines;
 
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
@@ -30,7 +30,7 @@ public abstract class TickerBlock extends SlimefunItem {
         
             @Override
             public void init() {
-                setupInv(this);
+                setupMenu(this);
             }
         
             @Override
@@ -46,7 +46,7 @@ public abstract class TickerBlock extends SlimefunItem {
         };
     }
     
-    public abstract void setupInv(@Nonnull BlockMenuPreset preset);
+    public abstract void setupMenu(@Nonnull BlockMenuPreset preset);
     
     public abstract void onNewInstance(@Nonnull BlockMenu menu, @Nonnull Block b);
     

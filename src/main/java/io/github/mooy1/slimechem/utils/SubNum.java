@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
  * @author Mooy1
  * 
  */
-public class SubNum {
+public final class SubNum {
 
     public static final String ZERO = "\u2080";
     public static final String ONE = "\u2081";
