@@ -7,6 +7,8 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -54,6 +56,17 @@ public enum Isotope implements Ingredient {
     
     Isotope(@Nonnull Element element, double mass) {
         this(element, (element.getName() + "-" + Math.round(mass)), mass);
+    }
+    
+    @Nonnull
+    public List<Isotope> getAllFromElement(@Nonnull Element e) {
+        List<Isotope> list = new ArrayList<>(values().length);
+        for (Isotope isotope : values()) {
+            if (isotope.getElement() == e) {
+                list.add(isotope);
+            }
+        }
+        return list;
     }
     
     @Nonnull

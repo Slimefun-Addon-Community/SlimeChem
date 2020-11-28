@@ -1,6 +1,6 @@
 package io.github.mooy1.slimechem;
 
-import io.github.mooy1.slimechem.setup.Setup;
+import io.github.mooy1.slimechem.setup.Registry;
 import lombok.Getter;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,7 +31,7 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
             getLogger().log(Level.WARNING, "You must be on a DEV build to auto update!");
         }*/
         
-        Setup.setup(this);
+        Registry.setup(this);
     }
     
     private void updateConfig() {
