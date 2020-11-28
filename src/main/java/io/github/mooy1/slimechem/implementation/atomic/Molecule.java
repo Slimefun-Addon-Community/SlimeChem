@@ -1,7 +1,10 @@
-package io.github.mooy1.slimechem.implementation.atomic;
+package io.github.mooy1.slimechem.implementation;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import io.github.mooy1.slimechem.utils.SubNum;
 import lombok.Getter;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
 
@@ -15,57 +18,76 @@ import java.util.List;
  * @author Seggan
  * @author Mooy1
  * 
- * @see MoleculeIngredient
- * 
  */
 @Getter
-public enum Molecule implements Ingredient {
+public enum Molecule implements Ingredient.IngredientObject {
 
     // Radicals. We don't have a clean way of implementing these yet
-    CARBONATE("Carbonate", new MoleculeIngredient(Element.CARBON, 1), new MoleculeIngredient(Element.OXYGEN, 3)),
-    SULFATE("Sulfate", new MoleculeIngredient(Element.SULFUR, 1), new MoleculeIngredient(Element.OXYGEN, 4)),
-    HYDROXIDE("Hydroxide", new MoleculeIngredient(Element.HYDROGEN, 1), MoleculeIngredient.MONOXIDE),
-    NITRATE("Nitrate", new MoleculeIngredient(Element.NITROGEN, 1), new MoleculeIngredient(Element.OXYGEN, 3)),
+    CARBONATE("Carbonate", new Ingredient(Element.CARBON, 1), new Ingredient(Element.OXYGEN, 3)),
+    SULFATE("Sulfate", new Ingredient(Element.SULFUR, 1), new Ingredient(Element.OXYGEN, 4)),
+    HYDROXIDE("Hydroxide", new Ingredient(Element.HYDROGEN, 1), new Ingredient(Element.OXYGEN, 1)),
+    NITRATE("Nitrate", new Ingredient(Element.NITROGEN, 1), new Ingredient(Element.OXYGEN, 3)),
 
     // Oxides
-    WATER("Water", MoleculeIngredient.DIHYDROGEN, MoleculeIngredient.MONOXIDE),
-    HYDROGEN_PEROXIDE("Hydrogen Peroxide", MoleculeIngredient.DIHYDROGEN, MoleculeIngredient.DIOXIDE),
-    CARBON_DIOXIDE("Carbon Dioxide", new MoleculeIngredient(Element.CARBON, 1), MoleculeIngredient.DIOXIDE),
-    SILICON_DIOXIDE("Silicon Dioxide", new MoleculeIngredient(Element.SILICON, 1), MoleculeIngredient.DIOXIDE),
+    WATER("Water", new Ingredient(Element.HYDROGEN, 2), new Ingredient(Element.OXYGEN, 1)),
+    HYDROGEN_PEROXIDE("Hydrogen Peroxide", new Ingredient(Element.HYDROGEN, 2), Ingredient.DIOXIDE),
+    CARBON_DIOXIDE("Carbon Dioxide", new Ingredient(Element.CARBON, 1), Ingredient.DIOXIDE),
+    SILICON_DIOXIDE("Silicon Dioxide", new Ingredient(Element.SILICON, 1), Ingredient.DIOXIDE),
 
     // Ores
 
     // Iron
-    IRON_III_OXIDE("Iron(III) Oxide (Hematite)", new MoleculeIngredient(Element.IRON, 2), new MoleculeIngredient(Element.OXYGEN, 3)),
-    IRON_II_OXIDE("Iron(II,III) Oxide (Magnetite)", new MoleculeIngredient(Element.IRON, 3), new MoleculeIngredient(Element.OXYGEN, 4)),
-    IRON_PERSULFIDE("Iron Persulfide (Pyrite)", new MoleculeIngredient(Element.IRON, 2), new MoleculeIngredient(Element.OXYGEN, 3)),
-    COPPER_IRON_SULFIDE("Copper Iron Sulfide (Chalcopyrite)", new MoleculeIngredient(Element.COPPER, 1), new MoleculeIngredient(Element.IRON, 1),
-        new MoleculeIngredient(Element.SULFUR, 1)),
+    IRON_III_OXIDE("Iron(III) Oxide (Hematite)", new Ingredient(Element.IRON, 2), new Ingredient(Element.OXYGEN, 3)),
+    IRON_II_OXIDE("Iron(II,III) Oxide (Magnetite)", new Ingredient(Element.IRON, 3), new Ingredient(Element.OXYGEN, 4)),
+    IRON_PERSULFIDE("Iron Persulfide (Pyrite)", new Ingredient(Element.IRON, 2), new Ingredient(Element.OXYGEN, 3)),
+    COPPER_IRON_SULFIDE("Copper Iron Sulfide (Chalcopyrite)", new Ingredient(Element.COPPER, 1), new Ingredient(Element.IRON, 1),
+        new Ingredient(Element.SULFUR, 1)),
     // Gold
-    GOLD_TELLURIDE("Gold Telluride (Calaverite)", new MoleculeIngredient(Element.GOLD, 1), new MoleculeIngredient(Element.TELLURIUM, 2)),
-    GOLD_ANTIMONIDE("Gold Antimonide (Aurostibite)", new MoleculeIngredient(Element.GOLD, 1), new MoleculeIngredient(Element.ANTIMONY, 2)),
+    GOLD_TELLURIDE("Gold Telluride (Calaverite)", new Ingredient(Element.GOLD, 1), new Ingredient(Element.TELLURIUM, 2)),
+    GOLD_ANTIMONIDE("Gold Antimonide (Aurostibite)", new Ingredient(Element.GOLD, 1), new Ingredient(Element.ANTIMONY, 2)),
     // Redstone (assuming copper)
-    COPPER_I_OXIDE("Copper(I) Oxide (Cuprite)", new MoleculeIngredient(Element.COPPER, 2), MoleculeIngredient.MONOXIDE),
-    PENTACOPPER_IRON_TETRASULFIDE("Pentacopper(I) Iron(III) Tetrasulfide (Bornite)", new MoleculeIngredient(Element.COPPER, 5),
-        new MoleculeIngredient(Element.IRON, 1), new MoleculeIngredient(Element.SULFUR, 4)),
-    COPPER_II_OXIDE("Copper(II) Oxide (Tenorite)", new MoleculeIngredient(Element.COPPER, 1), MoleculeIngredient.MONOXIDE),
+    COPPER_I_OXIDE("Copper(I) Oxide (Cuprite)", new Ingredient(Element.COPPER, 2), new Ingredient(Element.OXYGEN, 1)),
+    PENTACOPPER_IRON_TETRASULFIDE("Pentacopper(I) Iron(III) Tetrasulfide (Bornite)", new Ingredient(Element.COPPER, 5),
+        new Ingredient(Element.IRON, 1), new Ingredient(Element.SULFUR, 4)),
+    COPPER_II_OXIDE("Copper(II) Oxide (Tenorite)", new Ingredient(Element.COPPER, 1), new Ingredient(Element.OXYGEN, 1)),
+    // Netherite (assuming netherite is a seaborgium/gold alloy)
+    SEABORGIUM_III_OXIDE("Seaborgium(III) Oxide", new Ingredient(Element.SEABORGIUM, 2), new Ingredient(Element.OXYGEN, 3)),
+
+    // Organic compounds
+
+    // Plant stuff
+    CELLULOSE("Cellulose", new Ingredient(Element.CARBON, 6), new Ingredient(Element.HYDROGEN, 10),
+        new Ingredient(Element.OXYGEN, 5)),
+    SUCROSE("Sucrose", new Ingredient(Element.CARBON, 12), new Ingredient(Element.HYDROGEN, 22),
+        new Ingredient(Element.OXYGEN, 11)),
+    CHLOROPHYLL("Chlorophyll", new Ingredient(Element.CARBON, 55), new Ingredient(Element.HYDROGEN, 72),
+        new Ingredient(Element.OXYGEN, 5), new Ingredient(Element.NITROGEN, 4), new Ingredient(Element.MAGNESIUM, 1)),
+
+    // Animal stuff
+
+    // Using the amino acid methionine as a base; it's the first amino acid in all proteins
+    PROTEIN("Protein", new Ingredient(Element.CARBON, 5), new Ingredient(Element.HYDROGEN, 11),
+        new Ingredient(Element.NITROGEN, 1), new Ingredient(Element.OXYGEN, 2), new Ingredient(Element.SULFUR, 1)),
+
     ;
     
     private final String name;
     @Nonnull
     private final String formula;
     @Nonnull
-    private final List<MoleculeIngredient> ingredients;
+    private final List<Ingredient> ingredients;
     @Nonnull
     private final SlimefunItemStack item;
     
-    Molecule(@Nonnull String name, @Nonnull MoleculeIngredient... ingredients) {
+    public static final BiMap<Molecule, SlimefunItem> ITEMS = HashBiMap.create(values().length);
+    
+    Molecule(@Nonnull String name, @Nonnull Ingredient... ingredients) {
         this.name = name;
         this.ingredients = new ArrayList<>();
         
-        StringBuilder formula = new StringBuilder(ingredients.length * 3);
+        StringBuilder formula = new StringBuilder();
         
-        for (MoleculeIngredient ingredient : ingredients) {
+        for (Ingredient ingredient : ingredients) {
             formula.append(ingredient.getFormula());
             this.ingredients.add(ingredient);
         }
@@ -85,5 +107,5 @@ public enum Molecule implements Ingredient {
     public String getFormula(int i) {
         return (i != 1 ? "(" : "") + this.formula + (i != 1 ? ")" : "") + SubNum.fromInt(i);
     }
-
+    
 }
