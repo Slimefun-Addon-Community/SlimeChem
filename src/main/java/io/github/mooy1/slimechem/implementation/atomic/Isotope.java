@@ -22,7 +22,7 @@ public enum Isotope implements Ingredient {
     
     DEUTERIUM(Element.HYDROGEN, "Deuterium", 2.014),
     TRITIUM(Element.HYDROGEN, "Tritium", 3.016),
-    URANIUM235(Element.PLUTONIUM, 235),
+    URANIUM235(Element.URANIUM, 235),
     PLUTONIUM239(Element.PLUTONIUM, 239),
     ;
     
