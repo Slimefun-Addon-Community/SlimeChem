@@ -18,7 +18,7 @@ public final class Items {
     );
 
     public static final SlimefunItemStack DECAY_GENERATOR = new SlimefunItemStack(
-            "DECAY_GENERATOR",
+            "RTG",
             Material.NETHERITE_BLOCK,
             "&8Radioisotope Thermoelectric Generator",
             "Generates power from the decay of radioactive blocks",
