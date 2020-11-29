@@ -34,6 +34,12 @@ public class MoleculeIngredient {
         this.ingredient = ingredient;
         this.amount = amount;
     }
+
+    public MoleculeIngredient(@Nonnull Ingredient ingredient) {
+        this.formula = ingredient.getFormula(1);
+        this.ingredient = ingredient;
+        this.amount = 1;
+    }
     
     public ItemStack getNewItem() {
         return new CustomItem(ingredient.getItem(), amount);

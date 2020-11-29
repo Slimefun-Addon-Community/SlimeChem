@@ -140,7 +140,8 @@ public enum Element implements Ingredient {
     MOSCOVIUM(290, "Moscovium", "Mc", 115, Series.UNKNOWN),
     LIVERMORIUM(293, "Livermorium", "Lv", 116, Series.UNKNOWN),
     TENNESSINE(294, "Tennessine", "Ts", 117, Series.UNKNOWN),
-    OGANESSON(294, "Oganesson", "Og", 118, Series.UNKNOWN);
+    OGANESSON(294, "Oganesson", "Og", 118, Series.UNKNOWN),
+    RILEIUM(296, "Rileium", "Moo", 119, Series.UNKNOWN);
     
     private final double mass;
     @Nonnull
