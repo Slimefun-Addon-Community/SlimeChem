@@ -155,7 +155,7 @@ public class ChemicalDissolver extends Machine {
     }
     
     private int getMax(Location l, ItemStack input) {
-        return (int) Math.min(input.getAmount(), Math.floor((float) getCharge(l) / ENERGY));
+        return (int) Math.min(input.getAmount(), Math.floor((float) getCharge(l) / ENERGY)) / 2;
     }
     
 }
