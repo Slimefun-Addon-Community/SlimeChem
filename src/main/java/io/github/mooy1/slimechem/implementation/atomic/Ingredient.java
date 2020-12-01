@@ -1,6 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
-import org.bukkit.inventory.ItemStack;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -17,6 +17,6 @@ public interface Ingredient {
     String getFormula(int i);
     
     @Nonnull
-    ItemStack getItem();
+    SlimefunItemStack getItem();
     
 }
