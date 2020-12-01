@@ -10,6 +10,12 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * enum of crafting materials for machines
+ * 
+ * @author Mooy1
+ * 
+ */
 public class Material extends SlimefunItem implements NotPlaceable {
     public Material(Type type) {
         super(Categories.MACHINES, type.getItem(), type.getRecipeType(), type.getRecipe());
