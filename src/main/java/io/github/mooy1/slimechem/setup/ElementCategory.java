@@ -40,7 +40,7 @@ public class ElementCategory extends FlexCategory implements Listener {
     private final Map<Player, Integer> history;
     
     public ElementCategory(SlimeChem plugin) {
-        super(new NamespacedKey(plugin, "periodic_table"), new CustomItem(Material.DIAMOND, "table"), 3);
+        super(new NamespacedKey(plugin, "periodic_table"), new CustomItem(Material.DIAMOND, "Periodic Table"), 3);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.history = new HashMap<>();
         menus[0] = makeTopMenu();
@@ -102,7 +102,7 @@ public class ElementCategory extends FlexCategory implements Listener {
         
         addElements(menu, 39, 113, 118);
 
-        addElements(menu, 48, 119, 119);
+        addElements(menu, 46, 119, 119);
         
         return menu;
     }

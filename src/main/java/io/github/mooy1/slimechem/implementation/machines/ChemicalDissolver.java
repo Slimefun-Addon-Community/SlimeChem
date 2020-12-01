@@ -45,8 +45,30 @@ public class ChemicalDissolver extends Machine {
     private static final Map<String, Map<Integer, MoleculeIngredient>> slimefunRecipes = new HashMap<>();
     
     static {
-        addRecipe("COPPER_INGOT", new int[] {30}, new MoleculeIngredient(Molecule.CARBON_DIOXIDE, 1));
-        addRecipe(Material.DIRT, new int[] {25, 60, 1}, MoleculeIngredient.DIOXIDE, MoleculeIngredient.MONOXIDE, new MoleculeIngredient(Element.ACTINIUM, 5));
+        addRecipe(Material.COAL_ORE, new int[] {90, 10},
+            new MoleculeIngredient(Element.CARBON, 12),
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5));
+        addRecipe(Material.IRON_ORE, new int[] {50, 30, 10, 6, 4},
+            new MoleculeIngredient(Molecule.IRON_III_OXIDE, 4),
+            new MoleculeIngredient(Molecule.IRON_II_OXIDE, 4),
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5),
+            new MoleculeIngredient(Molecule.IRON_PERSULFIDE, 7),
+            new MoleculeIngredient(Molecule.COPPER_IRON_SULFIDE, 6));
+        addRecipe(Material.GOLD_ORE, new int[] {70, 20, 10},
+            new MoleculeIngredient(Molecule.GOLD_TELLURIDE, 4),
+            new MoleculeIngredient(Molecule.GOLD_ANTIMONIDE, 4),
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5));
+        addRecipe(Material.REDSTONE_ORE, new int[] {60, 20, 10, 10},
+            new MoleculeIngredient(Molecule.COPPER_I_OXIDE, 4),
+            new MoleculeIngredient(Molecule.PENTACOPPER_IRON_TETRASULFIDE, 3),
+            new MoleculeIngredient(Molecule.COPPER_II_OXIDE, 3),
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5));
+        addRecipe(Material.EMERALD_ORE, new int[]{90, 10},
+            new MoleculeIngredient(Molecule.BERYLLIUM_ALUMINUM_CYCLOSILICATE, 6),
+            new MoleculeIngredient(Molecule.SILICATE, 9));
+        addRecipe(Material.ANCIENT_DEBRIS, new int[] {80, 20},
+            new MoleculeIngredient(Molecule.SEABORGIUM_III_OXIDE, 4),
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 25));
     }
     
     private static Map<Integer, MoleculeIngredient> makeRecipe(int[] chances, MoleculeIngredient... ingredients) {
@@ -65,7 +87,13 @@ public class ChemicalDissolver extends Machine {
         slimefunRecipes.put(id, makeRecipe(chances, ingredients));
     }
 
-    public static void addRecipe(SlimefunItemStack slimefunItemStack, int[] chances, MoleculeIngredient... ingredients) {
+
+    // No idea what thi will be used for, but seems useful
+    public static void addRecipe(Ingredient ingredient, int[] chances, MoleculeIngredient... ingredients) {
+        slimefunRecipes.put(ingredient.getItem().getItemId(), makeRecipe(chances, ingredients));
+    }
+
+    public static void addRecipe(@Nonnull SlimefunItemStack slimefunItemStack, int[] chances, MoleculeIngredient... ingredients) {
         slimefunRecipes.put(slimefunItemStack.getItemId(), makeRecipe(chances, ingredients));
     }
 
