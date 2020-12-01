@@ -11,11 +11,11 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 
-public class DecayGenerator extends SlimefunItem implements EnergyNetProvider {
+public class RTG extends SlimefunItem implements EnergyNetProvider {
 
     public static final int BUFFER = 1600;
     
-    public DecayGenerator() {
+    public RTG() {
         super(Categories.MACHINES, Items.DECAY_GENERATOR, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 
         });

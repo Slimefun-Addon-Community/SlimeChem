@@ -65,6 +65,10 @@ public class ChemicalDissolver extends Machine {
         slimefunRecipes.put(id, makeRecipe(chances, ingredients));
     }
 
+    public static void addRecipe(SlimefunItemStack slimefunItemStack, int[] chances, MoleculeIngredient... ingredients) {
+        slimefunRecipes.put(slimefunItemStack.getItemId(), makeRecipe(chances, ingredients));
+    }
+
     public ChemicalDissolver() {
         super(Items.CHEMICAL_DISSOLVER, ENERGY, ENERGY * 64, inputSlots, outputSlots, new ItemStack[] {
                 

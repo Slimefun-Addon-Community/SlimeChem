@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import io.github.mooy1.slimechem.SlimeChem;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.atomic.Ingredient;
+import io.github.mooy1.slimechem.implementation.atomic.IngredientItem;
 import io.github.mooy1.slimechem.implementation.atomic.Isotope;
 import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
@@ -26,21 +27,21 @@ public final class Registry {
         new SlimefunItem(Categories.MACHINES, Items.SLIMECHEM_ADDON_INFO, RecipeType.NULL, null);
 
         for (Element element : Element.values()) {
-            SlimefunItem slimefunItem = new SlimefunItem(Categories.ELEMENTS, element.getItem(), RecipeType.ENHANCED_CRAFTING_TABLE, null);
+            SlimefunItem slimefunItem = new IngredientItem(Categories.ELEMENTS, element, RecipeType.ENHANCED_CRAFTING_TABLE, null);
             slimefunItem.register(plugin);
             ITEMS.put(slimefunItem, element);
         }
         plugin.getLogger().log(Level.INFO, "Registered " + Element.values().length + " Elements!");
 
         for (Isotope isotope : Isotope.values()) {
-            SlimefunItem slimefunItem = new SlimefunItem(Categories.ELEMENTS, isotope.getItem(), RecipeType.ENHANCED_CRAFTING_TABLE, null);
+            SlimefunItem slimefunItem = new IngredientItem(Categories.ELEMENTS, isotope, RecipeType.ENHANCED_CRAFTING_TABLE, null);
             slimefunItem.register(plugin);
             ITEMS.put(slimefunItem, isotope);
         }
         plugin.getLogger().log(Level.INFO, "Registered " + Isotope.values().length + " Isotopes!");
 
         for (Molecule molecule : Molecule.values()) {
-            SlimefunItem slimefunItem = new SlimefunItem(Categories.MOLECULES, molecule.getItem(), RecipeType.ENHANCED_CRAFTING_TABLE, null);
+            SlimefunItem slimefunItem = new IngredientItem(Categories.MOLECULES, molecule, RecipeType.ENHANCED_CRAFTING_TABLE, null);
             slimefunItem.register(plugin);
             ITEMS.put(slimefunItem, molecule);
         }

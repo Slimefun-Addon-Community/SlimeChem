@@ -101,6 +101,8 @@ public class ElementCategory extends FlexCategory implements Listener {
         addElementWithHandler(menu, 38, 112, 2, "Transition Metals");
         
         addElements(menu, 39, 113, 118);
+
+        addElements(menu, 48, 119, 119);
         
         return menu;
     }

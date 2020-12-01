@@ -20,10 +20,11 @@ import java.util.Objects;
 @Getter
 public enum Isotope implements Ingredient {
     
-    DEUTERIUM(Element.HYDROGEN, "Deuterium", 2.014),
-    TRITIUM(Element.HYDROGEN, "Tritium", 3.016),
-    URANIUM235(Element.PLUTONIUM, 235),
-    PLUTONIUM239(Element.PLUTONIUM, 239),
+    DEUTERIUM(Element.HYDROGEN, "Deuterium", 2.014, false),
+    TRITIUM(Element.HYDROGEN, "Tritium", 3.016, true),
+    U235(Element.URANIUM, 235, true),
+    PU239(Element.PLUTONIUM, 239, true),
+    CA252(Element.CALIFORNIUM, 252, true),
     ;
     
     @Nonnull
@@ -35,16 +36,18 @@ public enum Isotope implements Ingredient {
     @Nonnull
     private final String formula;
     private final int neutrons;
+    private final boolean isRadioactive;
     @Nonnull
     private final SlimefunItemStack item;
     
-    Isotope(@Nonnull Element element, @Nonnull String name, double mass) {
+    Isotope(@Nonnull Element element, @Nonnull String name, double mass, boolean isRadioactive) {
         this.element = element;
         this.mass = mass;
         this.number = (int) Math.round(mass);
         this.name = name;
         this.formula = SuperNum.fromInt(this.number) + element.getSymbol();
         this.neutrons = this.number - element.getNumber();
+        this.isRadioactive = isRadioactive;
         this.item = new SlimefunItemStack(
                 "ISOTOPE_" + this.name(),
                 Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
@@ -54,8 +57,8 @@ public enum Isotope implements Ingredient {
         );
     }
     
-    Isotope(@Nonnull Element element, double mass) {
-        this(element, (element.getName() + "-" + Math.round(mass)), mass);
+    Isotope(@Nonnull Element element, double mass, boolean isRadioactive) {
+        this(element, (element.getName() + "-" + Math.round(mass)), mass, isRadioactive);
     }
     
     @Nonnull
