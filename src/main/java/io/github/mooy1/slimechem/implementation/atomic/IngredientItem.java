@@ -11,6 +11,7 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -23,6 +24,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -37,6 +39,7 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
     private Ingredient ingredient;
     private static final Set<Ingredient> radioactiveItems = new HashSet<>();
     private static final Map<Ingredient, Consumer<Player>> interactActions;
+    private static final Map<Ingredient, BiConsumer<Entity, Player>> entityInteractActions;
 
     static {
         Bukkit.getLogger().info("Run0");
@@ -58,6 +61,7 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
 
 
         interactActions = getActions();
+        entityInteractActions = getEntityActions();
     }
 
     public IngredientItem(Category category, Ingredient ingredient, RecipeType recipeType, ItemStack[] recipe) {
@@ -71,14 +75,14 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
     private EntityInteractHandler onEntityUse() {
         return (e, i, b) -> {
             e.setCancelled(true);
-            Bukkit.getLogger().info("Run1");
             Player p = e.getPlayer();
-            Consumer<Player> run = interactActions.get(ingredient);
+            BiConsumer<Entity, Player> run = entityInteractActions.get(ingredient);
             if (run != null) {
-                Bukkit.getLogger().info("Run2");
                 PlayerInventory inv = p.getInventory();
-                inv.setItemInMainHand(consumeItem(inv.getItemInMainHand()));
-                run.accept(p);
+                if (p.getGameMode() != GameMode.CREATIVE) {
+                    inv.setItemInMainHand(consumeItem(inv.getItemInMainHand()));
+                }
+                run.accept(e.getRightClicked(), p);
             }
         };
     }
@@ -86,14 +90,14 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
     private ItemUseHandler onUse() {
         return e -> {
             e.cancel();
-            Bukkit.getLogger().info("Run1");
             Player p = e.getPlayer();
             Consumer<Player> run = interactActions.get(ingredient);
             Bukkit.getLogger().info(Integer.toString(interactActions.size()));
             if (run != null) {
-                Bukkit.getLogger().info("Run2");
                 PlayerInventory inv = p.getInventory();
-                inv.setItemInMainHand(consumeItem(inv.getItemInMainHand()));
+                if (p.getGameMode() != GameMode.CREATIVE) {
+                    inv.setItemInMainHand(consumeItem(inv.getItemInMainHand()));
+                }
                 run.accept(p);
             }
         };
@@ -103,12 +107,9 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
         Map<Ingredient, Consumer<Player>> actions = new HashMap<>();
 
         for (Ingredient ingredient : radioactiveItems) {
-
-            Bukkit.getLogger().info("Run4");
             actions.put(ingredient, p -> {
                 for (Entity e : p.getNearbyEntities(5, 5, 5)) {
                     if (e instanceof LivingEntity) {
-                        Bukkit.getLogger().info("Run3");
                         if (e instanceof Player) {
                             Player player = (Player) e;
                             Optional<PlayerProfile> optionalPlayerProfile = PlayerProfile.find(player);
@@ -122,6 +123,31 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
                         }
                         e.setFireTicks(200);
                     }
+                }
+            });
+        }
+
+        return actions;
+    }
+
+    private static Map<Ingredient, BiConsumer<Entity, Player>> getEntityActions() {
+        Map<Ingredient, BiConsumer<Entity, Player>> actions = new HashMap<>();
+
+        for (Ingredient ingredient : radioactiveItems) {
+            actions.put(ingredient, (e, p) -> {
+                if (e instanceof LivingEntity) {
+                    if (e instanceof Player) {
+                        Player player = (Player) e;
+                        Optional<PlayerProfile> optionalPlayerProfile = PlayerProfile.find(player);
+                        if (optionalPlayerProfile.isPresent()) {
+                            if (optionalPlayerProfile.get().hasFullProtectionAgainst(ProtectionType.RADIATION)) {
+                                return;
+                            }
+                        } else {
+                            PlayerProfile.request(player);
+                        }
+                    }
+                    e.setFireTicks(200);
                 }
             });
         }
