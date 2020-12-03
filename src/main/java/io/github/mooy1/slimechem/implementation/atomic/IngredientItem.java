@@ -42,7 +42,6 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
     private static final Map<Ingredient, BiConsumer<Entity, Player>> entityInteractActions;
 
     static {
-        Bukkit.getLogger().info("Run0");
         // Add all elements with atomic number > 82 (higher than lead)
         for (Element element : Element.values()) {
             if (element.getNumber() > 82) {
