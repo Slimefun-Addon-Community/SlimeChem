@@ -1,6 +1,5 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
-import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.core.attributes.ProtectionType;
@@ -15,7 +14,6 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -36,7 +34,7 @@ import java.util.function.Consumer;
 public class IngredientItem extends SlimefunItem implements NotPlaceable {
 
     @Getter
-    private Ingredient ingredient;
+    private final Ingredient ingredient;
     private static final Set<Ingredient> radioactiveItems = new HashSet<>();
     private static final Map<Ingredient, Consumer<Player>> interactActions;
     private static final Map<Ingredient, BiConsumer<Entity, Player>> entityInteractActions;
