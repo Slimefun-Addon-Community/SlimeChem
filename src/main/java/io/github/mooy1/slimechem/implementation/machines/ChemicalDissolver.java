@@ -11,13 +11,16 @@ import io.github.mooy1.slimechem.lists.Items;
 import io.github.mooy1.slimechem.utils.MathUtils;
 import io.github.mooy1.slimechem.utils.PresetUtils;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import org.apache.commons.lang.mutable.MutableInt;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
@@ -45,6 +48,7 @@ public class ChemicalDissolver extends Machine {
     private static final Map<String, Map<Integer, MoleculeIngredient>> slimefunRecipes = new HashMap<>();
     
     static {
+        // Ores
         addRecipe(Material.COAL_ORE, new int[] {90, 10},
             new MoleculeIngredient(Element.CARBON, 12),
             new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5));
@@ -69,6 +73,48 @@ public class ChemicalDissolver extends Machine {
         addRecipe(Material.ANCIENT_DEBRIS, new int[] {80, 20},
             new MoleculeIngredient(Molecule.SEABORGIUM_III_OXIDE, 4),
             new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 25));
+
+        // Plant matter
+
+        // Wood
+        // Standard: 1 plank = 2 cellulose
+        // So 1 stick = 1 cellulose, 1 log = 8 cellulose, etc
+        for (Material mat : Tag.LOGS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 8));
+        }
+        for (Material mat : Tag.PLANKS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 2));
+        }
+        // Loss of 1 cellulose
+        for (Material mat : Tag.SIGNS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 4));
+        }
+        for (Material mat : Tag.ITEMS_BOATS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 10));
+        }
+        for (Material mat : Tag.WOODEN_BUTTONS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 2));
+        }
+        for (Material mat : Tag.WOODEN_SLABS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE));
+        }
+        for (Material mat : Tag.WOODEN_DOORS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 2));
+        }
+        for (Material mat : Tag.WOODEN_PRESSURE_PLATES.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 4));
+        }
+        for (Material mat : Tag.WOODEN_STAIRS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 3));
+        }
+        // loss of 1 cellulose
+        for (Material mat : Tag.WOODEN_FENCES.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 3));
+        }
+        for (Material mat : Tag.FENCE_GATES.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 8));
+        }
+        addRecipe(Material.STICK, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE));
     }
     
     private static Map<Integer, MoleculeIngredient> makeRecipe(int[] chances, MoleculeIngredient... ingredients) {
