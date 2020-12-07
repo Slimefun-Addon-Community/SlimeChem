@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 
-public abstract class Machine extends TickerBlock implements EnergyNetComponent {
+public abstract class Machine extends Container implements EnergyNetComponent {
     
     private final int energy;
     private final int buffer;
@@ -55,7 +55,6 @@ public abstract class Machine extends TickerBlock implements EnergyNetComponent 
         }
 
         process(menu, b, l);
-        
     }
     
     public abstract void process(@Nonnull BlockMenu menu, @Nonnull Block b, @Nonnull Location l);

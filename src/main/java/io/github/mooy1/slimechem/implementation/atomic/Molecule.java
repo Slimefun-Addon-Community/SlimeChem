@@ -7,6 +7,7 @@ import lombok.Getter;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public enum Molecule implements Ingredient {
     
         this.item = new SlimefunItemStack(
                 "MOLECULE_" + this.name(),
-                Material.HONEY_BOTTLE,
+                Material.DRAGON_BREATH,
                 "&b" + name,
                 "&7" + formula
         );
@@ -113,6 +114,25 @@ public enum Molecule implements Ingredient {
     @Override
     public String getFormula(int i) {
         return (i != 1 ? "(" : "") + this.formula + (i != 1 ? ")" : "") + SubNum.fromInt(i);
+    }
+    
+    public int size() {
+        return this.ingredients.size();
+    }
+    
+    public MoleculeIngredient getIngredient(int i) {
+        return this.ingredients.get(i);
+    }
+    
+    @Nonnull
+    public ItemStack[] getNewRecipe() {
+        ItemStack[] recipe = new ItemStack[9];
+        
+        for (int i = 0 ; i < size() ; i++) {
+            recipe[i] = getIngredient(i).getNewItem();
+        }
+        
+        return recipe;
     }
     
 }

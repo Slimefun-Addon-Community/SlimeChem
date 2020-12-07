@@ -141,7 +141,7 @@ public enum Element implements Ingredient {
     LIVERMORIUM(293, "Livermorium", "Lv", 116, Series.UNKNOWN),
     TENNESSINE(294, "Tennessine", "Ts", 117, Series.UNKNOWN),
     OGANESSON(294, "Oganesson", "Og", 118, Series.UNKNOWN),
-    RILEIUM(296, "Rileium", "Moo", 119, Series.UNKNOWN);
+    MOOYIUM(315, "Mooyium", "My", 119, Series.CUSTOM);
     
     private final double mass;
     @Nonnull
@@ -198,7 +198,8 @@ public enum Element implements Ingredient {
         METALLOIDS("Metalloids", "CYAN"),
         NONMETALS("Nonmetals", "LIGHT_BLUE"),
         NOBLE_GASES("Noble Gases", "PINK"),
-        UNKNOWN("Unknown", "PURPLE");
+        UNKNOWN("Unknown", "PURPLE"),
+        CUSTOM("Custom", "MAGENTA");
     
         @Nonnull
         private final String name;

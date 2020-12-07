@@ -16,8 +16,8 @@ import org.bukkit.inventory.ItemStack;
  * @author Mooy1
  * 
  */
-public class Material extends SlimefunItem implements NotPlaceable {
-    public Material(Type type) {
+public class Materials extends SlimefunItem implements NotPlaceable {
+    public Materials(Type type) {
         super(Categories.MACHINES, type.getItem(), type.getRecipeType(), type.getRecipe());
     }
     

@@ -11,10 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -28,29 +25,10 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
     @Getter
     private Ingredient ingredient;
     private static final Map<Ingredient, Consumer<Player>> interactActions = getActions();
-    private static final Set<Ingredient> radioactiveItems = new HashSet<>();
-
-    static {
-        // Add all elements with atomic number > 82 (higher than lead)
-        for (Element element : Element.values()) {
-            if (element.getNumber() > 82) {
-                radioactiveItems.add(element);
-            }
-        }
-        // Technetium and promethium
-        radioactiveItems.add(Element.TECHNETIUM);
-        radioactiveItems.add(Element.PROMETHIUM);
-        // Radioactive isotopes
-        for (Isotope isotope : Isotope.values()) {
-            if (isotope.isRadioactive()) {
-                radioactiveItems.add(isotope);
-            }
-        }
-    }
 
     public IngredientItem(Category category, Ingredient ingredient, RecipeType recipeType, ItemStack[] recipe) {
         super(category, ingredient.getItem(), recipeType, recipe);
-
+        
         this.ingredient = ingredient;
         addItemHandler(onUse());
     }
@@ -80,4 +58,5 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
         newStack.setAmount(stack.getAmount() - 1);
         return newStack;
     }
+    
 }
