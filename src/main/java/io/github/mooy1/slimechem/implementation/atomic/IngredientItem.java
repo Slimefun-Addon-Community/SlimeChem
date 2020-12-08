@@ -36,6 +36,7 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
 
     @Getter
     private final Ingredient ingredient;
+    @Getter
     private static final Set<Ingredient> radioactiveItems = new HashSet<>();
     private static final Map<Ingredient, Consumer<Player>> interactActions;
     private static final Map<Ingredient, BiConsumer<Entity, Player>> entityInteractActions;

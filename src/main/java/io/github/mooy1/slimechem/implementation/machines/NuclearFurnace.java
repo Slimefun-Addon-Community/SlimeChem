@@ -1,5 +1,7 @@
 package io.github.mooy1.slimechem.implementation.machines;
 
+import io.github.mooy1.slimechem.implementation.atomic.Ingredient;
+import io.github.mooy1.slimechem.implementation.atomic.IngredientItem;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Container;
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.mooy1.slimechem.lists.Items;
@@ -76,7 +78,9 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
         this.fuels.put(SlimefunItems.NEPTUNIUM.getItemId(), 360);
         this.fuels.put(SlimefunItems.PLUTONIUM.getItemId(), 540);
         this.fuels.put(SlimefunItems.BOOSTED_URANIUM.getItemId(), 720);
-        //add isotopes and elements
+        for (Ingredient ingredient : IngredientItem.getRadioactiveItems()) {
+            this.fuels.put(ingredient.getItem().getItemId(), 20);
+        }
 
         //display recipes
         for (Map.Entry<String, Integer> entry : this.fuels.entrySet()) {
