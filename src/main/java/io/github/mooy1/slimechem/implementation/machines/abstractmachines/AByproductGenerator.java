@@ -1,4 +1,4 @@
-package io.github.mooy1.slimechem.implementation.machines;
+package io.github.mooy1.slimechem.implementation.machines.abstractmachines;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemState;
@@ -15,6 +15,7 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AGenerator;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineFuel;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
@@ -44,10 +45,12 @@ import java.util.Map;
  *
  * @see AGenerator
  */
-public abstract class RTG extends AbstractEnergyProvider {
+public abstract class AByproductGenerator extends AbstractEnergyProvider {
 
     public static Map<Location, MachineFuel> processing = new HashMap<>();
     public static Map<Location, Integer> progress = new HashMap<>();
+
+    protected static final Map<MachineFuel, ItemStack[]> byproducts = new HashMap<>();
 
     private static final int[] border = {0, 1, 2, 3, 4, 5, 6, 7, 8, 13, 31, 36, 37, 38, 39, 40, 41, 42, 43, 44};
     private static final int[] border_in = {9, 10, 11, 12, 18, 21, 27, 28, 29, 30};
@@ -57,7 +60,7 @@ public abstract class RTG extends AbstractEnergyProvider {
     private int energyCapacity = -1;
 
     @ParametersAreNonnullByDefault
-    public RTG(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public AByproductGenerator(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(category, item, recipeType, recipe);
 
         new BlockMenuPreset(item.getItemId(), getInventoryTitle()) {
@@ -147,6 +150,11 @@ public abstract class RTG extends AbstractEnergyProvider {
         return progress.containsKey(l);
     }
 
+    public void registerFuel(@Nonnull MachineFuel fuel, @Nonnull ItemStack[] byproducts) {
+        AByproductGenerator.byproducts.put(fuel, byproducts);
+        super.registerFuel(fuel);
+    }
+
     @Override
     public int getGeneratedOutput(Location l, Config data) {
         BlockMenu inv = BlockStorage.getInventory(l);
@@ -175,6 +183,10 @@ public abstract class RTG extends AbstractEnergyProvider {
 
                 if (isBucket(fuel)) {
                     inv.pushItem(new ItemStack(Material.BUCKET), getOutputSlots());
+                }
+
+                for (ItemStack stack : byproducts.get(processing.get(l))) {
+                    inv.pushItem(stack, getOutputSlots());
                 }
 
                 inv.replaceExistingItem(22, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "));
@@ -249,7 +261,7 @@ public abstract class RTG extends AbstractEnergyProvider {
      * @param capacity The amount of energy this machine can store
      * @return This method will return the current instance of {@link me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AGenerator}, so that can be chained.
      */
-    public final RTG setCapacity(int capacity) {
+    public final AByproductGenerator setCapacity(int capacity) {
         Validate.isTrue(capacity >= 0, "The capacity cannot be negative!");
 
         if (getState() == ItemState.UNREGISTERED) {
@@ -266,7 +278,7 @@ public abstract class RTG extends AbstractEnergyProvider {
      * @param energyProduced The energy produced per tick
      * @return This method will return the current instance of {@link me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AGenerator}, so that can be chained.
      */
-    public final RTG setEnergyProduction(int energyProduced) {
+    public final AByproductGenerator setEnergyProduction(int energyProduced) {
         Validate.isTrue(energyProduced > 0, "The energy production must be greater than zero!");
 
         this.energyProducedPerTick = energyProduced;

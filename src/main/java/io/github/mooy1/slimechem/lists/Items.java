@@ -3,7 +3,6 @@ package io.github.mooy1.slimechem.lists;
 import io.github.mooy1.slimechem.SlimeChem;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
-import io.github.mooy1.slimechem.implementation.machines.RTG;
 import io.github.mooy1.slimechem.utils.LoreUtils;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
