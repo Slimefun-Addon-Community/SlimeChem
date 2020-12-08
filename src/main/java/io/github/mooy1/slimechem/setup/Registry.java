@@ -10,6 +10,7 @@ import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
 import io.github.mooy1.slimechem.implementation.machines.NuclearFurnace;
+import io.github.mooy1.slimechem.implementation.machines.RTG1;
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.mooy1.slimechem.lists.Items;
 import io.github.mooy1.slimechem.lists.RecipeTypes;
@@ -49,7 +50,7 @@ public final class Registry {
             if (isotope.isRadioactive()) {
                 radioactiveItems.add(isotope);
             }
-            SlimefunItem slimefunItem = new IngredientItem(Categories.ELEMENTS, isotope, RecipeTypes.DECAY, null); //show what it decays from
+            SlimefunItem slimefunItem = new IngredientItem(Categories.ELEMENTS, isotope, RecipeTypes.RTG, null); //show what it decays from
             slimefunItem.register(plugin);
             items.put(slimefunItem, isotope);
         }
@@ -67,6 +68,7 @@ public final class Registry {
         new ChemicalDissolver().register(plugin);
         new ChemicalCombiner().register(plugin);
         new NuclearFurnace().register(plugin);
+        new RTG1().setCapacity(32).setEnergyProduction(16).register(plugin);
         
     }
     

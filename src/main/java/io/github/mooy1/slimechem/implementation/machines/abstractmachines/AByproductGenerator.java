@@ -185,8 +185,11 @@ public abstract class AByproductGenerator extends AbstractEnergyProvider {
                     inv.pushItem(new ItemStack(Material.BUCKET), getOutputSlots());
                 }
 
-                for (ItemStack stack : byproducts.get(processing.get(l))) {
-                    inv.pushItem(stack, getOutputSlots());
+                ItemStack[] stacks = byproducts.get(processing.get(l));
+                if (stacks != null) {
+                    for (ItemStack stack : stacks) {
+                        inv.pushItem(stack, getOutputSlots());
+                    }
                 }
 
                 inv.replaceExistingItem(22, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "));

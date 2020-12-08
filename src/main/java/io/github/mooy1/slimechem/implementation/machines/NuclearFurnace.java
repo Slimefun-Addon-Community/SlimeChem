@@ -86,7 +86,7 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
         for (Map.Entry<String, Integer> entry : this.fuels.entrySet()) {
             SlimefunItem sfItem = SlimefunItem.getByID(entry.getKey());
             if (sfItem != null) {
-                ItemStack stack = sfItem.getItem();
+                ItemStack stack = sfItem.getItem().clone();
                 ItemMeta meta = stack.getItemMeta();
                 if (meta != null && meta.getLore() != null) {
                     List<String> lore = meta.getLore();
