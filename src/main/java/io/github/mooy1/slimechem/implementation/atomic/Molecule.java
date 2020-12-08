@@ -72,6 +72,8 @@ public enum Molecule implements Ingredient {
         new MoleculeIngredient(Element.OXYGEN, 11)),
     CHLOROPHYLL("Chlorophyll", new MoleculeIngredient(Element.CARBON, 55), new MoleculeIngredient(Element.HYDROGEN, 72),
         new MoleculeIngredient(Element.OXYGEN, 5), new MoleculeIngredient(Element.NITROGEN, 4), new MoleculeIngredient(Element.MAGNESIUM)),
+    CAFFEINE("Caffeine", new MoleculeIngredient(Element.CARBON, 8), new MoleculeIngredient(Element.HYDROGEN, 10),
+        new MoleculeIngredient(Element.NITROGEN, 4), new MoleculeIngredient(Element.OXYGEN, 2)),
 
     // Animal stuff
 
