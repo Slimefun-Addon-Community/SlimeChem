@@ -176,8 +176,8 @@ public class ChemicalDissolver extends Machine {
             SlimefunItem item = SlimefunItem.getByItem(input);
             
             if (item != null) {
-                if (Registry.ITEMS.containsKey(item)) { 
-                    Ingredient type = Registry.ITEMS.get(item);
+                if (Registry.items.containsKey(item)) { 
+                    Ingredient type = Registry.items.get(item);
 
                     if (type instanceof Molecule) { //molecule recipe
                         Molecule molecule = (Molecule) type;
@@ -233,7 +233,7 @@ public class ChemicalDissolver extends Machine {
     }
     
     private int getMax(Location l, ItemStack input) {
-        return (int) Math.min(input.getAmount(), Math.floor((float) getCharge(l) / ENERGY)) / 2;
+        return (int) Math.min(input.getAmount(), Math.floor((float) getCharge(l) / ENERGY));
     }
     
 }

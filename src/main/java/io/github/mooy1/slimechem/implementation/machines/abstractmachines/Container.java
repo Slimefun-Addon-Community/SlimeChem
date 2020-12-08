@@ -9,6 +9,7 @@ import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
+import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 import org.bukkit.block.Block;
@@ -17,8 +18,8 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 
-public abstract class TickerBlock extends SlimefunItem {
-    public TickerBlock(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+public abstract class Container extends SlimefunItem {
+    public Container(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(category, item, recipeType, recipe);
     
         new BlockMenuPreset(getId(), getItemName()) {
@@ -43,12 +44,19 @@ public abstract class TickerBlock extends SlimefunItem {
             public int[] getSlotsAccessedByItemTransport(ItemTransportFlow flow) {
                 return getTransportSlots(flow);
             }
+
+            @Override
+            public int[] getSlotsAccessedByItemTransport(DirtyChestMenu menu, ItemTransportFlow flow, ItemStack item) {
+                return getTransportSlots(menu, flow, item);
+            }
         };
     }
     
     public abstract void setupMenu(@Nonnull BlockMenuPreset preset);
     
-    public abstract void onNewInstance(@Nonnull BlockMenu menu, @Nonnull Block b);
+    public void onNewInstance(@Nonnull BlockMenu menu, @Nonnull Block b) {
+        
+    }
     
     @Override
     public void preRegister() {
@@ -59,7 +67,7 @@ public abstract class TickerBlock extends SlimefunItem {
             }
             @Override
             public void tick(Block b, SlimefunItem item, Config data) {
-                TickerBlock.this.tick(b);
+                Container.this.tick(b);
             }
         });
     }
@@ -67,6 +75,11 @@ public abstract class TickerBlock extends SlimefunItem {
     public abstract void tick(@Nonnull Block b);
     
     @Nonnull
-    public abstract int[] getTransportSlots(@Nonnull ItemTransportFlow flow);
+    public abstract int[] getTransportSlots(ItemTransportFlow flow);
     
+    @Nonnull
+    public int[] getTransportSlots(DirtyChestMenu menu, ItemTransportFlow flow, ItemStack item) {
+        return getTransportSlots(flow);
+    }
+
 }

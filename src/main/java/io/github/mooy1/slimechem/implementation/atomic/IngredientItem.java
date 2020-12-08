@@ -18,7 +18,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -157,4 +156,5 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
         newStack.setAmount(stack.getAmount() - 1);
         return newStack;
     }
+
 }
