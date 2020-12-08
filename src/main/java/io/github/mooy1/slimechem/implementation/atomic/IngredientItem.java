@@ -9,6 +9,7 @@ import lombok.Getter;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
+import me.mrCookieSlime.Slimefun.cscorelib2.inventory.ItemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
@@ -18,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -74,9 +76,8 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
             Player p = e.getPlayer();
             BiConsumer<Entity, Player> run = entityInteractActions.get(ingredient);
             if (run != null) {
-                PlayerInventory inv = p.getInventory();
                 if (p.getGameMode() != GameMode.CREATIVE) {
-                    inv.setItemInMainHand(consumeItem(inv.getItemInMainHand()));
+                    ItemUtils.consumeItem(i, false);
                 }
                 run.accept(e.getRightClicked(), p);
             }
@@ -90,9 +91,8 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
             Consumer<Player> run = interactActions.get(ingredient);
             Bukkit.getLogger().info(Integer.toString(interactActions.size()));
             if (run != null) {
-                PlayerInventory inv = p.getInventory();
                 if (p.getGameMode() != GameMode.CREATIVE) {
-                    inv.setItemInMainHand(consumeItem(inv.getItemInMainHand()));
+                    ItemUtils.consumeItem(e.getItem(), false);
                 }
                 run.accept(p);
             }
