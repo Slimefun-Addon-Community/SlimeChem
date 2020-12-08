@@ -11,6 +11,7 @@ import io.github.mooy1.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
 import io.github.mooy1.slimechem.implementation.machines.NuclearFurnace;
 import io.github.mooy1.slimechem.implementation.machines.RTG1;
+import io.github.mooy1.slimechem.implementation.machines.RTG2;
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.mooy1.slimechem.lists.Items;
 import io.github.mooy1.slimechem.lists.RecipeTypes;
@@ -68,8 +69,9 @@ public final class Registry {
         new ChemicalDissolver().register(plugin);
         new ChemicalCombiner().register(plugin);
         new NuclearFurnace().register(plugin);
-        new RTG1().setCapacity(32).setEnergyProduction(16).register(plugin);
-        
+        new RTG1().setCapacity(32).setEnergyProduction(8).register(plugin);
+        new RTG2().setCapacity(64).setEnergyProduction(16).register(plugin);
+
     }
     
 }
