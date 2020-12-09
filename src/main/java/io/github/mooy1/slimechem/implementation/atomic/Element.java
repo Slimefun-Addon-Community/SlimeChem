@@ -141,7 +141,8 @@ public enum Element implements Ingredient, DecayProduct {
     LIVERMORIUM(293, "Livermorium", "Lv", 116, Series.UNKNOWN),
     TENNESSINE(294, "Tennessine", "Ts", 117, Series.UNKNOWN),
     OGANESSON(294, "Oganesson", "Og", 118, Series.UNKNOWN),
-    MOOYIUM(315, "Mooyium", "My", 119, Series.CUSTOM);
+    MOOYIUM(315, "Mooyium", "My", 119, Series.CUSTOM),
+    SEGGANESSON(336, "Segganesson", "Gg", 120, Series.CUSTOM);
     
     private final double mass;
     @Nonnull

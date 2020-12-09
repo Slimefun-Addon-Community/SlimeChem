@@ -58,7 +58,7 @@ public final class Registry {
             if (isotope.isRadioactive()) {
                 this.radioactiveItems.add(isotope);
             }
-            registerItem(new IngredientItem(Categories.ELEMENTS, isotope, RecipeTypes.DECAY, null)); //show what it decays from
+            registerItem(new IngredientItem(Categories.ELEMENTS, isotope, RecipeTypes.RTG, null)); //show what it decays from
         }
         
         plugin.getLogger().log(Level.INFO, "Registered " + Isotope.values().length + " Isotopes!");
