@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
+import io.github.mooy1.slimechem.setup.Registry;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.core.attributes.ProtectionType;
@@ -36,32 +37,9 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
 
     @Getter
     private final Ingredient ingredient;
-    @Getter
-    private static final Set<Ingredient> radioactiveItems = new HashSet<>();
-    private static final Map<Ingredient, Consumer<Player>> interactActions;
-    private static final Map<Ingredient, BiConsumer<Entity, Player>> entityInteractActions;
 
-    static {
-        // Add all elements with atomic number > 82 (higher than lead)
-        for (Element element : Element.values()) {
-            if (element.getNumber() > 82) {
-                radioactiveItems.add(element);
-            }
-        }
-        // Technetium and promethium
-        radioactiveItems.add(Element.TECHNETIUM);
-        radioactiveItems.add(Element.PROMETHIUM);
-        // Radioactive isotopes
-        for (Isotope isotope : Isotope.values()) {
-            if (isotope.isRadioactive()) {
-                radioactiveItems.add(isotope);
-            }
-        }
-
-
-        interactActions = getActions();
-        entityInteractActions = getEntityActions();
-    }
+    private static Map<Ingredient, Consumer<Player>> interactActions = new HashMap<>();
+    private static Map<Ingredient, BiConsumer<Entity, Player>> entityInteractActions = new HashMap<>();
 
     public IngredientItem(Category category, Ingredient ingredient, RecipeType recipeType, ItemStack[] recipe) {
         super(category, ingredient.getItem(), recipeType, recipe);
@@ -102,7 +80,7 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
     private static Map<Ingredient, Consumer<Player>> getActions() {
         Map<Ingredient, Consumer<Player>> actions = new HashMap<>();
 
-        for (Ingredient ingredient : radioactiveItems) {
+        for (Ingredient ingredient : Registry.getRadioactiveItems()) {
             actions.put(ingredient, p -> {
                 for (Entity e : p.getNearbyEntities(5, 5, 5)) {
                     if (e instanceof LivingEntity) {
@@ -129,7 +107,7 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
     private static Map<Ingredient, BiConsumer<Entity, Player>> getEntityActions() {
         Map<Ingredient, BiConsumer<Entity, Player>> actions = new HashMap<>();
 
-        for (Ingredient ingredient : radioactiveItems) {
+        for (Ingredient ingredient : Registry.getRadioactiveItems()) {
             actions.put(ingredient, (e, p) -> {
                 if (e instanceof LivingEntity) {
                     if (e instanceof Player) {
@@ -151,10 +129,9 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
         return actions;
     }
 
-    private static ItemStack consumeItem(ItemStack stack) {
-        ItemStack newStack = stack.clone();
-        newStack.setAmount(stack.getAmount() - 1);
-        return newStack;
+    public static void setupInteractions() {
+        interactActions = getActions();
+        entityInteractActions = getEntityActions();
     }
 
 }

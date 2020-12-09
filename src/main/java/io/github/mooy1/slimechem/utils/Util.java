@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.core.services.CustomItemDataService;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -61,5 +62,9 @@ public final class Util {
 
         return null;
     }
-    
+
+    @Nonnull
+    public static String enumNameToTitleCaseString(@Nonnull String enumName) {
+        return WordUtils.capitalizeFully(enumName.replace('_', ' '));
+    }
 }
