@@ -1,7 +1,7 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
-import io.github.mooy1.slimechem.utils.SubNum;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
+import io.github.mooy1.slimechem.utils.SubNum;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

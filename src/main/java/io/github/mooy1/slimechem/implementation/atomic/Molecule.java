@@ -1,17 +1,13 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
+import io.github.mooy1.slimechem.utils.ItemFilter;
 import io.github.mooy1.slimechem.utils.SubNum;
 import lombok.Getter;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Enum of molecules: name, formula, ingredients
@@ -80,7 +76,7 @@ public enum Molecule implements Ingredient {
 
     // Using the amino acid methionine as a base; it's the first amino acid in all proteins
     PROTEIN("Protein", new MoleculeIngredient(Element.CARBON, 5), new MoleculeIngredient(Element.HYDROGEN, 11),
-        new MoleculeIngredient(Element.NITROGEN), new MoleculeIngredient(Element.OXYGEN, 2), new MoleculeIngredient(Element.SULFUR)),
+        new MoleculeIngredient(Element.NITROGEN), new MoleculeIngredient(Element.OXYGEN, 2), new MoleculeIngredient(Element.SULFUR))
 
     ;
     
@@ -88,21 +84,18 @@ public enum Molecule implements Ingredient {
     @Nonnull
     private final String formula;
     @Nonnull
-    private final List<MoleculeIngredient> ingredients;
+    private final MoleculeIngredient[] ingredients;
     @Nonnull
     private final SlimefunItemStack item;
     
-    public static final BiMap<Molecule, SlimefunItem> ITEMS = HashBiMap.create(values().length);
-    
     Molecule(@Nonnull String name, @Nonnull MoleculeIngredient... ingredients) {
         this.name = name;
-        this.ingredients = new ArrayList<>();
+        this.ingredients = ingredients;
         
         StringBuilder formula = new StringBuilder();
         
         for (MoleculeIngredient ingredient : ingredients) {
             formula.append(ingredient.getFormula());
-            this.ingredients.add(ingredient);
         }
         
         this.formula = formula.toString();
@@ -122,11 +115,12 @@ public enum Molecule implements Ingredient {
     }
     
     public int size() {
-        return this.ingredients.size();
+        return this.ingredients.length;
     }
     
+    @Nonnull
     public MoleculeIngredient getIngredient(int i) {
-        return this.ingredients.get(i);
+        return this.ingredients[i];
     }
     
     @Nonnull
@@ -138,6 +132,18 @@ public enum Molecule implements Ingredient {
         }
         
         return recipe;
+    }
+    
+    @Nonnull
+    public ItemFilter[] toFilter(int size) {
+        ItemFilter[] filter = new ItemFilter[size];
+
+        for (int i = 0 ; i < Math.min(size, size()); i++) {
+            MoleculeIngredient ingredient = getIngredient(i);
+            filter[i] = new ItemFilter(ingredient.getNewItem());
+        }
+
+        return filter;
     }
     
 }

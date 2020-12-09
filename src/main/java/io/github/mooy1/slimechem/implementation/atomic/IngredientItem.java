@@ -89,8 +89,7 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
         return e -> {
             e.cancel();
             Player p = e.getPlayer();
-            Consumer<Player> run = interactActions.get(ingredient);
-            Bukkit.getLogger().info(Integer.toString(interactActions.size()));
+            Consumer<Player> run = interactActions.get(this.ingredient);
             if (run != null) {
                 if (p.getGameMode() != GameMode.CREATIVE) {
                     ItemUtils.consumeItem(e.getItem(), false);

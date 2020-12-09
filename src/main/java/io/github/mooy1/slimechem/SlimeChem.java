@@ -8,11 +8,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 
 import javax.annotation.Nonnull;
+import java.util.logging.Level;
+
 
 public class SlimeChem extends JavaPlugin implements SlimefunAddon {
-    
+
     @Getter
     private static SlimeChem instance;
+    @Getter
+    private static Registry registry;
     
     @Override
     public void onEnable() {
@@ -31,7 +35,8 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
             getLogger().log(Level.WARNING, "You must be on a DEV build to auto update!");
         }*/
         
-        Registry.setup(this);
+        registry = new Registry(this);
+        
     }
     
     private void updateConfig() {
@@ -40,6 +45,14 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
         saveConfig();
     }
     
+    public static void log(@Nonnull String s) {
+        log(Level.INFO, s);
+    }
+
+    public static void log(@Nonnull Level l, @Nonnull String s) {
+        instance.getLogger().log(l, s);
+    }
+
     @Override
     public void onDisable() {
         instance = null;

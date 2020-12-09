@@ -3,8 +3,8 @@ package io.github.mooy1.slimechem.utils;
 import io.github.thebusybiscuit.slimefun4.core.services.CustomItemDataService;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,7 +21,7 @@ import java.util.Optional;
  */
 public final class Util {
     
-    private static final String PREFIX = ChatColor.AQUA + "SlimeChem " + ChatColor.WHITE; // should improve at some point
+    private static final String PREFIX = ChatColors.color("&7[&bSlimeChem&7]&f ");
     
     /**
      * broadcasts a message with prefix
