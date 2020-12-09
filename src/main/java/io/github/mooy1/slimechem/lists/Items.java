@@ -24,6 +24,7 @@ public final class Items {
             "CHEMICAL_COMBINER",
             Material.EMERALD_BLOCK,
             "&bChemical Combiner",
+            "&&Combines elements and molecules into molecules and materials",
             "",
             LoreUtils.energy(ChemicalCombiner.ENERGY) + "per item"
     );

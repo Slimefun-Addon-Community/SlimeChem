@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 public class IngredientItem extends SlimefunItem implements NotPlaceable {
 
     @Getter
-    private Ingredient ingredient;
+    private final Ingredient ingredient;
     private static final Map<Ingredient, Consumer<Player>> interactActions = getActions();
 
     public IngredientItem(Category category, Ingredient ingredient, RecipeType recipeType, ItemStack[] recipe) {
@@ -36,7 +36,7 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
     private ItemUseHandler onUse() {
         return e -> {
             Player p = e.getPlayer();
-            Consumer<Player> run = interactActions.get(ingredient);
+            Consumer<Player> run = interactActions.get(this.ingredient);
             if (run != null) {
                 PlayerInventory inv = p.getInventory();
                 inv.setItemInMainHand(consumeItem(inv.getItemInMainHand()));

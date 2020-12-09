@@ -16,6 +16,7 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -70,11 +71,11 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
             }
         });
 
-        this.fuels.put(SlimefunItems.TINY_URANIUM.getItemId(), 5);
-        this.fuels.put(SlimefunItems.SMALL_URANIUM.getItemId(), 45);
-        this.fuels.put(SlimefunItems.URANIUM.getItemId(), 180);
-        this.fuels.put(SlimefunItems.NEPTUNIUM.getItemId(), 360);
-        this.fuels.put(SlimefunItems.PLUTONIUM.getItemId(), 540);
+        this.fuels.put(SlimefunItems.TINY_URANIUM.getItemId(), 3);
+        this.fuels.put(SlimefunItems.SMALL_URANIUM.getItemId(), 36);
+        this.fuels.put(SlimefunItems.URANIUM.getItemId(), 160);
+        this.fuels.put(SlimefunItems.NEPTUNIUM.getItemId(), 320);
+        this.fuels.put(SlimefunItems.PLUTONIUM.getItemId(), 480);
         this.fuels.put(SlimefunItems.BOOSTED_URANIUM.getItemId(), 720);
         //add isotopes and elements
 
@@ -82,12 +83,12 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
         for (Map.Entry<String, Integer> entry : this.fuels.entrySet()) {
             SlimefunItem sfItem = SlimefunItem.getByID(entry.getKey());
             if (sfItem != null) {
-                ItemStack stack = sfItem.getItem();
+                ItemStack stack = sfItem.getItem().clone();
                 ItemMeta meta = stack.getItemMeta();
                 if (meta != null && meta.getLore() != null) {
                     List<String> lore = meta.getLore();
                     lore.add(" ");
-                    lore.add("&7Smelts: " + entry.getValue() + " items");
+                    lore.add(ChatColor.GOLD + "Smelts: " + entry.getValue() + " items");
                     meta.setLore(lore);
                     stack.setItemMeta(meta);
                     this.displayRecipes.add(stack);
@@ -101,6 +102,7 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
         for (int i : BACKGROUND) {
             preset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
         }
+        preset.addMenuClickHandler(STATUS, ChestMenuUtils.getEmptyClickHandler());
     }
 
     @Override
@@ -151,7 +153,7 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
         ItemStack output = this.recipes.get(input.getType());
 
         if (output != null && menu.fits(output, OUTPUT)) {
-            menu.pushItem(output, OUTPUT);
+            menu.pushItem(output.clone(), OUTPUT);
             menu.consumeItem(INPUT, 1);
             fuel--;
         }
@@ -203,8 +205,8 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
     private ItemStack getFuelItem(int fuel) {
         return new CustomItem(
                 fuel < 1 ? Material.GRAY_STAINED_GLASS_PANE :
-                        fuel < 20 ? Material.RED_STAINED_GLASS_PANE :
-                                fuel < 100 ? Material.ORANGE_STAINED_GLASS_PANE :
+                        fuel < 36 ? Material.RED_STAINED_GLASS_PANE :
+                                fuel < 161 ? Material.ORANGE_STAINED_GLASS_PANE :
                                         Material.YELLOW_STAINED_GLASS_PANE, "&6Fuel: " + fuel
         );
     }
