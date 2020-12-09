@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
+import io.github.mooy1.slimechem.implementation.subatomic.Boson;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
 import io.github.mooy1.slimechem.utils.SubNum;
 import lombok.AccessLevel;
@@ -106,15 +107,15 @@ public enum Element implements Ingredient, DecayProduct {
     THALLIUM(204.3833, "Thallium", "Tl", 81, Series.POST_TRANSITION_METALS),
     LEAD(207.2, "Lead", "Pb", 82, Series.POST_TRANSITION_METALS),
     BISMUTH(208.9804, "Bismuth", "Bi", 83, Series.POST_TRANSITION_METALS),
-    POLONIUM(209, "Polonium", "Po", 84, Series.POST_TRANSITION_METALS),
+    POLONIUM(209, "Polonium", "Po", 84, Series.POST_TRANSITION_METALS, Isotope.LEAD_214, Element.HELIUM, Boson.PHOTON),
     ASTATINE(210, "Astatine", "At", 85, Series.METALLOIDS),
-    RADON(222, "Radon", "Rn", 86, Series.NOBLE_GASES),
+    RADON(222, "Radon", "Rn", 86, Series.NOBLE_GASES, Element.POLONIUM, Element.HELIUM, Boson.PHOTON),
     FRANCIUM(223, "Francium", "Fr", 87, Series.ALKALI_METALS),
-    RADIUM(226, "Radium", "Ra", 88, Series.ALKALINE_EARTH_METALS),
+    RADIUM(226, "Radium", "Ra", 88, Series.ALKALINE_EARTH_METALS, Element.RADON, Element.HELIUM, Boson.PHOTON),
     ACTINIUM(227, "Actinium", "Ac", 89, Series.ACTINOIDS),
     THORIUM(232.0381, "Thorium", "Th", 90, Series.ACTINOIDS),
     PROTACTINIUM(231.0359, "Protactinium", "Pa", 91, Series.ACTINOIDS),
-    URANIUM(238.0289, "Uranium", "U", 92, Series.ACTINOIDS),
+    URANIUM(238.0289, "Uranium", "U", 92, Series.ACTINOIDS, Isotope.THORIUM_234, Element.HELIUM, Boson.PHOTON),
     NEPTUNIUM(237, "Neptunium", "Np", 93, Series.ACTINOIDS),
     PLUTONIUM(244, "Plutonium", "Pu", 94, Series.ACTINOIDS),
     AMERICIUM(243, "Americium", "Am", 95, Series.ACTINOIDS),
