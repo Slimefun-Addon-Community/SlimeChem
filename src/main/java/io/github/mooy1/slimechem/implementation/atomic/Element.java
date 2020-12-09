@@ -141,7 +141,8 @@ public enum Element implements Ingredient, DecayProduct {
     LIVERMORIUM(293, "Livermorium", "Lv", 116, Series.UNKNOWN),
     TENNESSINE(294, "Tennessine", "Ts", 117, Series.UNKNOWN),
     OGANESSON(294, "Oganesson", "Og", 118, Series.UNKNOWN),
-    MOOYIUM(315, "Mooyium", "My", 119, Series.CUSTOM);
+    MOOYIUM(315, "Mooyium", "My", 119, Series.CUSTOM),
+    SEGGANESSON(336, "Segganesson", "Gg", 120, Series.CUSTOM);
     
     private final double mass;
     @Nonnull
@@ -152,16 +153,18 @@ public enum Element implements Ingredient, DecayProduct {
     @Nonnull
     private final Series series;
     private final int neutrons;
+    private final DecayProduct[] decayProducts;
     @Nonnull
     private final SlimefunItemStack item;
     
-    Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series) {
+    Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series, DecayProduct... decayProducts) {
         this.mass = mass;
         this.name = name;
         this.symbol = symbol;
         this.number = number;
         this.series = series;
         this.neutrons = (int) Math.round(mass) - number;
+        this.decayProducts = decayProducts;
         this.item = new SlimefunItemStack(
                 "ELEMENT_" + this.name(),
                 Objects.requireNonNull(Material.getMaterial(series.getColor() + "_DYE")),
@@ -183,6 +186,10 @@ public enum Element implements Ingredient, DecayProduct {
     @Override
     public String getFormula(int i) {
         return this.symbol + SubNum.fromInt(i);
+    }
+
+    public boolean isRadioactive() {
+        return decayProducts.length != 0;
     }
 
     @Getter

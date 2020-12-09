@@ -102,7 +102,7 @@ public class ElementCategory extends FlexCategory implements Listener {
         
         addElements(menu, 39, 113, 118);
 
-        addElements(menu, 46, 119, 119);
+        addElements(menu, 46, 119, 120);
         
         return menu;
     }
