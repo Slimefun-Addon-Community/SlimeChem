@@ -1,6 +1,5 @@
-package io.github.mooy1.slimechem.implementation.machines;
+package io.github.mooy1.slimechem.implementation.generators;
 
-import io.github.mooy1.slimechem.implementation.machines.abstractmachines.AByproductGenerator;
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.mooy1.slimechem.lists.Items;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;

@@ -10,8 +10,8 @@ import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
 import io.github.mooy1.slimechem.implementation.machines.NuclearFurnace;
-import io.github.mooy1.slimechem.implementation.machines.RTG1;
-import io.github.mooy1.slimechem.implementation.machines.RTG2;
+import io.github.mooy1.slimechem.implementation.generators.RTG1;
+import io.github.mooy1.slimechem.implementation.generators.RTG2;
 import io.github.mooy1.slimechem.implementation.subatomic.Boson;
 import io.github.mooy1.slimechem.implementation.subatomic.Lepton;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
@@ -21,7 +21,6 @@ import io.github.mooy1.slimechem.lists.RecipeTypes;
 import lombok.Getter;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
