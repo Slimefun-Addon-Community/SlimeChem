@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem.implementation.subatomic;
 
+import io.github.mooy1.slimechem.implementation.atomic.DecayProduct;
 import lombok.Getter;
 
 /**
@@ -9,7 +10,7 @@ import lombok.Getter;
  *
  */
 @Getter
-public enum Lepton implements Fermion {
+public enum Lepton implements Fermion, DecayProduct {
 
     ELECTRON(),
     ELECTRON_NEUTRINO(),

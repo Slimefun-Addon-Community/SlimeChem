@@ -21,7 +21,7 @@ import java.util.Objects;
  * 
  */
 @Getter
-public enum Element implements Ingredient {
+public enum Element implements Ingredient, DecayProduct {
 
     HYDROGEN(1.0079, "Hydrogen", "H", 1, Series.NONMETALS),
     HELIUM(4.0026, "Helium", "He", 2, Series.NOBLE_GASES),
