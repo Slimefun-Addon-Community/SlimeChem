@@ -187,7 +187,7 @@ public abstract class AByproductGenerator extends AbstractEnergyProvider {
                 ItemStack[] stacks = byproducts.get(processing.get(l));
                 if (stacks != null) {
                     for (ItemStack stack : stacks) {
-                        inv.pushItem(stack, getOutputSlots());
+                        inv.pushItem(stack.clone(), getOutputSlots());
                     }
                 }
 

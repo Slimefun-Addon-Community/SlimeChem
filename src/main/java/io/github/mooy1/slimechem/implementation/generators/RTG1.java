@@ -13,6 +13,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
@@ -32,15 +33,24 @@ public class RTG1 extends AByproductGenerator {
     @Override
     protected void registerDefaultFuelTypes() {
         for (Ingredient item : Registry.getRadioactiveItems()) {
-            List<DecayProduct> decayProducts;
+            List<DecayProduct> decayProducts = null;
             if (item instanceof Element) {
-                decayProducts = Arrays.asList(((Element) item).getDecayProducts());
+                DecayProduct[] list = ((Element) item).getDecayProducts();
+                if (list != null) {
+                    decayProducts = new ArrayList<>(Arrays.asList(list));
+                }
             } else if (item instanceof Isotope) {
-                decayProducts = Arrays.asList(((Isotope) item).getDecayProducts());
+                DecayProduct[] list = ((Isotope) item).getDecayProducts();
+                if (list != null) {
+                    decayProducts = new ArrayList<>(Arrays.asList(list));
+                }
             } else {
                 throw new IllegalArgumentException("Radioactive molecules?!");
             }
 
+            if (decayProducts == null) {
+                continue;
+            }
             // Remove all non-isotopes and elements
             decayProducts.removeIf(decayProduct -> !(decayProduct instanceof Ingredient));
 
