@@ -107,15 +107,15 @@ public enum Element implements Ingredient, DecayProduct {
     THALLIUM(204.3833, "Thallium", "Tl", 81, Series.POST_TRANSITION_METALS),
     LEAD(207.2, "Lead", "Pb", 82, Series.POST_TRANSITION_METALS),
     BISMUTH(208.9804, "Bismuth", "Bi", 83, Series.POST_TRANSITION_METALS),
-    POLONIUM(209, "Polonium", "Po", 84, Series.POST_TRANSITION_METALS, Isotope.LEAD_214, Element.HELIUM, Boson.PHOTON),
+    POLONIUM(209, "Polonium", "Po", 84, Series.POST_TRANSITION_METALS),
     ASTATINE(210, "Astatine", "At", 85, Series.METALLOIDS),
-    RADON(222, "Radon", "Rn", 86, Series.NOBLE_GASES, Element.POLONIUM, Element.HELIUM, Boson.PHOTON),
+    RADON(222, "Radon", "Rn", 86, Series.NOBLE_GASES),
     FRANCIUM(223, "Francium", "Fr", 87, Series.ALKALI_METALS),
-    RADIUM(226, "Radium", "Ra", 88, Series.ALKALINE_EARTH_METALS, Element.RADON, Element.HELIUM, Boson.PHOTON),
+    RADIUM(226, "Radium", "Ra", 88, Series.ALKALINE_EARTH_METALS),
     ACTINIUM(227, "Actinium", "Ac", 89, Series.ACTINOIDS),
     THORIUM(232.0381, "Thorium", "Th", 90, Series.ACTINOIDS),
     PROTACTINIUM(231.0359, "Protactinium", "Pa", 91, Series.ACTINOIDS),
-    URANIUM(238.0289, "Uranium", "U", 92, Series.ACTINOIDS, Isotope.THORIUM_234, Element.HELIUM, Boson.PHOTON),
+    URANIUM(238.0289, "Uranium", "U", 92, Series.ACTINOIDS),
     NEPTUNIUM(237, "Neptunium", "Np", 93, Series.ACTINOIDS),
     PLUTONIUM(244, "Plutonium", "Pu", 94, Series.ACTINOIDS),
     AMERICIUM(243, "Americium", "Am", 95, Series.ACTINOIDS),
@@ -144,6 +144,13 @@ public enum Element implements Ingredient, DecayProduct {
     OGANESSON(294, "Oganesson", "Og", 118, Series.UNKNOWN),
     MOOYIUM(315, "Mooyium", "My", 119, Series.CUSTOM),
     SEGGANESSON(336, "Segganesson", "Gg", 120, Series.CUSTOM);
+
+    static {
+        URANIUM.decayProducts = new DecayProduct[]{Isotope.THORIUM_234, Element.HELIUM, Boson.PHOTON};
+        RADIUM.decayProducts = new DecayProduct[]{Element.RADON, Element.HELIUM, Boson.PHOTON};
+        RADON.decayProducts = new DecayProduct[]{Element.POLONIUM, Element.HELIUM, Boson.PHOTON};
+        POLONIUM.decayProducts = new DecayProduct[]{Isotope.LEAD_214, Element.HELIUM, Boson.PHOTON};
+    }
     
     private final double mass;
     @Nonnull
@@ -154,7 +161,7 @@ public enum Element implements Ingredient, DecayProduct {
     @Nonnull
     private final Series series;
     private final int neutrons;
-    private final DecayProduct[] decayProducts;
+    private DecayProduct[] decayProducts;
     @Nonnull
     private final SlimefunItemStack item;
     
@@ -165,7 +172,6 @@ public enum Element implements Ingredient, DecayProduct {
         this.number = number;
         this.series = series;
         this.neutrons = (int) Math.round(mass) - number;
-        this.decayProducts = decayProducts;
         this.item = new SlimefunItemStack(
                 "ELEMENT_" + this.name(),
                 Objects.requireNonNull(Material.getMaterial(series.getColor() + "_DYE")),
