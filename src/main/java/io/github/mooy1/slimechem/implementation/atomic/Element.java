@@ -161,11 +161,11 @@ public enum Element implements Ingredient, DecayProduct {
     @Nonnull
     private final Series series;
     private final int neutrons;
-    private DecayProduct[] decayProducts;
+    private DecayProduct[] decayProducts = new DecayProduct[0];
     @Nonnull
     private final SlimefunItemStack item;
     
-    Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series, DecayProduct... decayProducts) {
+    Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series ) {
         this.mass = mass;
         this.name = name;
         this.symbol = symbol;
