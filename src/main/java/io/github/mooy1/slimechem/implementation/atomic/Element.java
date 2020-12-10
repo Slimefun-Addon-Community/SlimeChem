@@ -161,6 +161,7 @@ public enum Element implements Ingredient, DecayProduct {
     @Nonnull
     private final Series series;
     private final int neutrons;
+    @SuppressWarnings("MismatchedReadAndWriteOfArray")
     private DecayProduct[] decayProducts = new DecayProduct[0];
     @Nonnull
     private final SlimefunItemStack item;

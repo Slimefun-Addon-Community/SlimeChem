@@ -58,7 +58,7 @@ public class RTG1 extends AByproductGenerator {
             for (int i = 0; i < decayProducts.size(); i++) {
                 products[i] = decayProducts.get(i).getItem();
             }
-            registerFuel(new MachineFuel(1, item.getItem()), products);
+            registerFuel(new MachineFuel(10, item.getItem()), products);
         }
     }
 }
