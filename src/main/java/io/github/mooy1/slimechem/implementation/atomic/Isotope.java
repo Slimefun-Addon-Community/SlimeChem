@@ -22,9 +22,15 @@ import java.util.Objects;
 @Getter
 public enum Isotope implements Ingredient, DecayProduct {
     
-    DEUTERIUM(Element.HYDROGEN, "Deuterium", 2.014, false),
-    TRITIUM(Element.HYDROGEN, "Tritium", 3.016, true),
-    LEAD_206(Element.LEAD, 206), // stable
+    HYDROGEN_2(Element.HYDROGEN, "Deuterium", 2, false),
+    HELIUM_3(Element.HELIUM, 3),
+    HYDROGEN_3(Element.HYDROGEN, "Tritium", 3, true, Isotope.HELIUM_3, Lepton.ELECTRON, Lepton.ELECTRON_NEUTRINO),
+    ALUMINUM_28(Element.ALUMINUM, 28, Element.SILICON, Lepton.ELECTRON, Lepton.ELECTRON_NEUTRINO),
+    MAGNESIUM_28(Element.MAGNESIUM, 28, Isotope.ALUMINUM_28, Lepton.ELECTRON, Lepton.ELECTRON_NEUTRINO),
+    LEAD_206(Element.LEAD, 206),
+    LEAD_207(Element.LEAD, 207),
+    THALLIUM_207(Element.THALLIUM, 207, Isotope.LEAD_207, Lepton.ELECTRON, Lepton.ELECTRON_NEUTRINO),
+    MERCURY_207(Element.MERCURY, 207, Isotope.THALLIUM_207, Lepton.ELECTRON, Lepton.ELECTRON_NEUTRINO),
     POLONIUM_210(Element.POLONIUM, 210, Isotope.LEAD_206, Element.HELIUM, Boson.PHOTON),
     BISMUTH_210(Element.BISMUTH, 210, Isotope.POLONIUM_210, Lepton.ELECTRON, Lepton.ELECTRON_NEUTRINO),
     LEAD_210(Element.LEAD, 210, Isotope.BISMUTH_210, Lepton.ELECTRON, Lepton.ELECTRON_NEUTRINO),
@@ -35,7 +41,7 @@ public enum Isotope implements Ingredient, DecayProduct {
     URANIUM_234(Element.URANIUM, 234, Isotope.THORIUM_230, Element.HELIUM, Boson.PHOTON),
     PROTACTINIUM_234(Element.PROTACTINIUM, 234, Isotope.URANIUM_234, Lepton.ELECTRON, Lepton.ELECTRON_NEUTRINO),
     THORIUM_234(Element.THORIUM, 234, Isotope.PROTACTINIUM_234, Lepton.ELECTRON, Lepton.ELECTRON_NEUTRINO),
-    URANIUM_235(Element.URANIUM, 235),
+    URANIUM_235(Element.URANIUM, 235, Isotope.MERCURY_207, Isotope.MAGNESIUM_28),
     PLUTONIUM_238(Element.PLUTONIUM, 238, Isotope.URANIUM_234, Element.HELIUM, Boson.PHOTON),
     CALIFORNIUM_250(Element.CALIFORNIUM, 250),
     AMERICIUM_241(Element.AMERICIUM, 241),
