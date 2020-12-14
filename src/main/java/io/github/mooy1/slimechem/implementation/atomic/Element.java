@@ -146,6 +146,7 @@ public enum Element implements Ingredient, DecayProduct {
     SEGGANESSON(336, "Segganesson", "Gg", 120, Series.CUSTOM);
 
     static {
+        NEPTUNIUM.decayProducts = new DecayProduct[]{Isotope.PROTACTINIUM_233, Element.HELIUM, Boson.PHOTON};
         URANIUM.decayProducts = new DecayProduct[]{Isotope.THORIUM_234, Element.HELIUM, Boson.PHOTON};
         RADIUM.decayProducts = new DecayProduct[]{Element.RADON, Element.HELIUM, Boson.PHOTON};
         RADON.decayProducts = new DecayProduct[]{Element.POLONIUM, Element.HELIUM, Boson.PHOTON};
