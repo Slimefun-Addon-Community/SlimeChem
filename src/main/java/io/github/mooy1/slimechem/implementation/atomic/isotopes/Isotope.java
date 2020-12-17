@@ -3,7 +3,6 @@ package io.github.mooy1.slimechem.implementation.atomic.isotopes;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.json.JSONObject;
 
 import java.util.EnumMap;
 import java.util.Set;
@@ -44,7 +43,7 @@ public final class Isotope {
 
     public Isotope getDecayProduct() {
         if (decayProduct == null) {
-            throw new IllegalStateException("Decay product not initialized!");;
+            throw new IllegalStateException("Decay product not initialized!");
         } else {
             return decayProduct;
         }
