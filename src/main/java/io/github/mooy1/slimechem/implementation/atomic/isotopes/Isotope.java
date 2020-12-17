@@ -5,8 +5,13 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,10 +23,11 @@ import java.util.Set;
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Isotope {
+    @Getter
     private static final EnumMap<Element, Set<Isotope>> isotopes = new EnumMap<>(Element.class);
 
     @AllArgsConstructor
-    public static enum DecayType {
+    public enum DecayType {
         ALPHA("alpha"),
         BETA_PLUS("beta+"),
         BETA_MINUS("beta-"),
@@ -31,7 +37,7 @@ public class Isotope {
         STABLE("stable");
 
         private final String representation;
-        
+
         public static DecayType getByRepresentation(String representation) {
             for (DecayType decayType : DecayType.values()) {
                 if (decayType.representation.equals(representation)) {
@@ -50,6 +56,14 @@ public class Isotope {
     private final int neutrons;
     private final Element element;
     private final DecayType decayType;
+    /**
+     * Indicates amount of decays done at once. Only applicable if {@link #decayType} is {@link DecayType#PROTON}
+     * or {@link DecayType#NEUTRON}
+     *
+     * @see DecayType
+     */
+    @Setter
+    private int amount = 1;
     @Getter(AccessLevel.NONE)
     private Isotope decayProduct = null;
 
@@ -61,6 +75,30 @@ public class Isotope {
         neutrons = this.mass - protons;
 
         this.decayType = decayType;
+    }
+
+    @Nonnull
+    public static Isotope addIsotope(int mass, String abbr, DecayType decayType) {
+        Isotope isotope = new Isotope(mass, abbr, decayType);
+        Element element = isotope.getElement();
+        if (isotopes.containsKey(element)) {
+            isotopes.get(element).add(isotope);
+        } else {
+            isotopes.put(element, new HashSet<>(Collections.singleton(isotope)));
+        }
+
+        return isotope;
+    }
+
+    @Nullable
+    public static Isotope getIsotope(int mass, Element element) {
+        for (Isotope isotope : isotopes.get(element)) {
+            if (isotope.getElement() == element && isotope.getMass() == mass) {
+                return isotope;
+            }
+        }
+
+        return null;
     }
 
     public void loadDecayProduct(int mass, String abbr) {
