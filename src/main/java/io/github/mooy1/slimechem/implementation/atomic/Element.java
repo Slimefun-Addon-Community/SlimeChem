@@ -192,6 +192,14 @@ public enum Element implements Ingredient, DecayProduct {
     }
 
     @Nonnull
+    public static Element getByAbbr(String abbr) {
+        for (Element e : values()) {
+            if (e.symbol.equals(abbr)) return e;
+        }
+        throw new IllegalArgumentException("Invalid abbreviation, got: " + abbr);
+    }
+
+    @Nonnull
     @Override
     public String getFormula(int i) {
         return this.symbol + SubNum.fromInt(i);
