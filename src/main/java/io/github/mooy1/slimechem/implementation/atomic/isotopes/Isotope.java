@@ -24,7 +24,7 @@ public final class Isotope {
     @EqualsAndHashCode.Include
     private final int neutrons;
     private final Element element;
-    private final Isotope decayProduct = null;
+    private Isotope decayProduct = null;
 
     private Isotope(int mass, String abbr) {
         element = Element.getByAbbr(abbr);
@@ -34,7 +34,19 @@ public final class Isotope {
         neutrons = this.mass - protons;
     }
 
-    public void loadDecayProduct(JSONObject thisJSONObject) {
+    public void loadDecayProduct(int mass, String abbr) {
+        for (Isotope isotope : isotopes.get(Element.getByAbbr(abbr))) {
+            if (isotope.getMass() == mass) {
+                decayProduct = isotope;
+            }
+        }
+    }
 
+    public Isotope getDecayProduct() {
+        if (decayProduct == null) {
+            throw new IllegalStateException("Decay product not initialized!");;
+        } else {
+            return decayProduct;
+        }
     }
 }
