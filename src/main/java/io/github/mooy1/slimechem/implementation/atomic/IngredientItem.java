@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
+import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.setup.Registry;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;

@@ -3,7 +3,7 @@ package io.github.mooy1.slimechem.setup;
 import com.google.common.collect.Maps;
 import io.github.mooy1.slimechem.SlimeChem;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
-import io.github.mooy1.slimechem.implementation.atomic.Ingredient;
+import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.implementation.atomic.IngredientItem;
 import io.github.mooy1.slimechem.implementation.atomic.Isotope;
 import io.github.mooy1.slimechem.implementation.atomic.Molecule;
@@ -49,13 +49,11 @@ public final class Registry {
         new SlimefunItem(Categories.MACHINES, Items.ADDON_INFO, RecipeType.NULL, null);
 
         for (Element element : Element.values()) {
-            if (element.getNumber() > 82) {
+            if (element.isRadioactive()) {
                 radioactiveItems.add(element);
             }
             registerItem(new IngredientItem(Categories.ELEMENTS, element, RecipeType.NULL, null)); //should later be changed to proton+neutron+electron recipe in fusion
         }
-        radioactiveItems.add(Element.TECHNETIUM);
-        radioactiveItems.add(Element.PROMETHIUM);
         
         plugin.getLogger().log(Level.INFO, "Registered " + Element.values().length + " Elements!");
 

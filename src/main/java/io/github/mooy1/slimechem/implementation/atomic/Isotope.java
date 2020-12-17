@@ -1,5 +1,7 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
+import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
+import io.github.mooy1.slimechem.implementation.attributes.Itemable;
 import io.github.mooy1.slimechem.implementation.subatomic.Boson;
 import io.github.mooy1.slimechem.implementation.subatomic.Lepton;
 import io.github.mooy1.slimechem.utils.SubNum;
@@ -20,7 +22,7 @@ import java.util.Objects;
  * 
  */
 @Getter
-public enum Isotope implements Ingredient, DecayProduct {
+public enum Isotope implements Ingredient {
     
     HYDROGEN_2(Element.HYDROGEN, "Deuterium", 2, false),
     HELIUM_3(Element.HELIUM, 3),
@@ -60,11 +62,10 @@ public enum Isotope implements Ingredient, DecayProduct {
     private final String formula;
     private final int neutrons;
     private final boolean radioactive;
-    private final DecayProduct[] decayProducts;
     @Nonnull
     private final SlimefunItemStack item;
     
-    Isotope(@Nonnull Element element, @Nonnull String name, double mass, boolean radioactive, DecayProduct... decayProducts) {
+    Isotope(@Nonnull Element element, @Nonnull String name, double mass, boolean radioactive, Itemable... decayProducts) {
         this.element = element;
         this.mass = mass;
         this.number = (int) Math.round(mass);
@@ -72,7 +73,6 @@ public enum Isotope implements Ingredient, DecayProduct {
         this.formula = SuperNum.fromInt(this.number) + element.getSymbol();
         this.neutrons = this.number - element.getNumber();
         this.radioactive = radioactive;
-        this.decayProducts = radioactive ? decayProducts : new DecayProduct[0];
         this.item = new SlimefunItemStack(
                 "ISOTOPE_" + this.name(),
                 Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
@@ -88,7 +88,7 @@ public enum Isotope implements Ingredient, DecayProduct {
     }
 
     // Decay products? RUN!!!!!!
-    Isotope(@Nonnull Element element, double mass, DecayProduct... decayProducts) {
+    Isotope(@Nonnull Element element, double mass, Itemable... decayProducts) {
         this(element, (element.getName() + "-" + Math.round(mass)), mass, true, decayProducts);
     }
     

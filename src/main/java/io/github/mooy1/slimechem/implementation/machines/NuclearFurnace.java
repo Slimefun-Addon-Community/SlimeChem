@@ -1,7 +1,6 @@
 package io.github.mooy1.slimechem.implementation.machines;
 
-import io.github.mooy1.slimechem.implementation.atomic.Ingredient;
-import io.github.mooy1.slimechem.implementation.atomic.IngredientItem;
+import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Container;
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.mooy1.slimechem.lists.Items;

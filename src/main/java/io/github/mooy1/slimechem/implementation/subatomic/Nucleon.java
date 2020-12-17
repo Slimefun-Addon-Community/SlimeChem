@@ -1,14 +1,13 @@
 package io.github.mooy1.slimechem.implementation.subatomic;
 
-import io.github.mooy1.slimechem.implementation.atomic.DecayProduct;
+import io.github.mooy1.slimechem.implementation.atomic.Element;
+import io.github.mooy1.slimechem.implementation.attributes.Itemable;
 import io.github.mooy1.slimechem.utils.Util;
 import lombok.Getter;
-
-import javax.annotation.Nonnull;
-
-import io.github.mooy1.slimechem.implementation.atomic.Element;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
+
+import javax.annotation.Nonnull;
 
 /**
  * Enum of nucleons
@@ -18,7 +17,7 @@ import org.bukkit.Material;
  * @see Quark
  */
 @Getter
-public enum Nucleon implements DecayProduct {
+public enum Nucleon implements Itemable {
 
     NEUTRON(Quark.UP, Quark.DOWN, Quark.DOWN),
     PROTON(Quark.UP, Quark.UP, Quark.DOWN);
