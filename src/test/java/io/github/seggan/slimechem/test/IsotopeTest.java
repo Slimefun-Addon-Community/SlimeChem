@@ -15,19 +15,33 @@ public class IsotopeTest {
         Constants.isTestingEnvironment = true;
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void testGetDecayProduct() {
         Isotope.getIsotopes().clear();
 
-        Assert.assertEquals(Isotope.addIsotope(1, "H", Isotope.DecayType.STABLE).getDecayProduct(),
+        Assertions.assertEquals(Isotope.addIsotope(1, "H", Isotope.DecayType.STABLE).getDecayProduct(),
             Optional.empty());
 
-        // Should not throw any exception
         Isotope isotope = Isotope.addIsotope(2, "H", Isotope.DecayType.ALPHA);
         isotope.loadDecayProduct(1, "H");
         isotope.getDecayProduct();
 
-        // Should throw IllegalStateException
-        Isotope.addIsotope(3, "H", Isotope.DecayType.ALPHA).getDecayProduct();
+        Assertions.assertThrows(
+            () -> Isotope.addIsotope(3, "H", Isotope.DecayType.ALPHA).getDecayProduct(),
+            IllegalStateException.class
+        );
+    }
+
+    @Test
+    public void testSetAmount() {
+        Isotope.getIsotopes().clear();
+
+        Assertions.assertThrows(
+            () -> Isotope.addIsotope(1, "H", Isotope.DecayType.ALPHA).setAmount(2),
+            IllegalStateException.class
+        );
+
+        Isotope.addIsotope(2, "H", Isotope.DecayType.PROTON).setAmount(2);
+        Isotope.addIsotope(3, "H", Isotope.DecayType.NEUTRON).setAmount(2);
     }
 }

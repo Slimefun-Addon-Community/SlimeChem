@@ -1,11 +1,16 @@
 package io.github.mooy1.slimechem.implementation.atomic.isotopes;
 
 import io.github.mooy1.slimechem.implementation.atomic.Element;
+import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
+import io.github.mooy1.slimechem.lists.Constants;
+import io.github.mooy1.slimechem.utils.SubNum;
+import io.github.mooy1.slimechem.utils.SuperNum;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -22,7 +27,7 @@ import java.util.Set;
  */
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Isotope {
+public class Isotope implements Ingredient {
     @Getter
     private static final EnumMap<Element, Set<Isotope>> isotopes = new EnumMap<>(Element.class);
 
@@ -55,26 +60,56 @@ public class Isotope {
     @EqualsAndHashCode.Include
     private final int neutrons;
     private final Element element;
+
+    private final String name;
+    private final String formula;
+
     private final DecayType decayType;
     /**
      * Indicates amount of decays done at once. Only applicable if {@link #decayType} is {@link DecayType#PROTON}
-     * or {@link DecayType#NEUTRON}
+     * or {@link DecayType#NEUTRON}. Only mutable once.
      *
      * @see DecayType
+     * @see #amountChanged
      */
-    @Setter
     private int amount = 1;
+    /**
+     * Marks if the {@link #amount} variable was set or not. If the decay type is not one of those specified in
+     * the #amount doc, it's automatically set to false;
+     *
+     * @see DecayType
+     * @see #amount
+     */
+    private boolean amountChanged;
     @Getter(AccessLevel.NONE)
     private Isotope decayProduct = null;
+
+    private final SlimefunItemStack item;
 
     private Isotope(int mass, String abbr, DecayType decayType) {
         element = Element.getByAbbr(abbr);
 
         this.mass = mass;
         protons = element.getNumber();
-        neutrons = this.mass - protons;
+        neutrons = mass - protons;
+
+        name = element.getName() + "-" + mass;
+        formula = SuperNum.fromInt(mass) + abbr;
+
+        amountChanged = !(decayType == DecayType.PROTON || decayType == DecayType.NEUTRON);
 
         this.decayType = decayType;
+
+        if (!Constants.isTestingEnvironment) {
+            item = new SlimefunItemStack(
+                String.format("ISOTOPE_%s_%d", element.name(), mass),
+                "&b" + name,
+                "&7" +  formula,
+                "&7Mass: " + mass
+            );
+        } else {
+            item = null;
+        }
     }
 
     @Nonnull
@@ -129,5 +164,20 @@ public class Isotope {
     @Override
     public String toString() {
         return element.getName() + '-' + mass;
+    }
+
+    @Nonnull
+    @Override
+    public String getFormula(int i) {
+        return formula + SubNum.fromInt(i);
+    }
+
+    public void setAmount(int i) {
+        if (!amountChanged) {
+            amount = i;
+            amountChanged = true;
+        } else {
+            throw new IllegalStateException("The amount is already set!");
+        }
     }
 }
