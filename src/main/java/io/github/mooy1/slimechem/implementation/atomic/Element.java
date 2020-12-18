@@ -2,6 +2,7 @@ package io.github.mooy1.slimechem.implementation.atomic;
 
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
+import io.github.mooy1.slimechem.lists.Constants;
 import io.github.mooy1.slimechem.utils.SubNum;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -152,7 +153,6 @@ public enum Element implements Ingredient {
     @Nonnull
     private final Series series;
     private final int neutrons;
-    @Nonnull
     private final SlimefunItemStack item;
 
     Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series) {
@@ -162,13 +162,17 @@ public enum Element implements Ingredient {
         this.number = number;
         this.series = series;
         this.neutrons = (int) Math.round(mass) - number;
-        this.item = new SlimefunItemStack(
-            "ELEMENT_" + this.name(),
-            Objects.requireNonNull(Material.getMaterial(series.getColor() + "_DYE")),
-            "&b" + name,
-            "&7" + symbol + " " + number,
-            "&7Mass: " + mass
-        );
+        if (!Constants.isTestingEnvironment) {
+            this.item = new SlimefunItemStack(
+                "ELEMENT_" + this.name(),
+                Objects.requireNonNull(Material.getMaterial(series.getColor() + "_DYE")),
+                "&b" + name,
+                "&7" + symbol + " " + number,
+                "&7Mass: " + mass
+            );
+        } else {
+            this.item = null;
+        }
     }
 
     @Nonnull

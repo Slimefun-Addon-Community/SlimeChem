@@ -125,4 +125,9 @@ public class Isotope {
             return Optional.of(decayProduct);
         }
     }
+
+    @Override
+    public String toString() {
+        return element.getName() + '-' + mass;
+    }
 }
