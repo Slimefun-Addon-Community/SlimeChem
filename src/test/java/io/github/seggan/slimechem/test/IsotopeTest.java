@@ -38,7 +38,7 @@ public class IsotopeTest {
 
         Assertions.assertThrows(
             () -> Isotope.addIsotope(1, "H", Isotope.DecayType.ALPHA).setAmount(2),
-            IllegalStateException.class
+            UnsupportedOperationException.class
         );
 
         Isotope.addIsotope(2, "H", Isotope.DecayType.PROTON).setAmount(2);

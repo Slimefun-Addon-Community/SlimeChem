@@ -4,14 +4,13 @@ import org.junit.Assert;
 
 public class Assertions extends Assert {
 
-    public static void assertThrows(Runnable r, Class<? extends Exception> excpetion) {
+    public static void assertThrows(Runnable r, Class<? extends Throwable> throwable) {
         try {
             r.run();
-            throw new AssertionError("Exception " + excpetion.getName() + " was not thrown!");
-        } catch (Exception e) {
-            if (e.getClass() != excpetion) {
-                throw new AssertionError(
-                    "Expected exception " + excpetion.getName() + ", got " + e.getClass().getName());
+            fail("Exception " + throwable.getName() + " was not thrown!");
+        } catch (Throwable e) {
+            if (e.getClass() != throwable) {
+                fail("Expected exception " + throwable.getName() + ", got " + e.getClass().getName());
             }
         }
     }

@@ -37,7 +37,12 @@ public class Isotope implements Ingredient {
         BETA_PLUS("beta+"),
         BETA_MINUS("beta-"),
         PROTON("p"),
+        PROTON_2("2p"),
+        PROTON_3("3p"),
         NEUTRON("n"),
+        NEUTRON_2("2n"),
+        NEUTRON_3("3n"),
+        NEUTRON_4("4n"),
         ELECTRON_CAPTURE("capture"),
         STABLE("stable");
 
@@ -177,7 +182,7 @@ public class Isotope implements Ingredient {
             amount = i;
             amountChanged = true;
         } else {
-            throw new IllegalStateException("The amount is already set!");
+            throw new UnsupportedOperationException("The amount is already set!");
         }
     }
 }

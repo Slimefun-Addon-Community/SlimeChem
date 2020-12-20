@@ -1,5 +1,7 @@
 package io.github.mooy1.slimechem.utils;
 
+import io.github.mooy1.slimechem.SlimeChem;
+import io.github.mooy1.slimechem.lists.Constants;
 import io.github.thebusybiscuit.slimefun4.core.services.CustomItemDataService;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
@@ -11,6 +13,10 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 /**
@@ -38,7 +44,7 @@ public final class Util {
         p.sendMessage(PREFIX + message);
     }
 
-    private static final CustomItemDataService dataService = SlimefunPlugin.getItemDataService();
+    private static final CustomItemDataService dataService = Constants.isTestingEnvironment ? null : SlimefunPlugin.getItemDataService();
     
     /**
      * Gets the slimefun item id of an item, otherwise if vanilla true returns the material id
@@ -63,8 +69,4 @@ public final class Util {
         return null;
     }
 
-    @Nonnull
-    public static String enumNameToTitleCaseString(@Nonnull String enumName) {
-        return WordUtils.capitalizeFully(enumName.replace('_', ' '));
-    }
 }
