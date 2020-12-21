@@ -27,6 +27,7 @@ public enum Molecule implements Ingredient {
     SULFATE("Sulfate", new MoleculeIngredient(Element.SULFUR), new MoleculeIngredient(Element.OXYGEN, 4)),
     HYDROXIDE("Hydroxide", new MoleculeIngredient(Element.HYDROGEN), MoleculeIngredient.MONOXIDE),
     NITRATE("Nitrate", new MoleculeIngredient(Element.NITROGEN), new MoleculeIngredient(Element.OXYGEN, 3)),
+    SILICATE("Silicate", new MoleculeIngredient(Element.SILICON), new MoleculeIngredient(Element.OXYGEN, 3)),
 
     // Oxides
     WATER("Water", new MoleculeIngredient(Element.HYDROGEN, 2), new MoleculeIngredient(Element.OXYGEN)),
@@ -52,6 +53,8 @@ public enum Molecule implements Ingredient {
     COPPER_II_OXIDE("Copper(II) Oxide (Tenorite)", new MoleculeIngredient(Element.COPPER), new MoleculeIngredient(Element.OXYGEN)),
     // Netherite (assuming netherite is a seaborgium/gold alloy)
     SEABORGIUM_III_OXIDE("Seaborgium(III) Oxide", new MoleculeIngredient(Element.SEABORGIUM, 2), new MoleculeIngredient(Element.OXYGEN, 3)),
+    // Emerald
+    BERYLLIUM_ALUMINUM_CYCLOSILICATE("Beryllium Aluminum Cyclosilicate (Beryl)", new MoleculeIngredient(Element.BERYLLIUM, 3), new MoleculeIngredient(Element.ALUMINUM, 2), new MoleculeIngredient(Molecule.SILICATE, 6)),
 
     // Acids
     NITRIC_ACID("Nitric Acid", MoleculeIngredient.DIHYDROGEN, new MoleculeIngredient(Molecule.NITRATE)),
@@ -67,6 +70,8 @@ public enum Molecule implements Ingredient {
         new MoleculeIngredient(Element.OXYGEN, 11)),
     CHLOROPHYLL("Chlorophyll", new MoleculeIngredient(Element.CARBON, 55), new MoleculeIngredient(Element.HYDROGEN, 72),
         new MoleculeIngredient(Element.OXYGEN, 5), new MoleculeIngredient(Element.NITROGEN, 4), new MoleculeIngredient(Element.MAGNESIUM)),
+    CAFFEINE("Caffeine", new MoleculeIngredient(Element.CARBON, 8), new MoleculeIngredient(Element.HYDROGEN, 10),
+        new MoleculeIngredient(Element.NITROGEN, 4), new MoleculeIngredient(Element.OXYGEN, 2)),
 
     // Animal stuff
 

@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
+import io.github.mooy1.slimechem.implementation.subatomic.Boson;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
 import io.github.mooy1.slimechem.utils.SubNum;
 import lombok.AccessLevel;
@@ -21,7 +22,7 @@ import java.util.Objects;
  * 
  */
 @Getter
-public enum Element implements Ingredient {
+public enum Element implements Ingredient, DecayProduct {
 
     HYDROGEN(1.0079, "Hydrogen", "H", 1, Series.NONMETALS),
     HELIUM(4.0026, "Helium", "He", 2, Series.NOBLE_GASES),
@@ -141,7 +142,16 @@ public enum Element implements Ingredient {
     LIVERMORIUM(293, "Livermorium", "Lv", 116, Series.UNKNOWN),
     TENNESSINE(294, "Tennessine", "Ts", 117, Series.UNKNOWN),
     OGANESSON(294, "Oganesson", "Og", 118, Series.UNKNOWN),
-    MOOYIUM(315, "Mooyium", "My", 119, Series.CUSTOM);
+    MOOYIUM(315, "Mooyium", "My", 119, Series.CUSTOM),
+    SEGGANESSON(336, "Segganesson", "Gg", 120, Series.CUSTOM);
+
+    static {
+        NEPTUNIUM.decayProducts = new DecayProduct[]{Isotope.PROTACTINIUM_233, Element.HELIUM, Boson.PHOTON};
+        URANIUM.decayProducts = new DecayProduct[]{Isotope.THORIUM_234, Element.HELIUM, Boson.PHOTON};
+        RADIUM.decayProducts = new DecayProduct[]{Element.RADON, Element.HELIUM, Boson.PHOTON};
+        RADON.decayProducts = new DecayProduct[]{Element.POLONIUM, Element.HELIUM, Boson.PHOTON};
+        POLONIUM.decayProducts = new DecayProduct[]{Isotope.LEAD_214, Element.HELIUM, Boson.PHOTON};
+    }
     
     private final double mass;
     @Nonnull
@@ -152,10 +162,12 @@ public enum Element implements Ingredient {
     @Nonnull
     private final Series series;
     private final int neutrons;
+    @SuppressWarnings("MismatchedReadAndWriteOfArray")
+    private DecayProduct[] decayProducts = new DecayProduct[0];
     @Nonnull
     private final SlimefunItemStack item;
     
-    Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series) {
+    Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series ) {
         this.mass = mass;
         this.name = name;
         this.symbol = symbol;
@@ -183,6 +195,10 @@ public enum Element implements Ingredient {
     @Override
     public String getFormula(int i) {
         return this.symbol + SubNum.fromInt(i);
+    }
+
+    public boolean isRadioactive() {
+        return decayProducts.length != 0;
     }
 
     @Getter

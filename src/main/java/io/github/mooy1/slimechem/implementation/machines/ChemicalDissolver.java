@@ -17,6 +17,7 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
@@ -31,7 +32,7 @@ import java.util.Map;
  * @author Mooy1
  * 
  * TODO: remove SlimefunItem#getBtItem calls and some instance ofs
- * 
+ *
  */
 public class ChemicalDissolver extends Machine {
     
@@ -46,10 +47,81 @@ public class ChemicalDissolver extends Machine {
     private static final Map<String, Map<Integer, MoleculeIngredient>> slimefunRecipes = new HashMap<>();
     
     private final Registry registry;
-    
+
     static {
-        addRecipe("COPPER_INGOT", new int[] {30}, new MoleculeIngredient(Molecule.CARBON_DIOXIDE, 1));
-        addRecipe(Material.DIRT, new int[] {25, 60, 1}, MoleculeIngredient.DIOXIDE, MoleculeIngredient.MONOXIDE, new MoleculeIngredient(Element.ACTINIUM, 5));
+        // Ores
+        addRecipe(Material.COAL_ORE, new int[] {90, 10},
+            new MoleculeIngredient(Element.CARBON, 12),
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5)
+        );
+        addRecipe(Material.IRON_ORE, new int[] {50, 30, 10, 6, 4},
+            new MoleculeIngredient(Molecule.IRON_III_OXIDE, 4),
+            new MoleculeIngredient(Molecule.IRON_II_OXIDE, 4),
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5),
+            new MoleculeIngredient(Molecule.IRON_PERSULFIDE, 7),
+            new MoleculeIngredient(Molecule.COPPER_IRON_SULFIDE, 6)
+        );
+        addRecipe(Material.GOLD_ORE, new int[] {70, 20, 10},
+            new MoleculeIngredient(Molecule.GOLD_TELLURIDE, 4),
+            new MoleculeIngredient(Molecule.GOLD_ANTIMONIDE, 4),
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5)
+        );
+        addRecipe(Material.REDSTONE_ORE, new int[] {60, 20, 10, 10},
+            new MoleculeIngredient(Molecule.COPPER_I_OXIDE, 4),
+            new MoleculeIngredient(Molecule.PENTACOPPER_IRON_TETRASULFIDE, 3),
+            new MoleculeIngredient(Molecule.COPPER_II_OXIDE, 3),
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5)
+        );
+        addRecipe(Material.EMERALD_ORE, new int[]{90, 10},
+            new MoleculeIngredient(Molecule.BERYLLIUM_ALUMINUM_CYCLOSILICATE, 6),
+            new MoleculeIngredient(Molecule.SILICATE, 9)
+        );
+        addRecipe(Material.ANCIENT_DEBRIS, new int[] {80, 20},
+            new MoleculeIngredient(Molecule.SEABORGIUM_III_OXIDE, 4),
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 25)
+        );
+
+        // Plant matter
+
+        // Wood
+        // Standard: 1 plank = 2 cellulose
+        // So 1 stick = 1 cellulose, 1 log = 8 cellulose, etc
+        for (Material mat : Tag.LOGS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 8));
+        }
+        for (Material mat : Tag.PLANKS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 2));
+        }
+        // Loss of 1 cellulose
+        for (Material mat : Tag.SIGNS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 4));
+        }
+        for (Material mat : Tag.ITEMS_BOATS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 10));
+        }
+        for (Material mat : Tag.WOODEN_BUTTONS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 2));
+        }
+        for (Material mat : Tag.WOODEN_SLABS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE));
+        }
+        for (Material mat : Tag.WOODEN_DOORS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 2));
+        }
+        for (Material mat : Tag.WOODEN_PRESSURE_PLATES.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 4));
+        }
+        for (Material mat : Tag.WOODEN_STAIRS.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 3));
+        }
+        // loss of 1 cellulose
+        for (Material mat : Tag.WOODEN_FENCES.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 3));
+        }
+        for (Material mat : Tag.FENCE_GATES.getValues()) {
+            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 8));
+        }
+        addRecipe(Material.STICK, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE));
     }
     
     private static Map<Integer, MoleculeIngredient> makeRecipe(int[] chances, MoleculeIngredient... ingredients) {
@@ -67,8 +139,13 @@ public class ChemicalDissolver extends Machine {
     public static void addRecipe(String id, int[] chances, MoleculeIngredient... ingredients) {
         slimefunRecipes.put(id, makeRecipe(chances, ingredients));
     }
+    
+    // No idea what thi will be used for, but seems useful
+    public static void addRecipe(Ingredient ingredient, int[] chances, MoleculeIngredient... ingredients) {
+        slimefunRecipes.put(ingredient.getItem().getItemId(), makeRecipe(chances, ingredients));
+    }
 
-    public static void addRecipe(SlimefunItemStack slimefunItemStack, int[] chances, MoleculeIngredient... ingredients) {
+    public static void addRecipe(@Nonnull SlimefunItemStack slimefunItemStack, int[] chances, MoleculeIngredient... ingredients) {
         slimefunRecipes.put(slimefunItemStack.getItemId(), makeRecipe(chances, ingredients));
     }
 
@@ -91,7 +168,7 @@ public class ChemicalDissolver extends Machine {
             preset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
         }
     }
-    
+
     @Override
     public void process(@Nonnull BlockMenu menu, @Nonnull Block b, @Nonnull Location l) {
         for (int slot : inputSlots) {
@@ -102,16 +179,16 @@ public class ChemicalDissolver extends Machine {
             }
 
             int amount = 0;
-            
+
             SlimefunItem item = SlimefunItem.getByItem(input);
             
             if (item != null) {
 
                 Ingredient ingredient = this.registry.getItems().get(item);
-                
+
                 if (ingredient != null) {
                     if (ingredient instanceof Molecule) {
-                        
+
                         Molecule molecule = (Molecule) ingredient;
 
                         loop: for (int i = 0 ; i < getMax(l, input) ; i++) {
@@ -132,14 +209,14 @@ public class ChemicalDissolver extends Machine {
                     }
                 } else {
                     Map<Integer, MoleculeIngredient> outputs = slimefunRecipes.get(item.getId());
-                    
+
                     if (outputs != null) { //sf recipe
                         output(amount, menu, l, input, outputs);
                     } else {
                         continue;
                     }
                 }
-                
+
             } else {
                 Map<Integer, MoleculeIngredient> outputs = vanillaRecipes.get(input.getType());
 

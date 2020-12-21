@@ -1,5 +1,7 @@
 package io.github.mooy1.slimechem.utils;
 
+import org.apache.commons.lang.WordUtils;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -48,5 +50,9 @@ public final class Util {
 
         return null;
     }
-    
+
+    @Nonnull
+    public static String enumNameToTitleCaseString(@Nonnull String enumName) {
+        return WordUtils.capitalizeFully(enumName.replace('_', ' '));
+    }
 }

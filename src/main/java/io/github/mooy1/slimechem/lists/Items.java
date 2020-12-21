@@ -5,6 +5,10 @@ import io.github.mooy1.slimechem.SlimeChem;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
 import io.github.mooy1.slimechem.implementation.machines.RTG;
+import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
+import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
+import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
+import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
 
@@ -60,6 +64,25 @@ public final class Items {
             "&7Constantly generates power from the decay of californium-250",
             "",
             LorePreset.energyPerSecond(RTG.CALIFORNIUM_ENERGY)
+    );
+    public static final SlimefunItemStack RTG_1 = new SlimefunItemStack(
+        "RTG_1",
+        HeadTexture.NUCLEAR_REACTOR,
+        "&4Radioisotope Thermoelectric Generator I",
+        "",
+        LoreBuilder.machine(MachineTier.ADVANCED, MachineType.GENERATOR),
+        LoreBuilder.powerPerSecond(160),
+        LoreBuilder.powerCharged(0, 32)
+    );
+    public static final SlimefunItemStack RTG_2 = new SlimefunItemStack(
+        "RTG_2",
+        HeadTexture.NUCLEAR_REACTOR,
+        "&4Radioisotope Thermoelectric Generator II",
+        "",
+        "&7Also captures the radiation",
+        LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR),
+        LoreBuilder.powerPerSecond(320),
+        LoreBuilder.powerCharged(0, 64)
     );
 
     public static final SlimefunItemStack ADDON_INFO = new SlimefunItemStack(
