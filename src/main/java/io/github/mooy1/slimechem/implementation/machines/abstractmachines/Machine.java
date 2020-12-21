@@ -8,6 +8,7 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
+import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -15,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class Machine extends Container implements EnergyNetComponent {
     
@@ -47,10 +49,16 @@ public abstract class Machine extends Container implements EnergyNetComponent {
         // can be overridden
     }
     
+    @Override
     public void onNewInstance(@Nonnull BlockMenu menu, @Nonnull Block b) {
         // can be overridden
     }
-    
+
+    @Override
+    public void onMenuItemChange(@Nonnull DirtyChestMenu menu, int slot, @Nullable ItemStack previous, @Nullable ItemStack next) {
+        // can be overridden
+    }
+
     public abstract void setupMenu(@Nonnull BlockMenuPreset preset);
     
     public void tick(@Nonnull Block b) {

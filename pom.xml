@@ -44,7 +44,7 @@
         <dependency>
             <groupId>com.github.TheBusyBiscuit</groupId>
             <artifactId>CS-CoreLib</artifactId>
-            <version>e42a05d129</version>
+            <version>1.7</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -60,7 +60,7 @@
         <dependency>
             <groupId>com.github.TheBusyBiscuit</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>RC-17</version>
+            <version>RC-18</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -91,6 +91,12 @@
             <version>1.7</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.mooy1</groupId>
+            <artifactId>InfinityLib</artifactId>
+            <version>4db7abf</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -108,7 +114,6 @@
             </resource>
             <resource>
                 <directory>${basedir}</directory>
-
                 <includes>
                     <include>LICENSE</include>
                 </includes>
@@ -118,12 +123,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.4</version>
                 <configuration>
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
                             <shadedPattern>io.github.mooy1.slimechem.bstats</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>io.github.mooy1.infinitylib</pattern>
+                            <shadedPattern>io.github.mooy1.slimechem.infinitylib</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>

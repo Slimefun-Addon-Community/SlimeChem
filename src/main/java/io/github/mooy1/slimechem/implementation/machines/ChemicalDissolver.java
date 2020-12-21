@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem.implementation.machines;
 
+import io.github.mooy1.infinitylib.presets.MenuPreset;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.atomic.Ingredient;
 import io.github.mooy1.slimechem.implementation.atomic.Isotope;
@@ -8,8 +9,7 @@ import io.github.mooy1.slimechem.implementation.atomic.MoleculeIngredient;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Machine;
 import io.github.mooy1.slimechem.lists.Items;
 import io.github.mooy1.slimechem.setup.Registry;
-import io.github.mooy1.slimechem.utils.MathUtils;
-import io.github.mooy1.slimechem.utils.PresetUtils;
+import io.github.mooy1.slimechem.utils.Util;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
@@ -82,18 +82,16 @@ public class ChemicalDissolver extends Machine {
     @Override
     public void setupMenu(@Nonnull BlockMenuPreset preset) {
         for (int i : inputBorder) {
-            preset.addItem(i, PresetUtils.borderItemInput, ChestMenuUtils.getEmptyClickHandler());
+            preset.addItem(i, MenuPreset.borderItemInput, ChestMenuUtils.getEmptyClickHandler());
         }
         for (int i : outputBorder) {
-            preset.addItem(i, PresetUtils.borderItemOutput, ChestMenuUtils.getEmptyClickHandler());
+            preset.addItem(i, MenuPreset.borderItemOutput, ChestMenuUtils.getEmptyClickHandler());
         }
         for (int i : background) {
             preset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
         }
     }
-
     
-
     @Override
     public void process(@Nonnull BlockMenu menu, @Nonnull Block b, @Nonnull Location l) {
         for (int slot : inputSlots) {
@@ -119,13 +117,15 @@ public class ChemicalDissolver extends Machine {
                         loop: for (int i = 0 ; i < getMax(l, input) ; i++) {
 
                             for (MoleculeIngredient check : molecule.getIngredients()) {
-                                ItemStack output = check.getNewItem();
+                                ItemStack[] outputs = check.getNewItems();
 
-                                if (menu.fits(output)) {
-                                    menu.pushItem(output, outputSlots);
-                                    amount++;
-                                } else {
-                                    break loop;
+                                for (ItemStack output : outputs) {
+                                    if (menu.fits(output)) {
+                                        menu.pushItem(output, outputSlots);
+                                        amount++;
+                                    } else {
+                                        break loop;
+                                    }
                                 }
                             }
                         }
@@ -155,19 +155,21 @@ public class ChemicalDissolver extends Machine {
         }
     }
     
-    private int output(int amount, BlockMenu menu, Location l, ItemStack input, Map<Integer, MoleculeIngredient> outputs) {
-        for (int i = 0 ; i < getMax(l, input) ; i++) {
-            MoleculeIngredient ingredient = MathUtils.chooseRandom(outputs);
+    private int output(int amount, BlockMenu menu, Location l, ItemStack input, Map<Integer, MoleculeIngredient> map) {
+        loop: for (int i = 0 ; i < getMax(l, input) ; i++) {
+            MoleculeIngredient ingredient = Util.chooseRandom(map);
             amount++;
             
             if (ingredient != null) {
-                ItemStack output = ingredient.getNewItem();
-
-                if (menu.fits(output, outputSlots)) {
-                    menu.pushItem(output, outputSlots);
-                } else {
-                    amount--;
-                    break;
+                ItemStack[] outputs = ingredient.getNewItems();
+                
+                for (ItemStack output : outputs) {
+                    if (menu.fits(output, outputSlots)) {
+                        menu.pushItem(output, outputSlots);
+                    } else {
+                        amount--;
+                        break loop;
+                    }
                 }
             }
         }

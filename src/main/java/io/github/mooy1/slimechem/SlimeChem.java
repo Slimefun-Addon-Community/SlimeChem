@@ -1,14 +1,15 @@
 package io.github.mooy1.slimechem;
 
+import io.github.mooy1.infinitylib.PluginUtils;
+import io.github.mooy1.infinitylib.player.MessageUtils;
 import io.github.mooy1.slimechem.setup.Registry;
+import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import lombok.Getter;
+import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
-
 import javax.annotation.Nonnull;
-import java.util.logging.Level;
 
 
 public class SlimeChem extends JavaPlugin implements SlimefunAddon {
@@ -21,8 +22,10 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
     @Override
     public void onEnable() {
         instance = this;
-        
-        updateConfig();
+
+        PluginUtils.setPlugin(this);
+        PluginUtils.setupConfig();
+        MessageUtils.setPrefix(ChatColors.color("&7[&bSlimeChem&7]&f "));
         
         @SuppressWarnings("unused")
         final Metrics metrics = new Metrics(this, 9490);
@@ -37,20 +40,6 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
         
         registry = new Registry(this);
         
-    }
-    
-    private void updateConfig() {
-        getConfig().options().copyDefaults(true);
-        getConfig().options().copyHeader(true);
-        saveConfig();
-    }
-    
-    public static void log(@Nonnull String s) {
-        log(Level.INFO, s);
-    }
-
-    public static void log(@Nonnull Level l, @Nonnull String s) {
-        instance.getLogger().log(l, s);
     }
 
     @Override

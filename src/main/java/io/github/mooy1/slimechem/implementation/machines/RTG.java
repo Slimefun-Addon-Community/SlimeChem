@@ -31,12 +31,12 @@ public class RTG extends SlimefunItem implements EnergyNetProvider {
     
     @Override
     public int getGeneratedOutput(@Nonnull Location l, @Nonnull Config data) {
-        return type.getEnergy();
+        return this.type.getEnergy();
     }
 
     @Override
     public int getCapacity() {
-        return type.getEnergy() * 8;
+        return this.type.getEnergy() * 8;
     }
     
     @Getter

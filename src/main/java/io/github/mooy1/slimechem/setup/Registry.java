@@ -62,7 +62,7 @@ public final class Registry {
         plugin.getLogger().log(Level.INFO, "Registered " + Isotope.values().length + " Isotopes!");
 
         for (Molecule molecule : Molecule.values()) {
-            registerItem(new IngredientItem(Categories.MOLECULES, molecule, RecipeTypes.COMBINER, molecule.getNewRecipe()));
+            registerItem(new IngredientItem(Categories.MOLECULES, molecule, RecipeTypes.COMBINER, molecule.getRecipe()));
         }
         
         plugin.getLogger().log(Level.INFO, "Registered " + Molecule.values().length + " Molecules!");

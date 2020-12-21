@@ -1,9 +1,9 @@
 package io.github.mooy1.slimechem.implementation.machines;
 
+import io.github.mooy1.infinitylib.items.StackUtils;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Container;
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.mooy1.slimechem.lists.Items;
-import io.github.mooy1.slimechem.utils.Util;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
@@ -135,7 +135,7 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
      * returns amount of fuel added
      */
     private int addFuel(@Nonnull BlockMenu menu, @Nullable ItemStack fuel) {
-        String id = Util.getItemID(fuel, false);
+        String id = StackUtils.getItemID(fuel, false);
 
         if (id == null) return 0;
 
@@ -178,7 +178,7 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
         if (flow == ItemTransportFlow.WITHDRAW) {
             return new int[] {OUTPUT};
         }
-        String id = Util.getItemID(item, false);
+        String id = StackUtils.getItemID(item, false);
         if (id == null) {
             if (this.recipes.containsKey(item.getType())) {
                 return new int[] {INPUT};
