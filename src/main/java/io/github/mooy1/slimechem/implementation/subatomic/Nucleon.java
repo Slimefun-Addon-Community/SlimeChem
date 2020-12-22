@@ -1,14 +1,13 @@
 package io.github.mooy1.slimechem.implementation.subatomic;
 
 import io.github.mooy1.slimechem.implementation.atomic.DecayProduct;
+import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.utils.Util;
 import lombok.Getter;
-
-import javax.annotation.Nonnull;
-
-import io.github.mooy1.slimechem.implementation.atomic.Element;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
+
+import javax.annotation.Nonnull;
 
 /**
  * Enum of nucleons
@@ -30,7 +29,7 @@ public enum Nucleon implements DecayProduct {
         this.quarks = quarks;
 
         String name = this.toString();
-        item = new SlimefunItemStack(
+        this.item = new SlimefunItemStack(
             name,
             Material.WHITE_DYE,
             "&7" + Util.enumNameToTitleCaseString(name),

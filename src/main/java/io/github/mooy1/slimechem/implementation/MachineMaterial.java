@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
  */
 @Getter
 @AllArgsConstructor
-public enum Materials {
+public enum MachineMaterial {
 
     ;
 
