@@ -17,6 +17,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -69,4 +71,9 @@ public final class Util {
         return null;
     }
 
+    public static <T> void trimList(List<T> list, int size) {
+        while(list.size() > size) {
+            list.remove(list.size() - 1);
+        }
+    }
 }

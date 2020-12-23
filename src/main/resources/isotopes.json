@@ -2009,7 +2009,7 @@
   {
     "mass": 37,
     "element": "Ar",
-    "decay": "\u03b5",
+    "decay": "capture",
     "pmass": 37,
     "pelement": "Cl"
   },
@@ -3362,7 +3362,7 @@
     "element": "Fe",
     "decay": "beta+",
     "pmass": 52,
-    "pelement": "mMn"
+    "pelement": "Mn"
   },
   {
     "mass": 53,
@@ -4409,7 +4409,7 @@
     "element": "Ga",
     "decay": "beta-",
     "pmass": 79,
-    "pelement": "mGe"
+    "pelement": "Ge"
   },
   {
     "mass": 80,
@@ -4423,7 +4423,7 @@
     "element": "Ga",
     "decay": "beta-",
     "pmass": 81,
-    "pelement": "mGe"
+    "pelement": "Ge"
   },
   {
     "mass": 82,
@@ -4763,7 +4763,7 @@
     "element": "As",
     "decay": "beta-",
     "pmass": 77,
-    "pelement": "mSe"
+    "pelement": "Se"
   },
   {
     "mass": 78,
@@ -4777,7 +4777,7 @@
     "element": "As",
     "decay": "beta-",
     "pmass": 79,
-    "pelement": "mSe"
+    "pelement": "Se"
   },
   {
     "mass": 80,
@@ -4791,7 +4791,7 @@
     "element": "As",
     "decay": "beta-",
     "pmass": 81,
-    "pelement": "mSe"
+    "pelement": "Se"
   },
   {
     "mass": 82,
@@ -4805,7 +4805,7 @@
     "element": "As",
     "decay": "beta-",
     "pmass": 83,
-    "pelement": "mSe"
+    "pelement": "Se"
   },
   {
     "mass": 84,
@@ -5362,7 +5362,7 @@
     "element": "Kr",
     "decay": "beta-",
     "pmass": 90,
-    "pelement": "mRb"
+    "pelement": "Rb"
   },
   {
     "mass": 91,
@@ -6163,7 +6163,7 @@
     "element": "Zr",
     "decay": "beta-",
     "pmass": 93,
-    "pelement": "mNb"
+    "pelement": "Nb"
   },
   {
     "mass": 94,
@@ -6189,7 +6189,7 @@
     "element": "Zr",
     "decay": "beta-",
     "pmass": 97,
-    "pelement": "mNb"
+    "pelement": "Nb"
   },
   {
     "mass": 98,
@@ -6203,7 +6203,7 @@
     "element": "Zr",
     "decay": "beta-",
     "pmass": 99,
-    "pelement": "mNb"
+    "pelement": "Nb"
   },
   {
     "mass": 100,
@@ -6581,7 +6581,7 @@
     "element": "Mo",
     "decay": "beta-",
     "pmass": 99,
-    "pelement": "mTc"
+    "pelement": "Tc"
   },
   {
     "mass": 100,
@@ -6971,7 +6971,7 @@
     "element": "Ru",
     "decay": "beta+",
     "pmass": 97,
-    "pelement": "mTc"
+    "pelement": "Tc"
   },
   {
     "mass": 98,
@@ -7458,7 +7458,7 @@
     "element": "Pd",
     "decay": "beta-",
     "pmass": 109,
-    "pelement": "mAg"
+    "pelement": "Ag"
   },
   {
     "mass": 110,
@@ -7470,7 +7470,7 @@
     "element": "Pd",
     "decay": "beta-",
     "pmass": 111,
-    "pelement": "mAg"
+    "pelement": "Ag"
   },
   {
     "mass": 112,
@@ -7484,7 +7484,7 @@
     "element": "Pd",
     "decay": "beta-",
     "pmass": 113,
-    "pelement": "mAg"
+    "pelement": "Ag"
   },
   {
     "mass": 114,
@@ -7498,7 +7498,7 @@
     "element": "Pd",
     "decay": "beta-",
     "pmass": 115,
-    "pelement": "mAg"
+    "pelement": "Ag"
   },
   {
     "mass": 116,
@@ -7512,7 +7512,7 @@
     "element": "Pd",
     "decay": "beta-",
     "pmass": 117,
-    "pelement": "mAg"
+    "pelement": "Ag"
   },
   {
     "mass": 118,
@@ -7739,7 +7739,7 @@
     "element": "Ag",
     "decay": "beta-",
     "pmass": 113,
-    "pelement": "mCd"
+    "pelement": "Cd"
   },
   {
     "mass": 114,
@@ -7753,7 +7753,7 @@
     "element": "Ag",
     "decay": "beta-",
     "pmass": 115,
-    "pelement": "mCd"
+    "pelement": "Cd"
   },
   {
     "mass": 116,
@@ -7767,7 +7767,7 @@
     "element": "Ag",
     "decay": "beta-",
     "pmass": 117,
-    "pelement": "mCd"
+    "pelement": "Cd"
   },
   {
     "mass": 118,
@@ -7781,7 +7781,7 @@
     "element": "Ag",
     "decay": "beta-",
     "pmass": 119,
-    "pelement": "mCd"
+    "pelement": "Cd"
   },
   {
     "mass": 120,
@@ -7954,7 +7954,7 @@
     "element": "Cd",
     "decay": "beta+",
     "pmass": 107,
-    "pelement": "mAg"
+    "pelement": "Ag"
   },
   {
     "mass": 108,
@@ -8000,7 +8000,7 @@
     "element": "Cd",
     "decay": "beta-",
     "pmass": 115,
-    "pelement": "mIn"
+    "pelement": "In"
   },
   {
     "mass": 116,
@@ -8014,7 +8014,7 @@
     "element": "Cd",
     "decay": "beta-",
     "pmass": 117,
-    "pelement": "mIn"
+    "pelement": "In"
   },
   {
     "mass": 118,
@@ -8028,7 +8028,7 @@
     "element": "Cd",
     "decay": "beta-",
     "pmass": 119,
-    "pelement": "mIn"
+    "pelement": "In"
   },
   {
     "mass": 120,
@@ -8042,7 +8042,7 @@
     "element": "Cd",
     "decay": "beta-",
     "pmass": 121,
-    "pelement": "mIn"
+    "pelement": "In"
   },
   {
     "mass": 122,
@@ -8056,7 +8056,7 @@
     "element": "Cd",
     "decay": "beta-",
     "pmass": 123,
-    "pelement": "mIn"
+    "pelement": "In"
   },
   {
     "mass": 124,
@@ -8070,7 +8070,7 @@
     "element": "Cd",
     "decay": "beta-",
     "pmass": 125,
-    "pelement": "mIn"
+    "pelement": "In"
   },
   {
     "mass": 126,
@@ -8084,7 +8084,7 @@
     "element": "Cd",
     "decay": "beta-",
     "pmass": 127,
-    "pelement": "mIn"
+    "pelement": "In"
   },
   {
     "mass": 128,
@@ -8285,7 +8285,7 @@
     "element": "In",
     "decay": "beta-",
     "pmass": 123,
-    "pelement": "mSn"
+    "pelement": "Sn"
   },
   {
     "mass": 124,
@@ -8299,7 +8299,7 @@
     "element": "In",
     "decay": "beta-",
     "pmass": 125,
-    "pelement": "mSn"
+    "pelement": "Sn"
   },
   {
     "mass": 126,
@@ -8313,7 +8313,7 @@
     "element": "In",
     "decay": "beta-",
     "pmass": 127,
-    "pelement": "mSn"
+    "pelement": "Sn"
   },
   {
     "mass": 128,
@@ -8552,7 +8552,7 @@
     "element": "Sn",
     "decay": "beta-",
     "pmass": 126,
-    "pelement": "m"
+    "pelement": "Sb"
   },
   {
     "mass": 127,
@@ -8800,7 +8800,7 @@
     "element": "Sb",
     "decay": "beta-",
     "pmass": 125,
-    "pelement": "mTe"
+    "pelement": "Te"
   },
   {
     "mass": 126,
@@ -8814,7 +8814,7 @@
     "element": "Sb",
     "decay": "beta-",
     "pmass": 127,
-    "pelement": "mTe"
+    "pelement": "Te"
   },
   {
     "mass": 128,
@@ -8828,7 +8828,7 @@
     "element": "Sb",
     "decay": "beta-",
     "pmass": 129,
-    "pelement": "mTe"
+    "pelement": "Te"
   },
   {
     "mass": 130,
@@ -8842,7 +8842,7 @@
     "element": "Sb",
     "decay": "beta-",
     "pmass": 131,
-    "pelement": "mTe"
+    "pelement": "Te"
   },
   {
     "mass": 132,
@@ -8856,7 +8856,7 @@
     "element": "Sb",
     "decay": "beta-",
     "pmass": 133,
-    "pelement": "mTe"
+    "pelement": "Te"
   },
   {
     "mass": 134,
@@ -9862,7 +9862,7 @@
     "element": "Cs",
     "decay": "beta-",
     "pmass": 137,
-    "pelement": "mBa"
+    "pelement": "Ba"
   },
   {
     "mass": 138,
@@ -10673,7 +10673,7 @@
     "element": "Ce",
     "decay": "beta-",
     "pmass": 144,
-    "pelement": "mPr"
+    "pelement": "Pr"
   },
   {
     "mass": 145,
@@ -12441,7 +12441,7 @@
     "element": "Tb",
     "decay": "beta-",
     "pmass": 165,
-    "pelement": "mDy"
+    "pelement": "Dy"
   },
   {
     "mass": 166,
@@ -16123,7 +16123,7 @@
   {
     "mass": 187,
     "element": "Tl",
-    "decay": "\u00ce\u00b2+",
+    "decay": "beta+",
     "pmass": 187,
     "pelement": "Hg"
   },
@@ -17630,7 +17630,7 @@
   {
     "mass": 206,
     "element": "Fr",
-    "decay": "\u00ce\u00b2+",
+    "decay": "beta+",
     "pmass": 206,
     "pelement": "Rn"
   },
@@ -18899,7 +18899,7 @@
     "element": "Np",
     "decay": "alpha",
     "pmass": 220,
-    "pelement": "m"
+    "pelement": "Pa"
   },
   {
     "mass": 225,
@@ -19172,7 +19172,7 @@
     "element": "Pu",
     "decay": "beta-",
     "pmass": 246,
-    "pelement": "mAm"
+    "pelement": "Am"
   },
   {
     "mass": 247,

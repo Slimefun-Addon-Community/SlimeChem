@@ -6,10 +6,8 @@ import io.github.mooy1.slimechem.lists.Constants;
 import io.github.mooy1.slimechem.utils.SubNum;
 import io.github.mooy1.slimechem.utils.SuperNum;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
 import javax.annotation.Nonnull;
@@ -31,34 +29,6 @@ public class Isotope implements Ingredient {
     @Getter
     private static final EnumMap<Element, Set<Isotope>> isotopes = new EnumMap<>(Element.class);
 
-    @AllArgsConstructor
-    public enum DecayType {
-        ALPHA("alpha"),
-        BETA_PLUS("beta+"),
-        BETA_MINUS("beta-"),
-        PROTON("p"),
-        PROTON_2("2p"),
-        PROTON_3("3p"),
-        NEUTRON("n"),
-        NEUTRON_2("2n"),
-        NEUTRON_3("3n"),
-        NEUTRON_4("4n"),
-        ELECTRON_CAPTURE("capture"),
-        STABLE("stable");
-
-        private final String representation;
-
-        public static DecayType getByRepresentation(String representation) {
-            for (DecayType decayType : DecayType.values()) {
-                if (decayType.representation.equals(representation)) {
-                    return decayType;
-                }
-            }
-
-            return null;
-        }
-    }
-
     private final int mass;
     @EqualsAndHashCode.Include
     private final int protons;
@@ -70,22 +40,6 @@ public class Isotope implements Ingredient {
     private final String formula;
 
     private final DecayType decayType;
-    /**
-     * Indicates amount of decays done at once. Only applicable if {@link #decayType} is {@link DecayType#PROTON}
-     * or {@link DecayType#NEUTRON}. Only mutable once.
-     *
-     * @see DecayType
-     * @see #amountChanged
-     */
-    private int amount = 1;
-    /**
-     * Marks if the {@link #amount} variable was set or not. If the decay type is not one of those specified in
-     * the #amount doc, it's automatically set to false;
-     *
-     * @see DecayType
-     * @see #amount
-     */
-    private boolean amountChanged;
     @Getter(AccessLevel.NONE)
     private Isotope decayProduct = null;
 
@@ -100,8 +54,6 @@ public class Isotope implements Ingredient {
 
         name = element.getName() + "-" + mass;
         formula = SuperNum.fromInt(mass) + abbr;
-
-        amountChanged = !(decayType == DecayType.PROTON || decayType == DecayType.NEUTRON);
 
         this.decayType = decayType;
 
@@ -156,6 +108,7 @@ public class Isotope implements Ingredient {
      * @return {@link Optional}; empty if the isotope is stable, otherwise contains the decay product
      * @throws IllegalStateException if the decay product has not been loaded <i>and</i> the isotope is radioactive
      */
+    @Nonnull
     public Optional<Isotope> getDecayProduct() {
         if (decayType == DecayType.STABLE) return Optional.empty();
 
@@ -164,6 +117,10 @@ public class Isotope implements Ingredient {
         } else {
             return Optional.of(decayProduct);
         }
+    }
+
+    public boolean isRadioactive() {
+        return decayType != DecayType.STABLE;
     }
 
     @Override
@@ -175,14 +132,5 @@ public class Isotope implements Ingredient {
     @Override
     public String getFormula(int i) {
         return formula + SubNum.fromInt(i);
-    }
-
-    public void setAmount(int i) {
-        if (!amountChanged) {
-            amount = i;
-            amountChanged = true;
-        } else {
-            throw new UnsupportedOperationException("The amount is already set!");
-        }
     }
 }

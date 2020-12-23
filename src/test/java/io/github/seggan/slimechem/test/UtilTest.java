@@ -1,24 +1,29 @@
 package io.github.seggan.slimechem.test;
 
+import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.lists.Constants;
 
 import io.github.mooy1.slimechem.utils.StringUtil;
+import io.github.mooy1.slimechem.utils.Util;
 import org.apache.commons.lang.StringUtils;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UtilTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         Constants.isTestingEnvironment = true;
     }
 
     @Test
     public void testResourceLoading() throws IOException {
-        Assertions.assertEquals(
+        Asserts.assertEquals(
             StringUtils.countMatches(StringUtil.getResourceAsString("isotopes.json"), "{"),
             3087
         );
@@ -26,14 +31,25 @@ public class UtilTest {
 
     @Test
     public void testStringSplitting() {
-        Assertions.assertEquals(
+        Asserts.assertEquals(
             StringUtil.splitString("2n"),
             new StringUtil.NumberAndString(2, "n")
         );
 
-        Assertions.assertEquals(
+        Asserts.assertEquals(
             StringUtil.splitString("4He"),
             new StringUtil.NumberAndString(4, "He")
         );
+    }
+
+    @Test
+    public void testListTrimming() {
+        List<Element> list = new ArrayList<>(Arrays.asList(Element.values()));
+
+        Util.trimList(list, 4);
+        Asserts.assertEquals(list.size(), 4);
+
+        Util.trimList(list, 10);
+        Asserts.assertEquals(list.size(), 4);
     }
 }

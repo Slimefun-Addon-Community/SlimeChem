@@ -1,8 +1,8 @@
 package io.github.seggan.slimechem.test;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
-public class Assertions extends Assert {
+public class Asserts extends Assertions {
 
     public static void assertThrows(Runnable r, Class<? extends Throwable> throwable) {
         try {
