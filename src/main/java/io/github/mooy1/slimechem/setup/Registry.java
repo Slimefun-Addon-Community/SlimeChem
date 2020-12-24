@@ -33,6 +33,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 
 @Getter
@@ -74,7 +75,11 @@ public final class Registry {
                 List<Isotope> superIsotopes = new ArrayList<>();
                 for (Element el : isotopes.keySet()) {
                     for (Isotope iso : isotopes.get(el)) {
-                        iso.getDecayProduct().ifPresent(superIsotopes::add);
+                        iso.getDecayProduct().ifPresent(i -> {
+                            if (i.equals(isotope)) {
+                                superIsotopes.add(iso);
+                            }
+                        });
                     }
                 }
                 Util.trimList(superIsotopes, 9);
@@ -86,7 +91,7 @@ public final class Registry {
                         ItemStack stack;
                         try {
                             stack = superIsotopes.get(i).getItem();
-                        } catch (ArrayIndexOutOfBoundsException e) {
+                        } catch (IndexOutOfBoundsException e) {
                             break;
                         }
                         items[i] = stack;
