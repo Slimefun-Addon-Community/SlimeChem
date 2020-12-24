@@ -1,6 +1,7 @@
 package io.github.mooy1.slimechem.implementation.atomic.isotopes;
 
 import io.github.mooy1.slimechem.implementation.atomic.Element;
+import io.github.mooy1.slimechem.lists.Constants;
 import io.github.mooy1.slimechem.utils.StringUtil;
 import static io.github.mooy1.slimechem.utils.StringUtil.NumberAndString;
 

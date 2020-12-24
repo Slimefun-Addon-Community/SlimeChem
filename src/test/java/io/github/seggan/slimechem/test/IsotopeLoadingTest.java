@@ -10,10 +10,13 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import java.util.EnumMap;
+import java.util.Set;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IsotopeLoadingTest {
 
-    private IsotopeLoader isotopeLoader = null;
+    private IsotopeLoader isotopeLoader = new IsotopeLoader();
 
     @BeforeAll
     public static void setUp() {
@@ -24,7 +27,6 @@ public class IsotopeLoadingTest {
     @Test
     @Order(1)
     public void testIsotopeLoading() {
-        isotopeLoader = new IsotopeLoader();
         isotopeLoader.load();
         isotopeLoader.loadDecayProducts();
     }
@@ -32,10 +34,21 @@ public class IsotopeLoadingTest {
     @Test
     @Order(2)
     public void testIsotopeDecayProducts() {
-        System.out.println(Isotope.getIsotope(238, Element.URANIUM).getDecayProduct().get());
         Asserts.assertEquals(
             Isotope.getIsotope(2, Element.HELIUM).getDecayProduct().get(),
             Isotope.getIsotope(1, Element.HYDROGEN)
         );
+
+        final EnumMap<Element, Set<Isotope>> isotopes = Isotope.getIsotopes();
+
+        for (Element el : isotopes.keySet()) {
+            for (Isotope iso : isotopes.get(el)) {
+                try {
+                    iso.getDecayProduct();
+                } catch (IllegalStateException e) {
+                    System.out.println(iso.toString());
+                }
+            }
+        }
     }
 }

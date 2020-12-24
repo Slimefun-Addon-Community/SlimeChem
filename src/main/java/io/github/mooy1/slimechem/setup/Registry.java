@@ -6,7 +6,6 @@ import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.atomic.IngredientItem;
 import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
-import io.github.mooy1.slimechem.implementation.atomic.isotopes.IsotopeLoader;
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.implementation.generators.RTG1;
 import io.github.mooy1.slimechem.implementation.generators.RTG2;
@@ -25,7 +24,6 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -34,7 +32,6 @@ import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -65,10 +62,6 @@ public final class Registry {
         }
         
         plugin.getLogger().log(Level.INFO, "Registered " + Element.values().length + " Elements!");
-
-        IsotopeLoader isotopeLoader = new IsotopeLoader();
-        isotopeLoader.load();
-        isotopeLoader.loadDecayProducts();
 
         final EnumMap<Element, Set<Isotope>> isotopes = Isotope.getIsotopes();
         int isocount = 0;

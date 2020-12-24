@@ -9,12 +9,14 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -60,6 +62,7 @@ public class Isotope implements Ingredient {
         if (!Constants.isTestingEnvironment) {
             item = new SlimefunItemStack(
                 String.format("ISOTOPE_%s_%d", element.name(), mass),
+                Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
                 "&b" + name,
                 "&7" +  formula,
                 "&7Mass: " + mass
@@ -99,6 +102,9 @@ public class Isotope implements Ingredient {
                 decayProduct = isotope;
                 return;
             }
+        }
+        if (decayProduct == null) {
+            isotopes.get(element).remove(this);
         }
     }
 

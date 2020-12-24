@@ -1038,9 +1038,9 @@
   {
     "mass": 39,
     "element": "Na",
-    "decay": "beta-",
-    "pmass": 38,
-    "pelement": "Mg"
+    "decay": "alpha",
+    "pmass": 35,
+    "pelement": "F"
   },
   {
     "mass": 19,
