@@ -1,28 +1,37 @@
 package io.github.mooy1.slimechem.implementation.atomic.isotopes;
 
-import io.github.mooy1.slimechem.implementation.atomic.Element;
-import io.github.mooy1.slimechem.lists.Constants;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.github.mooy1.slimechem.utils.StringUtil;
-import static io.github.mooy1.slimechem.utils.StringUtil.NumberAndString;
-
 import io.github.mooy1.slimechem.utils.SuperNum;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.github.mooy1.slimechem.utils.StringUtil.NumberAndString;
+
 public class IsotopeLoader {
-    private final JSONArray isotopeJSON;
+    private final String isotopeJSON;
     Map<Isotope, NumberAndString> decayProductMap = new HashMap<>();
+
+    private static final class IsotopeJSONObject {
+        public int mass = 0;
+        public String element = "";
+    }
+
+    private static final class DecayJSONObject {
+        public int mass = 0;
+        public String element = "";
+    }
 
     public IsotopeLoader() {
         try {
-            isotopeJSON = new JSONArray(StringUtil.getResourceAsString("isotopes.json"));
+            isotopeJSON = StringUtil.getResourceAsString("isotopes.json");
         } catch (IOException e) {
-            throw new JSONException("Failed to load isotope file", e);
+            throw new JsonIOException("Failed to load isotope file", e);
         }
     }
 
@@ -30,14 +39,16 @@ public class IsotopeLoader {
 
         decayProductMap.clear();
 
-        for (int i = 0; i < isotopeJSON.length(); i++) {
-            JSONObject jsonObject = isotopeJSON.getJSONObject(i);
-            int mass = jsonObject.getInt("mass");
-            String abbr = jsonObject.getString("element");
+        JsonArray jsonArray = new JsonParser().parse(isotopeJSON).getAsJsonArray();
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
+            int mass = jsonObject.get("mass").getAsInt();
+            String abbr = jsonObject.get("element").getAsString();
             DecayType decayType;
             try {
                 decayType = DecayType.getByRepresentation(
-                    jsonObject.getString("decay")
+                    jsonObject.get("decay").getAsString()
                 );
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException(
@@ -46,8 +57,8 @@ public class IsotopeLoader {
             Isotope isotope = Isotope.addIsotope(mass, abbr, decayType);
             if (decayType != DecayType.STABLE) {
                 decayProductMap.put(isotope, new NumberAndString(
-                    jsonObject.getInt("pmass"),
-                    jsonObject.getString("pelement")
+                    jsonObject.get("pmass").getAsInt(),
+                    jsonObject.get("pelement").getAsString()
                 ));
             }
         }

@@ -47,10 +47,6 @@
                             <pattern>org.bstats</pattern>
                             <shadedPattern>io.github.mooy1.slimechem.bstats</shadedPattern>
                         </relocation>
-                        <relocation>
-                            <pattern>org.json</pattern>
-                            <shadedPattern>io.github.mooy1.slimechem.json</shadedPattern>
-                        </relocation>
                     </relocations>
                     <filters>
                         <filter>
@@ -157,11 +153,6 @@
             <artifactId>jsr305</artifactId>
             <version>3.0.2</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20201115</version>
         </dependency>
         <dependency>
             <groupId>org.bstats</groupId>
