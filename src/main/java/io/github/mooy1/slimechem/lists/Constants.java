@@ -1,5 +1,8 @@
 package io.github.mooy1.slimechem.lists;
 
-public class Constants {
+public final class Constants {
+
+    private Constants() {}
+
     public static boolean isTestingEnvironment = false;
 }

@@ -66,15 +66,15 @@ public final class Registry {
 
         final EnumMap<Element, Set<Isotope>> isotopes = Isotope.getIsotopes();
         int isocount = 0;
-        for (Element element : isotopes.keySet()) {
-            for (Isotope isotope : isotopes.get(element)) {
+        for (Set<Isotope> isotopeSet : isotopes.values()) {
+            for (Isotope isotope : isotopeSet) {
                 isocount++;
                 if (isotope.isRadioactive()) {
                     radioactiveItems.add(isotope);
                 }
                 List<Isotope> superIsotopes = new ArrayList<>();
-                for (Element el : isotopes.keySet()) {
-                    for (Isotope iso : isotopes.get(el)) {
+                for (Set<Isotope> isotopeCollection : isotopes.values()) {
+                    for (Isotope iso : isotopeCollection) {
                         iso.getDecayProduct().ifPresent(i -> {
                             if (i.equals(isotope)) {
                                 superIsotopes.add(iso);

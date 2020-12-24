@@ -76,11 +76,14 @@ public class Isotope implements Ingredient {
     public static Isotope addIsotope(int mass, String abbr, DecayType decayType) {
         Isotope isotope = new Isotope(mass, abbr, decayType);
         Element element = isotope.getElement();
-        if (isotopes.containsKey(element)) {
-            isotopes.get(element).add(isotope);
-        } else {
-            isotopes.put(element, new HashSet<>(Collections.singleton(isotope)));
-        }
+        isotopes.compute(element, (key, val) -> {
+            if (val == null) {
+                return new HashSet<>(Collections.singleton(isotope));
+            } else {
+                val.add(isotope);
+                return val;
+            }
+        });
 
         return isotope;
     }
