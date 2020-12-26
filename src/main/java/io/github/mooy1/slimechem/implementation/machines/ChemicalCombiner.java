@@ -1,7 +1,5 @@
 package io.github.mooy1.slimechem.implementation.machines;
 
-import io.github.mooy1.slimechem.implementation.atomic.Element;
-import io.github.mooy1.slimechem.implementation.atomic.Isotope;
 import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.atomic.MoleculeIngredient;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Machine;
@@ -63,8 +61,7 @@ public class ChemicalCombiner extends Machine {
         for (Molecule m : Molecule.values()) {
             this.recipes.put(new ItemFilter(m.getItem()), m.toFilter(9));
         }
-        
-        addRecipe(new ItemStack(Material.GLASS), MoleculeIngredient.MONOXIDE, new MoleculeIngredient(Element.ARGON, 4), null, new MoleculeIngredient(Isotope.AMERICIUM_241, 2));
+
         addRecipe(new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 2), null, MoleculeIngredient.DIHYDROGEN);
         
     }

@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.utils.ItemFilter;
 import lombok.Getter;

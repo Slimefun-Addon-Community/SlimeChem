@@ -1,10 +1,10 @@
 package io.github.mooy1.slimechem.implementation.machines;
 
 import io.github.mooy1.slimechem.implementation.atomic.Element;
-import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
-import io.github.mooy1.slimechem.implementation.atomic.Isotope;
 import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.atomic.MoleculeIngredient;
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
+import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Machine;
 import io.github.mooy1.slimechem.lists.Items;
 import io.github.mooy1.slimechem.setup.Registry;

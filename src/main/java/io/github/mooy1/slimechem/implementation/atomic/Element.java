@@ -153,6 +153,7 @@ public enum Element implements Ingredient {
     @Nonnull
     private final Series series;
     private final int neutrons;
+    private final boolean radioactive;
     private final SlimefunItemStack item;
 
     Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series) {
@@ -162,6 +163,7 @@ public enum Element implements Ingredient {
         this.number = number;
         this.series = series;
         this.neutrons = (int) Math.round(mass) - number;
+        this.radioactive = (number > 82 && number < 121) || this.number == 43 || this.number == 61;
         if (!Constants.isTestingEnvironment) {
             this.item = new SlimefunItemStack(
                 "ELEMENT_" + this.name(),
@@ -195,10 +197,6 @@ public enum Element implements Ingredient {
     @Override
     public String getFormula(int i) {
         return this.symbol + SubNum.fromInt(i);
-    }
-
-    public boolean isRadioactive() {
-        return (number > 82 && number < 121) || this == TECHNETIUM || this == PROMETHIUM;
     }
 
     @Getter

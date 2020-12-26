@@ -51,24 +51,24 @@ public class Isotope implements Ingredient {
         element = Element.getByAbbr(abbr);
 
         this.mass = mass;
-        protons = element.getNumber();
-        neutrons = mass - protons;
+        this.protons = element.getNumber();
+        this.neutrons = mass - this.protons;
 
-        name = element.getName() + "-" + mass;
-        formula = SuperNum.fromInt(mass) + abbr;
+        this.name = element.getName() + "-" + this.mass;
+        this.formula = SuperNum.fromInt(this.mass) + abbr;
 
         this.decayType = decayType;
 
         if (!Constants.isTestingEnvironment) {
-            item = new SlimefunItemStack(
-                String.format("ISOTOPE_%s_%d", element.name(), mass),
+            this.item = new SlimefunItemStack(
+                String.format("ISOTOPE_%s_%d", element.name(), this.mass),
                 Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
-                "&b" + name,
-                "&7" +  formula,
-                "&7Mass: " + mass
+                "&b" + this.name,
+                "&7" + this.formula,
+                "&7Mass: " + this.mass
             );
         } else {
-            item = null;
+            this.item = null;
         }
     }
 
