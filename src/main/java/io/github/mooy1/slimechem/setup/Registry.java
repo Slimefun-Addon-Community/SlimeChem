@@ -39,7 +39,7 @@ import java.util.logging.Level;
 
 public final class Registry {
 
-    private static final int registrySize = Element.values().length + Isotope.values().length + Molecule.values().length;
+    private static final int registrySize = Element.values().length + Isotope.getIsotopes().size() + Molecule.values().length;
     
     @Getter
     private static final Map<SlimefunItem, Ingredient> items = Maps.newHashMapWithExpectedSize(registrySize);
@@ -47,7 +47,7 @@ public final class Registry {
     private static final Map<String, Ingredient> ids = Maps.newHashMapWithExpectedSize(registrySize);
 
     @Getter
-    private static final Set<Ingredient> radioactiveItems = new HashSet<>((Element.values().length / 3) + Isotope.values().length);
+    private static final Set<Ingredient> radioactiveItems = new HashSet<>((Element.values().length / 3) + Isotope.getIsotopes().size());
 
     public static void setup(SlimeChem plugin) {
 

@@ -1,8 +1,8 @@
 package io.github.mooy1.slimechem;
 
-import io.github.mooy1.slimechem.implementation.atomic.isotopes.IsotopeLoader;
 import io.github.mooy1.infinitylib.PluginUtils;
 import io.github.mooy1.infinitylib.player.MessageUtils;
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.IsotopeLoader;
 import io.github.mooy1.slimechem.setup.Registry;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import lombok.Getter;

@@ -1,14 +1,16 @@
 package io.github.mooy1.slimechem.implementation.machines;
 
-import io.github.mooy1.slimechem.implementation.atomic.Element;
-import io.github.mooy1.slimechem.implementation.atomic.Isotope;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import io.github.mooy1.infinitylib.filter.FilterType;
+import io.github.mooy1.infinitylib.filter.ItemFilter;
+import io.github.mooy1.infinitylib.filter.MultiFilter;
+import io.github.mooy1.infinitylib.presets.MenuPreset;
+import io.github.mooy1.slimechem.SlimeChem;
 import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.atomic.MoleculeIngredient;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Machine;
 import io.github.mooy1.slimechem.lists.Items;
-import io.github.mooy1.infinitylib.filter.FilterType;
-import io.github.mooy1.infinitylib.filter.ItemFilter;
-import io.github.mooy1.infinitylib.filter.MultiFilter;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;

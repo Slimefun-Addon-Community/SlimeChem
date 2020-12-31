@@ -3,19 +3,12 @@ package io.github.mooy1.slimechem.utils;
 import io.github.mooy1.slimechem.lists.Constants;
 import io.github.thebusybiscuit.slimefun4.core.services.CustomItemDataService;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.apache.commons.lang.WordUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * General utility methods
@@ -25,13 +18,6 @@ import java.util.Optional;
  * 
  */
 public final class Util {
-
-    /**
-     * sends a player a message with prefix
-     */
-    public static void message(@Nonnull Player p, @Nonnull String message) {
-        p.sendMessage(PREFIX + message);
-    }
 
     private static final CustomItemDataService dataService = Constants.isTestingEnvironment ? null : SlimefunPlugin.getItemDataService();
     
