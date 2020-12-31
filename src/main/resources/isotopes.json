@@ -1036,13 +1036,6 @@
     "pelement": "Mg"
   },
   {
-    "mass": 39,
-    "element": "Na",
-    "decay": "alpha",
-    "pmass": 35,
-    "pelement": "F"
-  },
-  {
     "mass": 19,
     "element": "Mg",
     "decay": "2p",
@@ -1173,7 +1166,7 @@
     "mass": 40,
     "element": "Mg",
     "decay": "beta-",
-    "pmass": 39,
+    "pmass": 40,
     "pelement": "Al"
   },
   {
@@ -1467,6 +1460,13 @@
     "element": "Si",
     "decay": "beta-",
     "pmass": 42,
+    "pelement": "P"
+  },
+  {
+    "mass": 43,
+    "element": "Si",
+    "decay": "beta-",
+    "pmass": 43,
     "pelement": "P"
   },
   {
@@ -7861,20 +7861,6 @@
     "pelement": "Cd"
   },
   {
-    "mass": 131,
-    "element": "Ag",
-    "decay": "beta-",
-    "pmass": 131,
-    "pelement": "Cd"
-  },
-  {
-    "mass": 132,
-    "element": "Ag",
-    "decay": "beta-",
-    "pmass": 132,
-    "pelement": "Cd"
-  },
-  {
     "mass": 96,
     "element": "Cd",
     "decay": "beta+",
@@ -14770,13 +14756,6 @@
     "pelement": "Os"
   },
   {
-    "mass": 161,
-    "element": "Os",
-    "decay": "alpha",
-    "pmass": 157,
-    "pelement": "W"
-  },
-  {
     "mass": 162,
     "element": "Os",
     "decay": "alpha",
@@ -15272,13 +15251,6 @@
     "pelement": "Pt"
   },
   {
-    "mass": 165,
-    "element": "Pt",
-    "decay": "alpha",
-    "pmass": 161,
-    "pelement": "Os"
-  },
-  {
     "mass": 166,
     "element": "Pt",
     "decay": "alpha",
@@ -19448,6 +19420,13 @@
     "pelement": "Bk"
   },
   {
+    "mass": 252,
+    "element": "Cm",
+    "decay": "beta-",
+    "pmass": 252,
+    "pelement": "Bk"
+  },
+  {
     "mass": 233,
     "element": "Bk",
     "decay": "alpha",
@@ -19467,6 +19446,13 @@
     "decay": "alpha",
     "pmass": 232,
     "pelement": "Am"
+  },
+  {
+    "mass": 237,
+    "element": "Bk",
+    "decay": "beta+",
+    "pmass": 237,
+    "pelement": "Cm"
   },
   {
     "mass": 238,
@@ -19840,6 +19826,13 @@
     "pelement": "Fm"
   },
   {
+    "mass": 258,
+    "element": "Es",
+    "decay": "beta-",
+    "pmass": 258,
+    "pelement": "Fm"
+  },
+  {
     "mass": 241,
     "element": "Fm",
     "decay": "alpha",
@@ -20099,6 +20092,20 @@
     "pelement": "Es"
   },
   {
+    "mass": 262,
+    "element": "Md",
+    "decay": "alpha",
+    "pmass": 258,
+    "pelement": "Es"
+  },
+  {
+    "mass": 249,
+    "element": "No",
+    "decay": "beta+",
+    "pmass": 249,
+    "pelement": "Md"
+  },
+  {
     "mass": 250,
     "element": "No",
     "decay": "alpha",
@@ -20176,10 +20183,31 @@
     "pelement": "Fm"
   },
   {
+    "mass": 261,
+    "element": "No",
+    "decay": "alpha",
+    "pmass": 257,
+    "pelement": "Fm"
+  },
+  {
     "mass": 262,
     "element": "No",
     "decay": "alpha",
     "pmass": 258,
+    "pelement": "Fm"
+  },
+  {
+    "mass": 263,
+    "element": "No",
+    "decay": "alpha",
+    "pmass": 259,
+    "pelement": "Fm"
+  },
+  {
+    "mass": 264,
+    "element": "No",
+    "decay": "alpha",
+    "pmass": 260,
     "pelement": "Fm"
   },
   {
@@ -20267,6 +20295,20 @@
     "pelement": "No"
   },
   {
+    "mass": 263,
+    "element": "Lr",
+    "decay": "alpha",
+    "pmass": 259,
+    "pelement": "Md"
+  },
+  {
+    "mass": 264,
+    "element": "Lr",
+    "decay": "alpha",
+    "pmass": 260,
+    "pelement": "Md"
+  },
+  {
     "mass": 266,
     "element": "Lr",
     "decay": "alpha",
@@ -20379,13 +20421,6 @@
     "pelement": "No"
   },
   {
-    "mass": 270,
-    "element": "Rf",
-    "decay": "alpha",
-    "pmass": 266,
-    "pelement": "No"
-  },
-  {
     "mass": 255,
     "element": "Db",
     "decay": "alpha",
@@ -20554,10 +20589,24 @@
     "pelement": "Rf"
   },
   {
+    "mass": 270,
+    "element": "Sg",
+    "decay": "alpha",
+    "pmass": 266,
+    "pelement": "Rf"
+  },
+  {
     "mass": 271,
     "element": "Sg",
     "decay": "alpha",
     "pmass": 267,
+    "pelement": "Rf"
+  },
+  {
+    "mass": 272,
+    "element": "Sg",
+    "decay": "alpha",
+    "pmass": 268,
     "pelement": "Rf"
   },
   {
@@ -20631,6 +20680,13 @@
     "pelement": "Db"
   },
   {
+    "mass": 273,
+    "element": "Bh",
+    "decay": "beta-",
+    "pmass": 273,
+    "pelement": "Hs"
+  },
+  {
     "mass": 274,
     "element": "Bh",
     "decay": "alpha",
@@ -20638,11 +20694,11 @@
     "pelement": "Db"
   },
   {
-    "mass": 278,
+    "mass": 275,
     "element": "Bh",
-    "decay": "alpha",
-    "pmass": 274,
-    "pelement": "Db"
+    "decay": "beta-",
+    "pmass": 275,
+    "pelement": "Hs"
   },
   {
     "mass": 263,
@@ -20715,6 +20771,13 @@
     "pelement": "Sg"
   },
   {
+    "mass": 274,
+    "element": "Hs",
+    "decay": "alpha",
+    "pmass": 270,
+    "pelement": "Sg"
+  },
+  {
     "mass": 275,
     "element": "Hs",
     "decay": "alpha",
@@ -20722,11 +20785,18 @@
     "pelement": "Sg"
   },
   {
-    "mass": 277,
+    "mass": 276,
     "element": "Hs",
     "decay": "alpha",
-    "pmass": 273,
+    "pmass": 272,
     "pelement": "Sg"
+  },
+  {
+    "mass": 277,
+    "element": "Hs",
+    "decay": "beta-",
+    "pmass": 277,
+    "pelement": "Mt"
   },
   {
     "mass": 266,
@@ -20785,10 +20855,10 @@
     "pelement": "Bh"
   },
   {
-    "mass": 282,
+    "mass": 279,
     "element": "Mt",
     "decay": "alpha",
-    "pmass": 278,
+    "pmass": 275,
     "pelement": "Bh"
   },
   {
@@ -20831,6 +20901,13 @@
     "element": "Ds",
     "decay": "alpha",
     "pmass": 273,
+    "pelement": "Hs"
+  },
+  {
+    "mass": 278,
+    "element": "Ds",
+    "decay": "alpha",
+    "pmass": 274,
     "pelement": "Hs"
   },
   {
@@ -20904,13 +20981,6 @@
     "pelement": "Mt"
   },
   {
-    "mass": 286,
-    "element": "Rg",
-    "decay": "alpha",
-    "pmass": 282,
-    "pelement": "Mt"
-  },
-  {
     "mass": 281,
     "element": "Cn",
     "decay": "alpha",
@@ -20943,13 +21013,6 @@
     "element": "Cn",
     "decay": "alpha",
     "pmass": 281,
-    "pelement": "Ds"
-  },
-  {
-    "mass": 286,
-    "element": "Cn",
-    "decay": "alpha",
-    "pmass": 282,
     "pelement": "Ds"
   },
   {
@@ -20992,13 +21055,6 @@
     "element": "Nh",
     "decay": "alpha",
     "pmass": 283,
-    "pelement": "Rg"
-  },
-  {
-    "mass": 290,
-    "element": "Nh",
-    "decay": "alpha",
-    "pmass": 286,
     "pelement": "Rg"
   },
   {
@@ -21035,13 +21091,6 @@
     "decay": "alpha",
     "pmass": 285,
     "pelement": "Cn"
-  },
-  {
-    "mass": 290,
-    "element": "Fl",
-    "decay": "electron capture",
-    "pmass": 290,
-    "pelement": "Nh"
   },
   {
     "mass": 288,
@@ -21083,13 +21132,6 @@
     "element": "Lv",
     "decay": "alpha",
     "pmass": 289,
-    "pelement": "Fl"
-  },
-  {
-    "mass": 294,
-    "element": "Lv",
-    "decay": "alpha",
-    "pmass": 290,
     "pelement": "Fl"
   },
   {

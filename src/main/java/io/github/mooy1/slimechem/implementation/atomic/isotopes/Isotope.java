@@ -108,6 +108,9 @@ public class Isotope implements Ingredient {
         }
         if (decayProduct == null) {
             isotopes.get(element).remove(this);
+            if (Constants.isTestingEnvironment) {
+                System.out.println(this);
+            }
         }
     }
 

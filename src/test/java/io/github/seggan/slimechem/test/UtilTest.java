@@ -2,7 +2,6 @@ package io.github.seggan.slimechem.test;
 
 import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.lists.Constants;
-
 import io.github.mooy1.slimechem.utils.StringUtil;
 import io.github.mooy1.slimechem.utils.Util;
 import org.apache.commons.lang.StringUtils;
@@ -25,7 +24,7 @@ public class UtilTest {
     public void testResourceLoading() throws IOException {
         Asserts.assertEquals(
             StringUtils.countMatches(StringUtil.getResourceAsString("isotopes.json"), "{"),
-            3087
+            3093
         );
     }
 
