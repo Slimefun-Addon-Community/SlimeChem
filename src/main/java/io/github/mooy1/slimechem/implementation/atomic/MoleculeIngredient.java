@@ -1,7 +1,7 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
-import io.github.mooy1.slimechem.utils.filter.ItemFilter;
-import io.github.mooy1.slimechem.utils.filter.MultiFilter;
+import io.github.mooy1.infinitylib.filter.ItemFilter;
+import io.github.mooy1.infinitylib.filter.MultiFilter;
 import lombok.Getter;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import org.bukkit.inventory.ItemStack;

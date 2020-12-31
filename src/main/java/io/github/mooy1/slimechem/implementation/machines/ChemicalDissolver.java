@@ -45,8 +45,6 @@ public class ChemicalDissolver extends Machine {
     
     private static final Map<Material, Map<Integer, MoleculeIngredient>> vanillaRecipes = new HashMap<>();
     private static final Map<String, Map<Integer, MoleculeIngredient>> slimefunRecipes = new HashMap<>();
-    
-    private final Registry registry;
 
     static {
         // Ores
@@ -149,11 +147,10 @@ public class ChemicalDissolver extends Machine {
         slimefunRecipes.put(slimefunItemStack.getItemId(), makeRecipe(chances, ingredients));
     }
 
-    public ChemicalDissolver(@Nonnull Registry registry) {
+    public ChemicalDissolver() {
         super(Items.CHEMICAL_DISSOLVER, ENERGY, ENERGY * 64, inputSlots, outputSlots, new ItemStack[] {
-                
+
         });
-        this.registry = registry;
     }
 
     @Override
@@ -184,7 +181,7 @@ public class ChemicalDissolver extends Machine {
             
             if (item != null) {
 
-                Ingredient ingredient = this.registry.getItems().get(item);
+                Ingredient ingredient = Registry.getItems().get(item);
 
                 if (ingredient != null) {
                     if (ingredient instanceof Molecule) {

@@ -1,12 +1,12 @@
 package io.github.mooy1.slimechem.implementation.generators;
 
-import io.github.mooy1.slimechem.SlimeChem;
 import io.github.mooy1.slimechem.implementation.atomic.DecayProduct;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.atomic.Ingredient;
 import io.github.mooy1.slimechem.implementation.atomic.Isotope;
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.mooy1.slimechem.lists.Items;
+import io.github.mooy1.slimechem.setup.Registry;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineFuel;
 import org.bukkit.Material;
@@ -31,7 +31,7 @@ public class RTG1 extends AByproductGenerator {
 
     @Override
     protected void registerDefaultFuelTypes() {
-        for (Ingredient item : SlimeChem.getRegistry().getRadioactiveItems()) {
+        for (Ingredient item : Registry.getRadioactiveItems()) {
             List<DecayProduct> decayProducts = null;
             if (item instanceof Element) {
                 DecayProduct[] list = ((Element) item).getDecayProducts();

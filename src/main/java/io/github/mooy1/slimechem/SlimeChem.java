@@ -16,8 +16,6 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
 
     @Getter
     private static SlimeChem instance;
-    @Getter
-    private static Registry registry;
     
     @Override
     public void onEnable() {
@@ -38,8 +36,7 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
             getLogger().log(Level.WARNING, "You must be on a DEV build to auto update!");
         }*/
         
-        registry = new Registry(this);
-        
+        Registry.setup(this);
     }
 
     @Override

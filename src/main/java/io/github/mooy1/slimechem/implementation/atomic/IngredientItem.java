@@ -1,6 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
-import io.github.mooy1.slimechem.SlimeChem;
+import io.github.mooy1.slimechem.setup.Registry;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.core.attributes.ProtectionType;
@@ -76,7 +76,7 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
     private static Map<Ingredient, Consumer<Player>> getActions() {
         Map<Ingredient, Consumer<Player>> actions = new HashMap<>();
 
-        for (Ingredient ingredient : SlimeChem.getRegistry().getRadioactiveItems()) {
+        for (Ingredient ingredient : Registry.getRadioactiveItems()) {
             actions.put(ingredient, p -> {
                 for (Entity e : p.getNearbyEntities(5, 5, 5)) {
                     if (e instanceof LivingEntity) {
@@ -103,7 +103,7 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
     private static Map<Ingredient, BiConsumer<Entity, Player>> getEntityActions() {
         Map<Ingredient, BiConsumer<Entity, Player>> actions = new HashMap<>();
 
-        for (Ingredient ingredient : SlimeChem.getRegistry().getRadioactiveItems()) {
+        for (Ingredient ingredient : Registry.getRadioactiveItems()) {
             actions.put(ingredient, (e, p) -> {
                 if (e instanceof LivingEntity) {
                     if (e instanceof Player) {

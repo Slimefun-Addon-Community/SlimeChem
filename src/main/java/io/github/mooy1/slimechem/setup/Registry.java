@@ -31,20 +31,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 
-@Getter
 public final class Registry {
-
-    private final int registrySize = Element.values().length + Isotope.values().length + Molecule.values().length;
     
-    private final Map<SlimefunItem, Ingredient> items = Maps.newHashMapWithExpectedSize(this.registrySize);
-    private final Map<String, Ingredient> ids = Maps.newHashMapWithExpectedSize(this.registrySize);
+    private static final int registrySize = Element.values().length + Isotope.values().length + Molecule.values().length;
+    
+    @Getter
+    private static final Map<SlimefunItem, Ingredient> items = Maps.newHashMapWithExpectedSize(registrySize);
+    @Getter
+    private static final Map<String, Ingredient> ids = Maps.newHashMapWithExpectedSize(registrySize);
 
-    private final Set<Ingredient> radioactiveItems = new HashSet<>((Element.values().length / 3) + Isotope.values().length);
-
-    private final SlimeChem plugin;
-
-    public Registry(SlimeChem plugin) {
-        this.plugin = plugin;
+    @Getter
+    private static final Set<Ingredient> radioactiveItems = new HashSet<>((Element.values().length / 3) + Isotope.values().length);
+    
+    public static void setup(SlimeChem plugin) {
 
         new ElementCategory(plugin).register();
 
@@ -52,26 +51,26 @@ public final class Registry {
 
         for (Element element : Element.values()) {
             if (element.getNumber() > 82) {
-                this.radioactiveItems.add(element);
+                radioactiveItems.add(element);
             }
-            registerItem(new IngredientItem(Categories.ELEMENTS, element, RecipeType.NULL, null)); //should later be changed to proton+neutron+electron recipe in fusion
+            registerItem(new IngredientItem(Categories.ELEMENTS, element, RecipeType.NULL, null), plugin); //should later be changed to proton+neutron+electron recipe in fusion
         }
-        this.radioactiveItems.add(Element.TECHNETIUM);
-        this.radioactiveItems.add(Element.PROMETHIUM);
+        radioactiveItems.add(Element.TECHNETIUM);
+        radioactiveItems.add(Element.PROMETHIUM);
         
         plugin.getLogger().log(Level.INFO, "Registered " + Element.values().length + " Elements!");
 
         for (Isotope isotope : Isotope.values()) {
             if (isotope.isRadioactive()) {
-                this.radioactiveItems.add(isotope);
+                radioactiveItems.add(isotope);
             }
-            registerItem(new IngredientItem(Categories.ELEMENTS, isotope, RecipeTypes.RTG, null)); //show what it decays from
+            registerItem(new IngredientItem(Categories.ELEMENTS, isotope, RecipeTypes.RTG, null), plugin); //show what it decays from
         }
         
         plugin.getLogger().log(Level.INFO, "Registered " + Isotope.values().length + " Isotopes!");
 
         for (Molecule molecule : Molecule.values()) {
-            registerItem(new IngredientItem(Categories.MOLECULES, molecule, RecipeTypes.COMBINER, molecule.getRecipe()));
+            registerItem(new IngredientItem(Categories.MOLECULES, molecule, RecipeTypes.COMBINER, molecule.getRecipe()), plugin);
         }
         
         plugin.getLogger().log(Level.INFO, "Registered " + Molecule.values().length + " Molecules!");
@@ -94,7 +93,7 @@ public final class Registry {
             new SlimefunItem(Categories.MACHINES, m.getItem(), m.getRecipeType(), m.getRecipe()).register(plugin);
         }
 
-        new ChemicalDissolver(this).register(plugin);
+        new ChemicalDissolver().register(plugin);
         new ChemicalCombiner().register(plugin);
         new NuclearFurnace().register(plugin);
         
@@ -107,10 +106,10 @@ public final class Registry {
 
     }
     
-    private void registerItem(@Nonnull IngredientItem item) {
-        this.items.put(item, item.getIngredient());
-        this.ids.put(item.getId(), item.getIngredient());
-        item.register(this.plugin);
+    private static void registerItem(@Nonnull IngredientItem item, @Nonnull SlimeChem plugin) {
+        items.put(item, item.getIngredient());
+        ids.put(item.getId(), item.getIngredient());
+        item.register(plugin);
     }
     
 }

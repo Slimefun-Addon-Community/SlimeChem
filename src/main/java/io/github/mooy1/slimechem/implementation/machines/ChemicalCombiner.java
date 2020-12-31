@@ -10,9 +10,9 @@ import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.atomic.MoleculeIngredient;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Machine;
 import io.github.mooy1.slimechem.lists.Items;
-import io.github.mooy1.slimechem.utils.filter.FilterType;
-import io.github.mooy1.slimechem.utils.filter.ItemFilter;
-import io.github.mooy1.slimechem.utils.filter.MultiFilter;
+import io.github.mooy1.infinitylib.filter.FilterType;
+import io.github.mooy1.infinitylib.filter.ItemFilter;
+import io.github.mooy1.infinitylib.filter.MultiFilter;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
@@ -50,8 +50,6 @@ import java.util.Map;
  * 
  */
 public class ChemicalCombiner extends Machine {
-
-    private static final int EMPTY_FILTER = 21;
 
     public static final int ENERGY = 15;
     
@@ -91,6 +89,7 @@ public class ChemicalCombiner extends Machine {
     @Override
     public void breakHandler(@Nonnull Player p, @Nonnull Block b, @Nonnull BlockMenu menu) {
         menu.dropItems(b.getLocation(), keySlot);
+        this.targetCache.remove(b.getLocation());
     }
     
     public void addRecipe(@Nonnull ItemStack item, @Nonnull MoleculeIngredient... is) {
@@ -154,7 +153,7 @@ public class ChemicalCombiner extends Machine {
 
     @Nonnull 
     @Override
-    public int[] getTransportSlots(DirtyChestMenu menu, ItemTransportFlow flow, ItemStack item) { // TODO: FIX
+    public int[] getTransportSlots(DirtyChestMenu menu, ItemTransportFlow flow, ItemStack item) {
         if (flow == ItemTransportFlow.WITHDRAW) {
             return outputSlots;
         }
@@ -187,7 +186,7 @@ public class ChemicalCombiner extends Machine {
         
         MultiFilter input = MultiFilter.fromMenu(menu, inputSlots);
         
-        if (input.hashCode() == EMPTY_FILTER) return;
+        if (input.hashCode() == 21) return;
         
         MultiFilter recipe = this.targetCache.get(l);
 
@@ -205,6 +204,7 @@ public class ChemicalCombiner extends Machine {
         } else if (recipe.matches(input, FilterType.MIN_AMOUNT)) { // check if input matches
             
             craft(recipe, menu.getItemInSlot(keySlot), menu, l);
+            
         }
     }
     
