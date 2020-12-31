@@ -155,7 +155,7 @@ public abstract class AByproductGenerator extends AbstractEnergyProvider {
     }
 
     @Override
-    public int getGeneratedOutput(Location l, Config data) {
+    public int getGeneratedOutput(@Nonnull Location l, @Nonnull Config data) {
         BlockMenu inv = BlockStorage.getInventory(l);
 
         if (isProcessing(l)) {

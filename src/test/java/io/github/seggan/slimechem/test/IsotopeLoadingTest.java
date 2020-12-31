@@ -45,6 +45,7 @@ public class IsotopeLoadingTest {
             for (Isotope iso : isotopes.get(el)) {
                 try {
                     iso.getDecayProduct();
+                    System.out.println(iso);
                 } catch (IllegalStateException e) {
                     System.out.println(iso.toString());
                 }
