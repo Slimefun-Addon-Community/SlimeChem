@@ -14,6 +14,7 @@ public class Categories {
     public static final Category MACHINES = new Category(new NamespacedKey(instance, "machines"), new CustomItem(Material.DIAMOND_BLOCK, "Chemical Machines"), 3);
     public static final Category MOLECULES = new Category(new NamespacedKey(instance, "molecules"), new CustomItem(Material.DIAMOND, "Molecules"), 3);
     public static final Category ELEMENTS = new Category(new NamespacedKey(instance, "elements"), new CustomItem(Material.DIAMOND, "Elements"), 3);
+    public static final Category ISOTOPES = new Category(new NamespacedKey(instance, "isotopes"), new CustomItem(Material.DIAMOND, "Isotopes"), 3);
     public static final Category SUBATOMIC = new Category(new NamespacedKey(instance, "subatomic"), new CustomItem(Material.DIAMOND, "Subatomic Particles"), 3);
 
 }

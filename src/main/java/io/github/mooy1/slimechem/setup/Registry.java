@@ -3,41 +3,48 @@ package io.github.mooy1.slimechem.setup;
 import com.google.common.collect.Maps;
 import io.github.mooy1.slimechem.SlimeChem;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
-import io.github.mooy1.slimechem.implementation.atomic.Ingredient;
 import io.github.mooy1.slimechem.implementation.atomic.IngredientItem;
-import io.github.mooy1.slimechem.implementation.atomic.Isotope;
 import io.github.mooy1.slimechem.implementation.atomic.Molecule;
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
+import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
+import io.github.mooy1.slimechem.implementation.generators.RTG1;
+import io.github.mooy1.slimechem.implementation.generators.RTG2;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
 import io.github.mooy1.slimechem.implementation.machines.NuclearFurnace;
-import io.github.mooy1.slimechem.implementation.generators.RTG1;
-import io.github.mooy1.slimechem.implementation.generators.RTG2;
 import io.github.mooy1.slimechem.implementation.subatomic.Boson;
 import io.github.mooy1.slimechem.implementation.subatomic.Lepton;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.mooy1.slimechem.lists.Items;
 import io.github.mooy1.slimechem.lists.RecipeTypes;
+import io.github.mooy1.slimechem.utils.Util;
 import lombok.Getter;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
+import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 
 @Getter
 public final class Registry {
 
-    private final int registrySize = Element.values().length + Isotope.values().length + Molecule.values().length;
+    private final int registrySize = Element.values().length  + Molecule.values().length;
     
     private final Map<SlimefunItem, Ingredient> items = Maps.newHashMapWithExpectedSize(this.registrySize);
     private final Map<String, Ingredient> ids = Maps.newHashMapWithExpectedSize(this.registrySize);
 
-    private static final Set<Ingredient> radioactiveItems = new HashSet<>((Element.values().length / 3) + Isotope.values().length);
+    private static final Set<Ingredient> radioactiveItems = new HashSet<>((Element.values().length / 3));
 
     private final SlimeChem plugin;
 
@@ -49,24 +56,61 @@ public final class Registry {
         new SlimefunItem(Categories.MACHINES, Items.ADDON_INFO, RecipeType.NULL, null);
 
         for (Element element : Element.values()) {
-            if (element.getNumber() > 82) {
+            if (element.isRadioactive()) {
                 radioactiveItems.add(element);
             }
             registerItem(new IngredientItem(Categories.ELEMENTS, element, RecipeType.NULL, null)); //should later be changed to proton+neutron+electron recipe in fusion
         }
-        radioactiveItems.add(Element.TECHNETIUM);
-        radioactiveItems.add(Element.PROMETHIUM);
         
         plugin.getLogger().log(Level.INFO, "Registered " + Element.values().length + " Elements!");
 
-        for (Isotope isotope : Isotope.values()) {
-            if (isotope.isRadioactive()) {
-                radioactiveItems.add(isotope);
+        final EnumMap<Element, Set<Isotope>> isotopes = Isotope.getIsotopes();
+        int isocount = 0;
+        for (Set<Isotope> isotopeSet : isotopes.values()) {
+            for (Isotope isotope : isotopeSet) {
+                isocount++;
+                if (isotope.isRadioactive()) {
+                    radioactiveItems.add(isotope);
+                }
+                List<Isotope> superIsotopes = new ArrayList<>();
+                for (Set<Isotope> isotopeCollection : isotopes.values()) {
+                    for (Isotope iso : isotopeCollection) {
+                        iso.getDecayProduct().ifPresent(i -> {
+                            if (i.equals(isotope)) {
+                                superIsotopes.add(iso);
+                            }
+                        });
+                    }
+                }
+                Util.trimList(superIsotopes, 9);
+
+                ItemStack[] items;
+                if (superIsotopes.size() > 0) {
+                    items = new ItemStack[9];
+                    for (int i = 0; i < items.length; i++) {
+                        ItemStack stack;
+                        try {
+                            stack = superIsotopes.get(i).getItem();
+                        } catch (IndexOutOfBoundsException e) {
+                            break;
+                        }
+                        items[i] = stack;
+                    }
+                    if (items[items.length - 1] != null) {
+                        items[items.length - 1] = new CustomItem(
+                            Material.WHITE_DYE,
+                            "&7And more..."
+                        );
+                    }
+                } else {
+                    items = null;
+                }
+
+                new IngredientItem(Categories.ISOTOPES, isotope, RecipeTypes.RTG, items).register(plugin);
             }
-            registerItem(new IngredientItem(Categories.ELEMENTS, isotope, RecipeTypes.RTG, null)); //show what it decays from
         }
-        
-        plugin.getLogger().log(Level.INFO, "Registered " + Isotope.values().length + " Isotopes!");
+
+        plugin.getLogger().log(Level.INFO, "Registered " + isocount + " Isotopes!");
 
         for (Molecule molecule : Molecule.values()) {
             registerItem(new IngredientItem(Categories.MOLECULES, molecule, RecipeTypes.COMBINER, molecule.getNewRecipe()));

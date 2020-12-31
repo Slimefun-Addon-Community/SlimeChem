@@ -1,6 +1,7 @@
-package io.github.mooy1.slimechem.implementation.atomic;
+package io.github.mooy1.slimechem.implementation.attributes;
 
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import io.github.mooy1.slimechem.implementation.atomic.Molecule;
+import io.github.mooy1.slimechem.implementation.atomic.MoleculeIngredient;
 
 import javax.annotation.Nonnull;
 
@@ -11,12 +12,8 @@ import javax.annotation.Nonnull;
  * @author Mooy1
  * 
  */
-public interface Ingredient {
+public interface Ingredient extends Itemable {
     
     @Nonnull
     String getFormula(int i);
-    
-    @Nonnull
-    SlimefunItemStack getItem();
-    
 }

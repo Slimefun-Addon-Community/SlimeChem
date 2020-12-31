@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem;
 
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.IsotopeLoader;
 import io.github.mooy1.slimechem.setup.Registry;
 import lombok.Getter;
 import org.bstats.bukkit.Metrics;
@@ -34,6 +35,10 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
         } else {
             getLogger().log(Level.WARNING, "You must be on a DEV build to auto update!");
         }*/
+
+        IsotopeLoader isotopeLoader = new IsotopeLoader();
+        isotopeLoader.load();
+        isotopeLoader.loadDecayProducts();
         
         registry = new Registry(this);
         
