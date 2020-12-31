@@ -1,9 +1,10 @@
 package io.github.mooy1.slimechem.lists;
 
+import io.github.mooy1.infinitylib.presets.LorePreset;
 import io.github.mooy1.slimechem.SlimeChem;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
-import io.github.mooy1.slimechem.utils.LoreUtils;
+import io.github.mooy1.slimechem.implementation.machines.RTG;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
@@ -21,15 +22,48 @@ public final class Items {
             "&bChemical Dissolver",
             "&7Dissolves materials into their chemical parts and molecules into elements",
             "",
-            LoreUtils.energy(ChemicalDissolver.ENERGY) + "per item"
+            LorePreset.energy(ChemicalDissolver.ENERGY) + "per item"
     );
     public static final SlimefunItemStack CHEMICAL_COMBINER = new SlimefunItemStack(
             "CHEMICAL_COMBINER",
             Material.EMERALD_BLOCK,
             "&bChemical Combiner",
-            "&&Combines elements and molecules into molecules and materials",
+            "&7Combines elements and molecules into molecules and materials",
             "",
-            LoreUtils.energy(ChemicalCombiner.ENERGY) + "per item"
+            LorePreset.energy(ChemicalCombiner.ENERGY) + "per item"
+    );
+    
+    public static final SlimefunItemStack URANIUM_RTG = new SlimefunItemStack(
+            "URANIUM_RTG",
+            Material.POLISHED_BLACKSTONE,
+            "&aUranium RTG",
+            "&7Constantly generates power from the decay of uranium-238",
+            "",
+            LorePreset.energyPerSecond(RTG.URANIUM_ENERGY)
+    );
+    public static final SlimefunItemStack PLUTONIUM_RTG = new SlimefunItemStack(
+            "PLUTONIUM_RTG",
+            Material.POLISHED_BLACKSTONE,
+            "&aUranium RTG",
+            "&7Constantly generates power from the decay of plutonium-238",
+            "",
+            LorePreset.energyPerSecond(RTG.PLUTONIUM_ENERGY)
+    );
+    public static final SlimefunItemStack AMERICIUM_RTG = new SlimefunItemStack(
+            "AMERICIUM_RTG",
+            Material.POLISHED_BLACKSTONE,
+            "&aUranium RTG",
+            "&7Constantly generates power from the decay of americium-241",
+            "",
+            LorePreset.energyPerSecond(RTG.AMERICIUM_ENERGY)
+    );
+    public static final SlimefunItemStack CALIFORNIUM_RTG = new SlimefunItemStack(
+            "CALIFORNIUM_RTG",
+            Material.POLISHED_BLACKSTONE,
+            "&aUranium RTG",
+            "&7Constantly generates power from the decay of californium-250",
+            "",
+            LorePreset.energyPerSecond(RTG.CALIFORNIUM_ENERGY)
     );
     public static final SlimefunItemStack RTG_1 = new SlimefunItemStack(
         "RTG_1",

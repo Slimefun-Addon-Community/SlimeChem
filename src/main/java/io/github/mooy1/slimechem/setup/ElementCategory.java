@@ -43,10 +43,10 @@ public class ElementCategory extends FlexCategory implements Listener {
         super(new NamespacedKey(plugin, "periodic_table"), new CustomItem(Material.DIAMOND, "Periodic Table"), 3);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.history = new HashMap<>();
-        menus[0] = makeTopMenu();
-        menus[1] = makeBottomMenu();
-        menus[2] = makeMetalMenu();
-        menus[3] = makeRadioactiveMenu();
+        this.menus[0] = makeTopMenu();
+        this.menus[1] = makeBottomMenu();
+        this.menus[2] = makeMetalMenu();
+        this.menus[3] = makeRadioactiveMenu();
     }
     
     @Override
@@ -57,12 +57,12 @@ public class ElementCategory extends FlexCategory implements Listener {
     @Override
     public void open(Player p, PlayerProfile profile, SlimefunGuideLayout layout) {
         profile.getGuideHistory().add(this, 0);
-        menus[history.getOrDefault(p, 0)].open(p);
+        this.menus[this.history.getOrDefault(p, 0)].open(p);
     }
     
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent e) {
-        history.remove(e.getPlayer());
+        this.history.remove(e.getPlayer());
     }
     
     @Nonnull
@@ -144,7 +144,7 @@ public class ElementCategory extends FlexCategory implements Listener {
     
     private void addElementWithHandler(ChestMenu menu, int slot, int element, int page, String name) {
         menu.addItem(slot, makeItem(Element.getByNumber(element), ChatColor.GREEN + "> Click to go to " + name), (player, i1, itemStack, clickAction) -> {
-            menus[page].open(player);
+            this.menus[page].open(player);
             return false;
         });
     }
@@ -178,14 +178,14 @@ public class ElementCategory extends FlexCategory implements Listener {
         menu.setEmptySlotsClickable(false);
         menu.setPlayerInventoryClickable(false);
         
-        menu.addMenuCloseHandler(player -> history.put(player, page));
+        menu.addMenuCloseHandler(player -> this.history.put(player, page));
     
         for (int i = 0 ; i < 9 ; i++) {
-            menu.addItem(i, BACKGROUND, ChestMenuUtils.getEmptyClickHandler());
+            menu.addItem(i, this.BACKGROUND, ChestMenuUtils.getEmptyClickHandler());
         }
     
         for (int i = 45 ; i < 54 ; i++) {
-            menu.addItem(i, BACKGROUND, ChestMenuUtils.getEmptyClickHandler());
+            menu.addItem(i, this.BACKGROUND, ChestMenuUtils.getEmptyClickHandler());
         }
         
         menu.addMenuOpeningHandler(player -> {
@@ -201,20 +201,20 @@ public class ElementCategory extends FlexCategory implements Listener {
         
         menu.addMenuClickHandler(0, (p, slot, item, action) -> {
             Optional<PlayerProfile> optional = PlayerProfile.find(p);
-            optional.ifPresent(playerProfile -> playerProfile.getGuideHistory().goBack(GUIDE));
+            optional.ifPresent(playerProfile -> playerProfile.getGuideHistory().goBack(this.GUIDE));
             return false;
         });
         
         menu.addMenuClickHandler(45, (p, i, itemStack, clickAction) -> {
             if (page > 0) {
-                menus[page - 1].open(p);
+                this.menus[page - 1].open(p);
             }
             return false;
         });
         
         menu.addMenuClickHandler(53, (p, i, itemStack, clickAction) -> {
             if (page < 3) {
-                menus[page + 1].open(p);
+                this.menus[page + 1].open(p);
             }
             return false;
         });

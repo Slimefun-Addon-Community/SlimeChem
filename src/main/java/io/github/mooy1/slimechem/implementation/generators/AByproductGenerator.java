@@ -123,7 +123,7 @@ public abstract class AByproductGenerator extends AbstractEnergyProvider {
 
                 @Override
                 public boolean onClick(InventoryClickEvent e, Player p, int slot, ItemStack cursor, ClickAction action) {
-                    return cursor == null || cursor.getType() == null || cursor.getType() == Material.AIR;
+                    return cursor == null || cursor.getType() == Material.AIR;
                 }
             });
         }
@@ -224,7 +224,7 @@ public abstract class AByproductGenerator extends AbstractEnergyProvider {
     }
 
     private MachineFuel findRecipe(BlockMenu menu, Map<Integer, Integer> found) {
-        for (MachineFuel fuel : fuelTypes) {
+        for (MachineFuel fuel : this.fuelTypes) {
             for (int slot : getInputSlots()) {
                 if (fuel.test(menu.getItemInSlot(slot))) {
                     found.put(slot, fuel.getInput().getAmount());
@@ -242,7 +242,7 @@ public abstract class AByproductGenerator extends AbstractEnergyProvider {
      * @return The max amount of electricity this Block can store.
      */
     public int getCapacity() {
-        return energyCapacity;
+        return this.energyCapacity;
     }
 
     /**
@@ -252,7 +252,7 @@ public abstract class AByproductGenerator extends AbstractEnergyProvider {
      */
     @Override
     public int getEnergyProduction() {
-        return energyProducedPerTick;
+        return this.energyProducedPerTick;
     }
 
     /**

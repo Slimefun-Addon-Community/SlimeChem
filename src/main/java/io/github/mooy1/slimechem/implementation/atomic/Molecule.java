@@ -2,6 +2,8 @@ package io.github.mooy1.slimechem.implementation.atomic;
 
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.utils.ItemFilter;
+import io.github.mooy1.infinitylib.filter.ItemFilter;
+import io.github.mooy1.infinitylib.filter.MultiFilter;
 import io.github.mooy1.slimechem.utils.SubNum;
 import lombok.Getter;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
@@ -40,7 +42,7 @@ public enum Molecule implements Ingredient {
     // Iron
     IRON_III_OXIDE("Iron(III) Oxide (Hematite)", new MoleculeIngredient(Element.IRON, 2), new MoleculeIngredient(Element.OXYGEN, 3)),
     IRON_II_OXIDE("Iron(II,III) Oxide (Magnetite)", new MoleculeIngredient(Element.IRON, 3), new MoleculeIngredient(Element.OXYGEN, 4)),
-    IRON_PERSULFIDE("Iron Persulfide (Pyrite)", new MoleculeIngredient(Element.IRON, 2), new MoleculeIngredient(Element.OXYGEN, 3)),
+    IRON_PERSULFIDE("Iron Persulfide (Pyrite)", new MoleculeIngredient(Element.IRON), new MoleculeIngredient(Element.SULFUR, 2)),
     COPPER_IRON_SULFIDE("Copper Iron Sulfide (Chalcopyrite)", new MoleculeIngredient(Element.COPPER), new MoleculeIngredient(Element.IRON),
         new MoleculeIngredient(Element.SULFUR)),
     // Gold
@@ -81,6 +83,7 @@ public enum Molecule implements Ingredient {
 
     ;
     
+    @Nonnull
     private final String name;
     @Nonnull
     private final String formula;
@@ -125,26 +128,34 @@ public enum Molecule implements Ingredient {
     }
     
     @Nonnull
-    public ItemStack[] getNewRecipe() {
+    public ItemStack[] getRecipe() {
         ItemStack[] recipe = new ItemStack[9];
         
-        for (int i = 0 ; i < size() ; i++) {
-            recipe[i] = getIngredient(i).getNewItem();
+        for (int i = 0 ; i < size();) {
+            ItemStack[] items = getIngredient(i).getNewItems();
+            for (ItemStack item : items) {
+                recipe[i] = item;
+                i++;
+                if (i == size()) break;
+            }
         }
         
         return recipe;
     }
     
     @Nonnull
-    public ItemFilter[] toFilter(int size) {
+    public MultiFilter toFilter(int size) {
         ItemFilter[] filter = new ItemFilter[size];
 
-        for (int i = 0 ; i < Math.min(size, size()); i++) {
-            MoleculeIngredient ingredient = getIngredient(i);
-            filter[i] = new ItemFilter(ingredient.getNewItem());
+        for (int i = 0 ; i < Math.min(size, size());) {
+            ItemStack[] items = getIngredient(i).getNewItems();
+            for (ItemStack item : items) {
+                filter[i] = new ItemFilter(item);
+                i++;
+            }
         }
 
-        return filter;
+        return new MultiFilter(filter);
     }
     
 }

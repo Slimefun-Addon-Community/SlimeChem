@@ -50,7 +50,7 @@ public class IngredientItem extends SlimefunItem implements NotPlaceable {
         return (e, i, b) -> {
             e.setCancelled(true);
             Player p = e.getPlayer();
-            BiConsumer<Entity, Player> run = entityInteractActions.get(ingredient);
+            BiConsumer<Entity, Player> run = entityInteractActions.get(this.ingredient);
             if (run != null) {
                 if (p.getGameMode() != GameMode.CREATIVE) {
                     ItemUtils.consumeItem(i, false);

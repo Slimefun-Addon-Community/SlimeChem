@@ -2,6 +2,7 @@ package io.github.mooy1.slimechem.setup;
 
 import com.google.common.collect.Maps;
 import io.github.mooy1.slimechem.SlimeChem;
+import io.github.mooy1.slimechem.implementation.MachineMaterial;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.atomic.IngredientItem;
 import io.github.mooy1.slimechem.implementation.atomic.Molecule;
@@ -12,6 +13,7 @@ import io.github.mooy1.slimechem.implementation.generators.RTG2;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
 import io.github.mooy1.slimechem.implementation.machines.NuclearFurnace;
+import io.github.mooy1.slimechem.implementation.machines.RTG;
 import io.github.mooy1.slimechem.implementation.subatomic.Boson;
 import io.github.mooy1.slimechem.implementation.subatomic.Lepton;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
@@ -33,23 +35,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 
-@Getter
 public final class Registry {
 
-    private final int registrySize = Element.values().length  + Molecule.values().length;
+    private static final int registrySize = Element.values().length + Isotope.values().length + Molecule.values().length;
     
-    private final Map<SlimefunItem, Ingredient> items = Maps.newHashMapWithExpectedSize(this.registrySize);
-    private final Map<String, Ingredient> ids = Maps.newHashMapWithExpectedSize(this.registrySize);
+    @Getter
+    private static final Map<SlimefunItem, Ingredient> items = Maps.newHashMapWithExpectedSize(registrySize);
+    @Getter
+    private static final Map<String, Ingredient> ids = Maps.newHashMapWithExpectedSize(registrySize);
 
-    private static final Set<Ingredient> radioactiveItems = new HashSet<>((Element.values().length / 3));
+    @Getter
+    private static final Set<Ingredient> radioactiveItems = new HashSet<>((Element.values().length / 3) + Isotope.values().length);
 
-    private final SlimeChem plugin;
-
-    public Registry(SlimeChem plugin) {
-        this.plugin = plugin;
+    public static void setup(SlimeChem plugin) {
 
         new ElementCategory(plugin).register();
 
@@ -59,7 +59,7 @@ public final class Registry {
             if (element.isRadioactive()) {
                 radioactiveItems.add(element);
             }
-            registerItem(new IngredientItem(Categories.ELEMENTS, element, RecipeType.NULL, null)); //should later be changed to proton+neutron+electron recipe in fusion
+            registerItem(new IngredientItem(Categories.ELEMENTS, element, RecipeType.NULL, null), plugin); //should later be changed to proton+neutron+electron recipe in fusion
         }
         
         plugin.getLogger().log(Level.INFO, "Registered " + Element.values().length + " Elements!");
@@ -113,7 +113,7 @@ public final class Registry {
         plugin.getLogger().log(Level.INFO, "Registered " + isocount + " Isotopes!");
 
         for (Molecule molecule : Molecule.values()) {
-            registerItem(new IngredientItem(Categories.MOLECULES, molecule, RecipeTypes.COMBINER, molecule.getNewRecipe()));
+            registerItem(new IngredientItem(Categories.MOLECULES, molecule, RecipeTypes.COMBINER, molecule.getRecipe()), plugin);
         }
         
         plugin.getLogger().log(Level.INFO, "Registered " + Molecule.values().length + " Molecules!");
@@ -132,22 +132,27 @@ public final class Registry {
 
         IngredientItem.setupInteractions();
 
-        new ChemicalDissolver(this).register(plugin);
+        for (MachineMaterial m : MachineMaterial.values()) {
+            new SlimefunItem(Categories.MACHINES, m.getItem(), m.getRecipeType(), m.getRecipe()).register(plugin);
+        }
+
+        new ChemicalDissolver().register(plugin);
         new ChemicalCombiner().register(plugin);
         new NuclearFurnace().register(plugin);
+
+        for (RTG.Type type : RTG.Type.values()) {
+            new RTG(type).register(plugin);
+        }
+
         new RTG1().setCapacity(32).setEnergyProduction(8).register(plugin);
         new RTG2().setCapacity(64).setEnergyProduction(16).register(plugin);
 
     }
     
-    private void registerItem(@Nonnull IngredientItem item) {
-        this.items.put(item, item.getIngredient());
-        this.ids.put(item.getId(), item.getIngredient());
-        item.register(this.plugin);
-    }
-
-    public static Set<Ingredient> getRadioactiveItems() {
-        return radioactiveItems;
+    private static void registerItem(@Nonnull IngredientItem item, @Nonnull SlimeChem plugin) {
+        items.put(item, item.getIngredient());
+        ids.put(item.getId(), item.getIngredient());
+        item.register(plugin);
     }
 
 }

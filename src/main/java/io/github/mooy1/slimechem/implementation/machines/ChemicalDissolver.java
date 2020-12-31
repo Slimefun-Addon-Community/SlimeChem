@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem.implementation.machines;
 
+import io.github.mooy1.infinitylib.presets.MenuPreset;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.atomic.MoleculeIngredient;
@@ -8,8 +9,7 @@ import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Machine;
 import io.github.mooy1.slimechem.lists.Items;
 import io.github.mooy1.slimechem.setup.Registry;
-import io.github.mooy1.slimechem.utils.MathUtils;
-import io.github.mooy1.slimechem.utils.PresetUtils;
+import io.github.mooy1.slimechem.utils.Util;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
@@ -45,35 +45,39 @@ public class ChemicalDissolver extends Machine {
     
     private static final Map<Material, Map<Integer, MoleculeIngredient>> vanillaRecipes = new HashMap<>();
     private static final Map<String, Map<Integer, MoleculeIngredient>> slimefunRecipes = new HashMap<>();
-    
-    private final Registry registry;
 
     static {
         // Ores
         addRecipe(Material.COAL_ORE, new int[] {90, 10},
             new MoleculeIngredient(Element.CARBON, 12),
-            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5));
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5)
+        );
         addRecipe(Material.IRON_ORE, new int[] {50, 30, 10, 6, 4},
             new MoleculeIngredient(Molecule.IRON_III_OXIDE, 4),
             new MoleculeIngredient(Molecule.IRON_II_OXIDE, 4),
             new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5),
             new MoleculeIngredient(Molecule.IRON_PERSULFIDE, 7),
-            new MoleculeIngredient(Molecule.COPPER_IRON_SULFIDE, 6));
+            new MoleculeIngredient(Molecule.COPPER_IRON_SULFIDE, 6)
+        );
         addRecipe(Material.GOLD_ORE, new int[] {70, 20, 10},
             new MoleculeIngredient(Molecule.GOLD_TELLURIDE, 4),
             new MoleculeIngredient(Molecule.GOLD_ANTIMONIDE, 4),
-            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5));
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5)
+        );
         addRecipe(Material.REDSTONE_ORE, new int[] {60, 20, 10, 10},
             new MoleculeIngredient(Molecule.COPPER_I_OXIDE, 4),
             new MoleculeIngredient(Molecule.PENTACOPPER_IRON_TETRASULFIDE, 3),
             new MoleculeIngredient(Molecule.COPPER_II_OXIDE, 3),
-            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5));
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5)
+        );
         addRecipe(Material.EMERALD_ORE, new int[]{90, 10},
             new MoleculeIngredient(Molecule.BERYLLIUM_ALUMINUM_CYCLOSILICATE, 6),
-            new MoleculeIngredient(Molecule.SILICATE, 9));
+            new MoleculeIngredient(Molecule.SILICATE, 9)
+        );
         addRecipe(Material.ANCIENT_DEBRIS, new int[] {80, 20},
             new MoleculeIngredient(Molecule.SEABORGIUM_III_OXIDE, 4),
-            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 25));
+            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 25)
+        );
 
         // Plant matter
 
@@ -133,8 +137,7 @@ public class ChemicalDissolver extends Machine {
     public static void addRecipe(String id, int[] chances, MoleculeIngredient... ingredients) {
         slimefunRecipes.put(id, makeRecipe(chances, ingredients));
     }
-
-
+    
     // No idea what thi will be used for, but seems useful
     public static void addRecipe(Ingredient ingredient, int[] chances, MoleculeIngredient... ingredients) {
         slimefunRecipes.put(ingredient.getItem().getItemId(), makeRecipe(chances, ingredients));
@@ -144,27 +147,24 @@ public class ChemicalDissolver extends Machine {
         slimefunRecipes.put(slimefunItemStack.getItemId(), makeRecipe(chances, ingredients));
     }
 
-    public ChemicalDissolver(@Nonnull Registry registry) {
+    public ChemicalDissolver() {
         super(Items.CHEMICAL_DISSOLVER, ENERGY, ENERGY * 64, inputSlots, outputSlots, new ItemStack[] {
-                
+
         });
-        this.registry = registry;
     }
 
     @Override
     public void setupMenu(@Nonnull BlockMenuPreset preset) {
         for (int i : inputBorder) {
-            preset.addItem(i, PresetUtils.borderItemInput, ChestMenuUtils.getEmptyClickHandler());
+            preset.addItem(i, MenuPreset.borderItemInput, ChestMenuUtils.getEmptyClickHandler());
         }
         for (int i : outputBorder) {
-            preset.addItem(i, PresetUtils.borderItemOutput, ChestMenuUtils.getEmptyClickHandler());
+            preset.addItem(i, MenuPreset.borderItemOutput, ChestMenuUtils.getEmptyClickHandler());
         }
         for (int i : background) {
             preset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
         }
     }
-
-
 
     @Override
     public void process(@Nonnull BlockMenu menu, @Nonnull Block b, @Nonnull Location l) {
@@ -181,7 +181,7 @@ public class ChemicalDissolver extends Machine {
             
             if (item != null) {
 
-                Ingredient ingredient = this.registry.getItems().get(item);
+                Ingredient ingredient = Registry.getItems().get(item);
 
                 if (ingredient != null) {
                     if (ingredient instanceof Molecule) {
@@ -191,13 +191,15 @@ public class ChemicalDissolver extends Machine {
                         loop: for (int i = 0 ; i < getMax(l, input) ; i++) {
 
                             for (MoleculeIngredient check : molecule.getIngredients()) {
-                                ItemStack output = check.getNewItem();
+                                ItemStack[] outputs = check.getNewItems();
 
-                                if (menu.fits(output)) {
-                                    menu.pushItem(output, outputSlots);
-                                    amount++;
-                                } else {
-                                    break loop;
+                                for (ItemStack output : outputs) {
+                                    if (menu.fits(output)) {
+                                        menu.pushItem(output, outputSlots);
+                                        amount++;
+                                    } else {
+                                        break loop;
+                                    }
                                 }
                             }
                         }
@@ -227,19 +229,21 @@ public class ChemicalDissolver extends Machine {
         }
     }
     
-    private int output(int amount, BlockMenu menu, Location l, ItemStack input, Map<Integer, MoleculeIngredient> outputs) {
-        for (int i = 0 ; i < getMax(l, input) ; i++) {
-            MoleculeIngredient ingredient = MathUtils.chooseRandom(outputs);
+    private int output(int amount, BlockMenu menu, Location l, ItemStack input, Map<Integer, MoleculeIngredient> map) {
+        loop: for (int i = 0 ; i < getMax(l, input) ; i++) {
+            MoleculeIngredient ingredient = Util.chooseRandom(map);
             amount++;
             
             if (ingredient != null) {
-                ItemStack output = ingredient.getNewItem();
-
-                if (menu.fits(output, outputSlots)) {
-                    menu.pushItem(output, outputSlots);
-                } else {
-                    amount--;
-                    break;
+                ItemStack[] outputs = ingredient.getNewItems();
+                
+                for (ItemStack output : outputs) {
+                    if (menu.fits(output, outputSlots)) {
+                        menu.pushItem(output, outputSlots);
+                    } else {
+                        amount--;
+                        break loop;
+                    }
                 }
             }
         }

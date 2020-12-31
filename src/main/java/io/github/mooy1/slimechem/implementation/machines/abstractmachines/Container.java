@@ -17,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class Container extends SlimefunItem {
     public Container(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -37,7 +38,7 @@ public abstract class Container extends SlimefunItem {
             @Override
             public boolean canOpen(@Nonnull Block b, @Nonnull Player p) {
                 return p.hasPermission("slimefun.inventory.bypass") ||
-                        SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(), ProtectableAction.ACCESS_INVENTORIES);
+                        SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(), ProtectableAction.INTERACT_BLOCK);
             }
         
             @Override
@@ -49,13 +50,24 @@ public abstract class Container extends SlimefunItem {
             public int[] getSlotsAccessedByItemTransport(DirtyChestMenu menu, ItemTransportFlow flow, ItemStack item) {
                 return getTransportSlots(menu, flow, item);
             }
+
+            @Nullable
+            @Override
+            protected ItemStack onItemStackChange(@Nonnull DirtyChestMenu menu, int slot, @Nullable ItemStack previous, @Nullable ItemStack next) {
+                onMenuItemChange(menu, slot, previous, next);
+                return next;
+            }
         };
     }
     
     public abstract void setupMenu(@Nonnull BlockMenuPreset preset);
     
     public void onNewInstance(@Nonnull BlockMenu menu, @Nonnull Block b) {
-        
+        // to be overridden
+    }
+    
+    public void onMenuItemChange(@Nonnull DirtyChestMenu menu, int slot, @Nullable ItemStack previous, @Nullable ItemStack next) {
+        // to be overridden
     }
     
     @Override
