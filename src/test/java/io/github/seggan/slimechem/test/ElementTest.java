@@ -22,7 +22,7 @@ public class ElementTest {
     public void testIsotopeGetting() {
         for (Element element : Element.values()) {
             if (element.getSeries() != Element.Series.CUSTOM) {
-                System.out.println(element.getCorrespondingIsotope());
+                element.getCorrespondingIsotope();
             }
         }
     }
