@@ -16,8 +16,6 @@ import java.util.Set;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class IsotopeLoadingTest {
 
-    private IsotopeLoader isotopeLoader = new IsotopeLoader();
-
     @BeforeAll
     public static void setUp() {
         Constants.isTestingEnvironment = true;
@@ -27,6 +25,7 @@ public class IsotopeLoadingTest {
     @Test
     @Order(1)
     public void testIsotopeLoading() {
+        IsotopeLoader isotopeLoader = new IsotopeLoader();
         isotopeLoader.load();
         isotopeLoader.loadDecayProducts();
     }

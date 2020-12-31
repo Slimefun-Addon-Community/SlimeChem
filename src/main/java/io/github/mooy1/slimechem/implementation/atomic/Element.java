@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
 import io.github.mooy1.slimechem.lists.Constants;
@@ -191,6 +192,14 @@ public enum Element implements Ingredient {
             if (e.symbol.equals(abbr)) return e;
         }
         throw new IllegalArgumentException("Invalid abbreviation, got: " + abbr);
+    }
+
+    @Nonnull
+    public Isotope getCorrespondingIsotope() {
+        return Objects.requireNonNull(
+            Isotope.getIsotope((int) Math.round(this.mass), this),
+            "For element " + this.name
+        );
     }
 
     @Nonnull

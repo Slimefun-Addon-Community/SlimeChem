@@ -21114,6 +21114,13 @@
     "pelement": "Nh"
   },
   {
+    "mass": 290,
+    "element": "Lv",
+    "decay": "alpha",
+    "pmass": 286,
+    "pelement": "Fl"
+  },
+  {
     "mass": 291,
     "element": "Lv",
     "decay": "alpha",
@@ -21140,6 +21147,13 @@
     "decay": "alpha",
     "pmass": 290,
     "pelement": "Mc"
+  },
+  {
+    "mass": 294,
+    "element": "Og",
+    "decay": "alpha",
+    "pmass": 290,
+    "pelement": "Lv"
   },
   {
     "mass": 295,

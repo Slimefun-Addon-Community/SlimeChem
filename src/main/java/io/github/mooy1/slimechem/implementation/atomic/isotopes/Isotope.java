@@ -135,6 +135,28 @@ public class Isotope implements Ingredient {
         return decayType != DecayType.STABLE;
     }
 
+    /**
+     * This method returns an {@link Element}mif this isotope is the main isotope.
+     * Otherwise, returns null. For example, Hydrogen-1 would return {@link Element#HYDROGEN},
+     * but Hydrogen-2 would return null.
+     *
+     * @return {@link Element}
+     * @implNote the check uses {@link #isMainIsotope()}
+     */
+    public Element getCorrespondingElement() {
+        return isMainIsotope() ? this.element : null;
+    }
+
+    /**
+     * Checks if this isotope is the main isotope of the element
+     *
+     * @return true if the isotope is the main isotope of the element, false otherwise
+     * @implNote executes {@code Math.round(this.element.getMass()) == this.mass}
+     */
+    public boolean isMainIsotope() {
+        return Math.round(this.element.getMass()) == this.mass;
+    }
+
     @Override
     public String toString() {
         return element.getName() + '-' + mass;
