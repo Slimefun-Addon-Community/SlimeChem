@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.github.mooy1.slimechem.lists.Constants;
 import io.github.mooy1.slimechem.utils.StringUtil;
 import io.github.mooy1.slimechem.utils.SuperNum;
 
@@ -17,17 +18,12 @@ public class IsotopeLoader {
     private final String isotopeJSON;
     Map<Isotope, NumberAndString> decayProductMap = new HashMap<>();
 
-    private static final class IsotopeJSONObject {
-        public int mass = 0;
-        public String element = "";
-    }
-
-    private static final class DecayJSONObject {
-        public int mass = 0;
-        public String element = "";
-    }
-
     public IsotopeLoader() {
+        if (!Constants.isTestingEnvironment) {
+            for (DecayType decayType : DecayType.values()) {
+                decayType.setParticles();
+            }
+        }
         try {
             isotopeJSON = StringUtil.getResourceAsString("isotopes.json");
         } catch (IOException e) {

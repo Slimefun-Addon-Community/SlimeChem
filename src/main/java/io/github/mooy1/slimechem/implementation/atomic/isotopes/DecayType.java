@@ -4,7 +4,6 @@ import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.subatomic.Boson;
 import io.github.mooy1.slimechem.implementation.subatomic.Lepton;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
-import io.github.mooy1.slimechem.lists.Constants;
 import lombok.Getter;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
@@ -35,17 +34,14 @@ public enum DecayType {
     private static final Map<String, DecayType> reprmap = new HashMap<>();
     private final String representation;
     @Getter
-    private final List<SlimefunItemStack> particles;
+    private final List<SlimefunItemStack> particles = new ArrayList<>();
 
     DecayType(String representation) {
         this.representation = representation;
-
-        this.particles = new ArrayList<>();
-        if (!Constants.isTestingEnvironment) setParticles();
     }
 
     // This is required for unit tests
-    private void setParticles() {
+    void setParticles() {
         switch (this) {
             case ALPHA:
                 particles.add(Element.HELIUM.getItem());

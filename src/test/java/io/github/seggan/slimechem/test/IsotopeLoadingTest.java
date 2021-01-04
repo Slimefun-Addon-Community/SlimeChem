@@ -33,11 +33,6 @@ public class IsotopeLoadingTest {
     @Test
     @Order(2)
     public void testIsotopeDecayProducts() {
-        Asserts.assertEquals(
-            Isotope.getIsotope(2, Element.HELIUM).getDecayProduct().get(),
-            Isotope.getIsotope(1, Element.HYDROGEN)
-        );
-
         final EnumMap<Element, Set<Isotope>> isotopes = Isotope.getIsotopes();
 
         for (Element el : isotopes.keySet()) {
