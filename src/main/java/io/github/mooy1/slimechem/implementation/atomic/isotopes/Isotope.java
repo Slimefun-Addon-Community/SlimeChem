@@ -6,6 +6,8 @@ import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.lists.Constants;
 import io.github.mooy1.slimechem.utils.SubNum;
 import io.github.mooy1.slimechem.utils.SuperNum;
+import io.github.mooy1.slimechem.utils.Util;
+import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -74,7 +76,8 @@ public class Isotope implements Ingredient, Atom {
                 Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
                 "&b" + this.name,
                 "&7" + this.formula,
-                "&7Mass: " + this.mass
+                "&7Mass: " + this.mass,
+                this.isRadioactive() ? LoreBuilder.radioactive(Util.fromRadioactivityInt(this.radiationLevel)) : ""
             );
         } else {
             this.item = null;

@@ -6,6 +6,8 @@ import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
 import io.github.mooy1.slimechem.lists.Constants;
 import io.github.mooy1.slimechem.utils.SubNum;
+import io.github.mooy1.slimechem.utils.Util;
+import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -176,7 +178,8 @@ public enum Element implements Ingredient, Atom {
                 Objects.requireNonNull(Material.getMaterial(series.getColor() + "_DYE")),
                 "&b" + name,
                 "&7" + symbol + " " + number,
-                "&7Mass: " + mass
+                "&7Mass: " + mass,
+                this.isRadioactive() ? LoreBuilder.radioactive(Util.fromRadioactivityInt(this.radiationLevel)) : ""
             );
         } else {
             this.item = null;

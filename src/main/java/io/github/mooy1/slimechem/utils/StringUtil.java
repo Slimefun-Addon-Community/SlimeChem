@@ -9,10 +9,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.regex.Pattern;
 
 public final class StringUtil {
-    private static final Pattern NUMBER_STRING_PATTERN = Pattern.compile("(?=\\\\d)(?<=\\\\D)");
 
     private StringUtil() {}
 

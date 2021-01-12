@@ -45,7 +45,7 @@ public class IsotopeTest {
             for (Isotope isotope : isotopeSet) {
                 Optional<Isotope> decayProduct = isotope.getDecayProduct();
 
-                decayProduct.ifPresent((i) -> {
+                decayProduct.ifPresent(i -> {
                     if (i.getElement() == isotope.getElement() &&
                         !(isotope.getDecayType().toString().contains("NEUTRON"))) {
                         System.out.println(isotope);

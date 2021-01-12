@@ -1,7 +1,7 @@
 package io.github.mooy1.slimechem.implementation.machines;
 
 import io.github.mooy1.infinitylib.items.StackUtils;
-import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
+import io.github.mooy1.slimechem.implementation.attributes.Atom;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Container;
 import io.github.mooy1.slimechem.lists.Categories;
 import io.github.mooy1.slimechem.lists.Items;
@@ -80,9 +80,8 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
         this.fuels.put(SlimefunItems.PLUTONIUM.getItemId(), 480);
         this.fuels.put(SlimefunItems.BOOSTED_URANIUM.getItemId(), 720);
 
-        // TODO: Seggan, improve this
-        for (Ingredient ingredient : Registry.getRadioactiveItems()) {
-            this.fuels.put(ingredient.getItem().getItemId(), 20);
+        for (Atom atom : Registry.getRadioactiveItems()) {
+            this.fuels.put(atom.getItem().getItemId(), atom.getRadiationLevel() * 10);
         }
 
         //display recipes
