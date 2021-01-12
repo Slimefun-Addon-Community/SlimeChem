@@ -5,7 +5,7 @@ import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.core.categories.FlexCategory;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideImplementation;
-import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideLayout;
+import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideMode;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
@@ -33,9 +33,9 @@ import java.util.Optional;
  * 
  */
 public class ElementCategory extends FlexCategory implements Listener {
-    
+
     private final ItemStack BACKGROUND = new CustomItem(Material.BLACK_STAINED_GLASS_PANE, "");
-    private final SlimefunGuideImplementation GUIDE = SlimefunPlugin.getRegistry().getGuideLayout(SlimefunGuideLayout.CHEST);
+    private final SlimefunGuideImplementation GUIDE = SlimefunPlugin.getRegistry().getGuideLayout(SlimefunGuideMode.SURVIVAL_MODE);
     private final ChestMenu[] menus = new ChestMenu[4];
     private final Map<Player, Integer> history;
     
@@ -48,14 +48,14 @@ public class ElementCategory extends FlexCategory implements Listener {
         this.menus[2] = makeMetalMenu();
         this.menus[3] = makeRadioactiveMenu();
     }
-    
+
     @Override
-    public boolean isVisible(@Nonnull Player p, @Nonnull PlayerProfile profile, @Nonnull SlimefunGuideLayout layout) {
-        return layout != SlimefunGuideLayout.CHEAT_SHEET;
+    public boolean isVisible(@Nonnull Player p, @Nonnull PlayerProfile profile, @Nonnull SlimefunGuideMode layout) {
+        return layout != SlimefunGuideMode.CHEAT_MODE;
     }
-    
+
     @Override
-    public void open(Player p, PlayerProfile profile, SlimefunGuideLayout layout) {
+    public void open(Player p, PlayerProfile profile, SlimefunGuideMode layout) {
         profile.getGuideHistory().add(this, 0);
         this.menus[this.history.getOrDefault(p, 0)].open(p);
     }

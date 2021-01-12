@@ -1,8 +1,11 @@
 package io.github.mooy1.slimechem.utils;
 
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
 import io.github.mooy1.slimechem.lists.Constants;
+import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 import io.github.thebusybiscuit.slimefun4.core.services.CustomItemDataService;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,8 +61,35 @@ public final class Util {
     }
 
     public static <T> void trimList(List<T> list, int size) {
-        while(list.size() > size) {
+        while (list.size() > size) {
             list.remove(list.size() - 1);
+        }
+    }
+
+    public static SlimefunItemStack getIsotopeItem(Isotope isotope) {
+        return isotope.isMainIsotope() ? isotope.getCorrespondingElement().getItem() : isotope.getItem();
+    }
+
+    public static Radioactivity fromRadioactivityInt(int radioactivityValue) {
+        switch (radioactivityValue) {
+            case 1:
+                return Radioactivity.LOW;
+            case 2:
+            case 3:
+            case 4:
+                return Radioactivity.MODERATE;
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                return Radioactivity.HIGH;
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+                return Radioactivity.VERY_HIGH;
+            default:
+                return Radioactivity.VERY_DEADLY;
         }
     }
 }

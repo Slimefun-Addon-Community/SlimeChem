@@ -12,4 +12,6 @@ public interface Atom extends Itemable {
     int getNumber();
 
     int getRadiationLevel();
+
+    boolean isRadioactive();
 }

@@ -1,5 +1,7 @@
 package io.github.mooy1.slimechem.implementation.generators;
 
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
+import io.github.mooy1.slimechem.utils.Util;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemState;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
@@ -33,7 +35,9 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -149,9 +153,28 @@ public abstract class ARTG extends AbstractEnergyProvider {
         return progress.containsKey(l);
     }
 
-    public void registerFuel(@Nonnull MachineFuel fuel, @Nonnull ItemStack[] byproducts) {
-        ARTG.byproducts.put(fuel, byproducts);
-        super.registerFuel(fuel);
+
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    public void registerFuel(Isotope isotope, boolean giveParticles) {
+        if (!isotope.isRadioactive()) {
+            return;
+        }
+
+        List<ItemStack> particles = new ArrayList<>();
+        particles.add(Util.getIsotopeItem(isotope.getDecayProduct().get()));
+        if (giveParticles) {
+            particles.addAll(isotope.getDecayType().getParticles());
+        }
+
+        MachineFuel machineFuel = new MachineFuel(
+            40 - isotope.getRadiationLevel(),
+            Util.getIsotopeItem(isotope)
+        );
+
+        ARTG.byproducts.put(machineFuel, particles.toArray(new ItemStack[0]));
+        ARTG.power.put(machineFuel, isotope.getRadiationLevel());
+
+        super.registerFuel(machineFuel);
     }
 
     @Override
@@ -169,13 +192,13 @@ public abstract class ARTG extends AbstractEnergyProvider {
 
                     if (getCapacity() - charge >= getEnergyProduction()) {
                         progress.put(l, timeleft - 1);
-                        return getEnergyProduction();
+                        return getEnergyProduction() * power.get(processing.get(l));
                     }
 
                     return 0;
                 } else {
                     progress.put(l, timeleft - 1);
-                    return getEnergyProduction();
+                    return getEnergyProduction() * power.get(processing.get(l));
                 }
             } else {
                 ItemStack fuel = processing.get(l).getInput();

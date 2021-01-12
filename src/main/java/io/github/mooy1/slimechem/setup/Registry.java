@@ -144,8 +144,8 @@ public final class Registry {
             new RTG(type).register(plugin);
         }
 
-        new RTG1().setCapacity(32).setEnergyProduction(8).register(plugin);
-        new RTG2().setCapacity(64).setEnergyProduction(16).register(plugin);
+        new RTG1().setCapacity(32).setEnergyProduction(4).register(plugin);
+        new RTG2().setCapacity(64).setEnergyProduction(8).register(plugin);
 
     }
     

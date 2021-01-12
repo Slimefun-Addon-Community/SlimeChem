@@ -2,11 +2,13 @@ package io.github.seggan.slimechem.test;
 
 import io.github.mooy1.slimechem.implementation.atomic.isotopes.DecayType;
 import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.IsotopeLoader;
 import io.github.mooy1.slimechem.lists.Constants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
+import java.util.Set;
 
 public class IsotopeTest {
 
@@ -30,6 +32,27 @@ public class IsotopeTest {
             () -> Isotope.addIsotope(3, "H", DecayType.ALPHA).getDecayProduct(),
             IllegalStateException.class
         );
+    }
+
+    @Test
+    public void testSameDecay() {
+        Isotope.getIsotopes().clear();
+        IsotopeLoader isotopeLoader = new IsotopeLoader();
+        isotopeLoader.load();
+        isotopeLoader.loadDecayProducts();
+
+        for (Set<Isotope> isotopeSet : Isotope.getIsotopes().values()) {
+            for (Isotope isotope : isotopeSet) {
+                Optional<Isotope> decayProduct = isotope.getDecayProduct();
+
+                decayProduct.ifPresent((i) -> {
+                    if (i.getElement() == isotope.getElement() &&
+                        !(isotope.getDecayType().toString().contains("NEUTRON"))) {
+                        System.out.println(isotope);
+                    }
+                });
+            }
+        }
     }
 
     /*@Test

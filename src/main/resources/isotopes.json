@@ -17646,7 +17646,7 @@
     "element": "Fr",
     "decay": "beta+",
     "pmass": 212,
-    "pelement": "Fr"
+    "pelement": "Rn"
   },
   {
     "mass": 213,
@@ -18416,7 +18416,7 @@
     "element": "Th",
     "decay": "beta-",
     "pmass": 234,
-    "pelement": "Th"
+    "pelement": "Pa"
   },
   {
     "mass": 235,
