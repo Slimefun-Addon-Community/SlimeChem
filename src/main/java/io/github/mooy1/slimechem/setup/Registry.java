@@ -72,6 +72,9 @@ public final class Registry {
         int isocount = 0;
         for (Set<Isotope> isotopeSet : isotopes.values()) {
             for (Isotope isotope : isotopeSet) {
+                if (isotope.isMainIsotope()) {
+                    continue;
+                }
                 isocount++;
                 List<Isotope> superIsotopes = new ArrayList<>();
                 for (Set<Isotope> isotopeCollection : isotopes.values()) {

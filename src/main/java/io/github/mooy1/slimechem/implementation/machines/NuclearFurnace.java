@@ -1,6 +1,7 @@
 package io.github.mooy1.slimechem.implementation.machines;
 
 import io.github.mooy1.infinitylib.items.StackUtils;
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
 import io.github.mooy1.slimechem.implementation.attributes.Atom;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Container;
 import io.github.mooy1.slimechem.lists.Categories;
@@ -81,6 +82,9 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
         this.fuels.put(SlimefunItems.BOOSTED_URANIUM.getItemId(), 720);
 
         for (Atom atom : Registry.getRadioactiveItems()) {
+            if (atom instanceof Isotope && ((Isotope) atom).isMainIsotope()) {
+                continue;
+            }
             this.fuels.put(atom.getItem().getItemId(), atom.getRadiationLevel() * 10);
         }
 
