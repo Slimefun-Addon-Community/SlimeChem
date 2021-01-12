@@ -7,10 +7,13 @@ import io.github.mooy1.slimechem.setup.Registry;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import lombok.Getter;
 import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
+import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
+import me.mrCookieSlime.Slimefun.cscorelib2.updater.Updater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
+import java.util.logging.Level;
 
 
 public class SlimeChem extends JavaPlugin implements SlimefunAddon {
@@ -28,14 +31,14 @@ public class SlimeChem extends JavaPlugin implements SlimefunAddon {
         
         @SuppressWarnings("unused")
         final Metrics metrics = new Metrics(this, 9490);
-        
-        /*if (getDescription().getVersion().startsWith("DEV - ")) {
+
+        if (getDescription().getVersion().startsWith("DEV - ")) {
             getLogger().log(Level.INFO, "Starting auto update");
-            Updater updater = new GitHubBuildsUpdater(this, this.getFile(), "Mooy1/SlimeChem/master");
+            Updater updater = new GitHubBuildsUpdater(this, this.getFile(), "Slimefun-Addon-Community/SlimeChem/master");
             updater.start();
         } else {
             getLogger().log(Level.WARNING, "You must be on a DEV build to auto update!");
-        }*/
+        }
 
         IsotopeLoader isotopeLoader = new IsotopeLoader();
         isotopeLoader.load();

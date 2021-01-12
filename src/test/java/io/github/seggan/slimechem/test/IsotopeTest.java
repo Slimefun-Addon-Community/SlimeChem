@@ -31,4 +31,29 @@ public class IsotopeTest {
             IllegalStateException.class
         );
     }
+
+    /*@Test
+    public void testIsotopeRadioactivity() {
+        Isotope.getIsotopes().clear();
+        IsotopeLoader isotopeLoader = new IsotopeLoader();
+        isotopeLoader.load();
+        isotopeLoader.loadDecayProducts();
+
+        Isotope biggestRadioactivity;
+
+        for (int i = 0; i < 1000; i++) {
+            biggestRadioactivity = Isotope.getIsotope(1, Element.HYDROGEN);
+
+            for (Set<Isotope> isotopeSet : Isotope.getIsotopes().values()) {
+                for (Isotope isotope : isotopeSet) {
+                    biggestRadioactivity = isotope.getRadiationLevel() > biggestRadioactivity.getRadiationLevel() ?
+                        isotope : biggestRadioactivity;
+                }
+            }
+
+            System.out.println(biggestRadioactivity.toString() + ' ' + biggestRadioactivity.getRadiationLevel());
+
+            Isotope.getIsotopes().get(biggestRadioactivity.getElement()).remove(biggestRadioactivity);
+        }
+    }*/
 }

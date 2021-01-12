@@ -55,13 +55,13 @@ public enum DecayType {
                     new SlimefunItemStack(Lepton.ELECTRON_NEUTRINO.getItem(), 2)));
                 break;
             case PROTON:
-                particles.add(Nucleon.PROTON.getItem());
+                particles.add(Element.HYDROGEN.getItem());
                 break;
             case PROTON_2:
-                particles.add(new SlimefunItemStack(Nucleon.PROTON.getItem(), 2));
+                particles.add(new SlimefunItemStack(Element.HYDROGEN.getItem(), 2));
                 break;
             case PROTON_3:
-                particles.add(new SlimefunItemStack(Nucleon.PROTON.getItem(), 3));
+                particles.add(new SlimefunItemStack(Element.HYDROGEN.getItem(), 3));
                 break;
             case NEUTRON:
                 particles.add(Nucleon.NEUTRON.getItem());

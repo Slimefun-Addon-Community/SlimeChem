@@ -12,11 +12,8 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class RTG1 extends AByproductGenerator {
+public class RTG1 extends ARTG {
 
     public RTG1() {
         super(Categories.MACHINES, Items.RTG_1, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[0]);
@@ -42,8 +39,8 @@ public class RTG1 extends AByproductGenerator {
                 Isotope decayProduct = isotope.getDecayProduct().get();
 
                 registerFuel(
-                    new MachineFuel(10, isotope.getItem()),
-                    new SlimefunItemStack[]{decayProduct.getItem()}
+                    new MachineFuel(10, isotope.isMainIsotope() ? isotope.getCorrespondingElement().getItem() : isotope.getItem()),
+                    new SlimefunItemStack[]{decayProduct.isMainIsotope() ? decayProduct.getCorrespondingElement().getItem() : decayProduct.getItem()}
                 );
             }
         }

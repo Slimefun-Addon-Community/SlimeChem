@@ -1,6 +1,7 @@
 package io.github.mooy1.slimechem.implementation.atomic.isotopes;
 
 import io.github.mooy1.slimechem.implementation.atomic.Element;
+import io.github.mooy1.slimechem.implementation.attributes.Atom;
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.lists.Constants;
 import io.github.mooy1.slimechem.utils.SubNum;
@@ -27,7 +28,7 @@ import java.util.Set;
  */
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Isotope implements Ingredient {
+public class Isotope implements Ingredient, Atom {
     @Getter
     private static final EnumMap<Element, Set<Isotope>> isotopes = new EnumMap<>(Element.class);
 
@@ -44,20 +45,28 @@ public class Isotope implements Ingredient {
     private final DecayType decayType;
     @Getter(AccessLevel.NONE)
     private Isotope decayProduct = null;
+    private final int radiationLevel;
 
     private final SlimefunItemStack item;
 
     private Isotope(int mass, String abbr, DecayType decayType) {
-        element = Element.getByAbbr(abbr);
+        this.element = Element.getByAbbr(abbr);
 
         this.mass = mass;
-        this.protons = element.getNumber();
+        this.protons = this.element.getNumber();
         this.neutrons = mass - this.protons;
 
         this.name = element.getName() + "-" + this.mass;
         this.formula = SuperNum.fromInt(this.mass) + abbr;
 
         this.decayType = decayType;
+
+        if (this.isRadioactive()) {
+            this.radiationLevel = (int) (this.element.getRadiationLevel() +
+                Math.abs(Math.round(this.element.getMass()) - this.mass));
+        } else {
+            this.radiationLevel = 0;
+        }
 
         if (!Constants.isTestingEnvironment) {
             this.item = new SlimefunItemStack(
@@ -166,5 +175,15 @@ public class Isotope implements Ingredient {
     @Override
     public String getFormula(int i) {
         return formula + SubNum.fromInt(i);
+    }
+
+    @Override
+    public int getNumber() {
+        return protons;
+    }
+
+    @Override
+    public double getMass() {
+        return this.mass;
     }
 }

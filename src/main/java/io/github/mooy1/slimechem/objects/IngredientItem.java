@@ -1,4 +1,4 @@
-package io.github.mooy1.slimechem.implementation.atomic;
+package io.github.mooy1.slimechem.objects;
 
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.setup.Registry;
