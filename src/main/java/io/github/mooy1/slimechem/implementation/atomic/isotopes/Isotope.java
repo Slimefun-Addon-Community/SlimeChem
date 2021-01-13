@@ -16,7 +16,6 @@ import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Objects;
@@ -88,20 +87,13 @@ public class Isotope implements Ingredient, Atom {
     public static Isotope addIsotope(int mass, String abbr, DecayType decayType) {
         Isotope isotope = new Isotope(mass, abbr, decayType);
         Element element = isotope.getElement();
-        isotopes.compute(element, (key, val) -> {
-            if (val == null) {
-                return new HashSet<>(Collections.singleton(isotope));
-            } else {
-                val.add(isotope);
-                return val;
-            }
-        });
+        isotopes.computeIfAbsent(element, ununsed -> new HashSet<>()).add(isotope);
 
         return isotope;
     }
 
     @Nullable
-    public static Isotope getIsotope(int mass, Element element) {
+    public static Isotope getIsotope(int mass, @Nonnull Element element) {
         for (Isotope isotope : isotopes.get(element)) {
             if (isotope.getElement() == element && isotope.getMass() == mass) {
                 return isotope;

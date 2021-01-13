@@ -15,6 +15,7 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
@@ -168,7 +169,7 @@ public enum Element implements Ingredient, Atom {
         this.number = number;
         this.series = series;
         this.neutrons = (int) Math.round(mass) - number;
-        this.radioactive = (number > 82 && number < 121) || this.number == 43 || this.number == 61;
+        this.radioactive = radiationLevel != 0;
 
         this.radiationLevel = radiationLevel;
 
@@ -190,12 +191,12 @@ public enum Element implements Ingredient, Atom {
         this(mass, name, symbol, number, series, 0);
     }
 
-    @Nonnull
+    @Nullable
     public static Element getByNumber(int i) {
         for (Element e : values()) {
             if (e.getNumber() == i) return e;
         }
-        return HYDROGEN;
+        return null;
     }
 
     @Nonnull

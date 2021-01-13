@@ -85,15 +85,26 @@ public final class Items {
         LoreBuilder.powerCharged(0, 64)
     );
 
+    public static final SlimefunItemStack CYCLOTRON = new SlimefunItemStack(
+        "CYCLOTRON",
+        Material.NETHERITE_BLOCK,
+        "&4Cyclotron",
+        "",
+        "&7Fuses 2 isotopes/elements together",
+        LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
+        LoreBuilder.powerPerSecond(2040),
+        LoreBuilder.powerCharged(0, 4080)
+    );
+
     public static final SlimefunItemStack ADDON_INFO = new SlimefunItemStack(
-            SlimeChem.getInstance().getName().toUpperCase(Locale.ROOT) + "_ADDON_INFO",
-            Material.NETHER_STAR,
-            "&bAddon Info",
-            "&fVersion: &7" + SlimeChem.getInstance().getPluginVersion(),
-            "",
-            "&fMooy's Discord: &b@&7Riley&8#5911",
-            "&fSeggan's Discord: &b@&7Seggan&8#8111",
-            "&7discord.gg/slimefun",
+        SlimeChem.getInstance().getName().toUpperCase(Locale.ROOT) + "_ADDON_INFO",
+        Material.NETHER_STAR,
+        "&bAddon Info",
+        "&fVersion: &7" + SlimeChem.getInstance().getPluginVersion(),
+        "",
+        "&fMooy's Discord: &b@&7Riley&8#5911",
+        "&fSeggan's Discord: &b@&7Seggan&8#8111",
+        "&7discord.gg/slimefun",
             "",
             "&fMooy's Github: &b@&8&7Mooy1",
             "&fSeggan's Github: &b@&8&7Seggan",

@@ -35,7 +35,7 @@ import java.util.Optional;
 public class ElementCategory extends FlexCategory implements Listener {
 
     private final ItemStack BACKGROUND = new CustomItem(Material.BLACK_STAINED_GLASS_PANE, "");
-    private final SlimefunGuideImplementation GUIDE = SlimefunPlugin.getRegistry().getGuideLayout(SlimefunGuideMode.SURVIVAL_MODE);
+    private final SlimefunGuideImplementation GUIDE = SlimefunPlugin.getRegistry().getSlimefunGuide(SlimefunGuideMode.SURVIVAL_MODE);
     private final ChestMenu[] menus = new ChestMenu[4];
     private final Map<Player, Integer> history;
     

@@ -28,6 +28,13 @@ public class IsotopeLoadingTest {
         IsotopeLoader isotopeLoader = new IsotopeLoader();
         isotopeLoader.load();
         isotopeLoader.loadDecayProducts();
+        int i = 0;
+        for (Set<Isotope> isotopes : Isotope.getIsotopes().values()) {
+            for (Isotope isotope : isotopes) {
+                i++;
+            }
+        }
+        System.out.println(i);
     }
 
     @Test

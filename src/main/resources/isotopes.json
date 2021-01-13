@@ -21161,5 +21161,15 @@
     "decay": "alpha",
     "pmass": 291,
     "pelement": "Lv"
+  },
+  {
+    "mass": 315,
+    "element": "My",
+    "decay": "stable"
+  },
+  {
+    "mass": 336,
+    "element": "Gg",
+    "decay": "stable"
   }
 ]
