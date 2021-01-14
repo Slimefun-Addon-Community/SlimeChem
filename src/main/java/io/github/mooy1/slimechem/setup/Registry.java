@@ -8,8 +8,6 @@ import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
 import io.github.mooy1.slimechem.implementation.attributes.Atom;
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
-import io.github.mooy1.slimechem.implementation.generators.RTG1;
-import io.github.mooy1.slimechem.implementation.generators.RTG2;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
 import io.github.mooy1.slimechem.implementation.machines.Cyclotron;
@@ -154,8 +152,6 @@ public final class Registry {
             new RTG(type).register(plugin);
         }
 
-        new RTG1().setCapacity(32).setEnergyProduction(4).register(plugin);
-        new RTG2().setCapacity(64).setEnergyProduction(8).register(plugin);
         new Cyclotron().register(plugin);
     }
 

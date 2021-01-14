@@ -4,7 +4,6 @@ import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
 import io.github.mooy1.slimechem.implementation.machines.abstractmachines.Machine;
 import io.github.mooy1.slimechem.lists.Items;
-import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
@@ -36,12 +35,12 @@ public class Cyclotron extends Machine {
     public Cyclotron() {
         super(Items.CYCLOTRON, 4092, 8184, INPUT_SLOTS, OUTPUT_SLOTS, new ItemStack[0]);
 
-        addItemHandler((BlockBreakHandler) (e, s, i, l) -> {
-            Location loc = e.getBlock().getLocation();
-            processing.remove(loc);
-            progress.remove(loc);
-            results.remove(loc);
-            return !e.isCancelled();
+        registerBlockHandler(getId(), (p, b, sfitem, reason) -> {
+            Location l = b.getLocation();
+            results.remove(l);
+            progress.remove(l);
+            processing.remove(l);
+            return true;
         });
     }
 
@@ -62,7 +61,9 @@ public class Cyclotron extends Machine {
             int timeleft = progress.get(l);
 
             if (timeleft > 0) {
-                ChestMenuUtils.updateProgressbar(menu, 22, --timeleft, 80, new ItemStack(Material.SLIME_BALL));
+                ChestMenuUtils.updateProgressbar(menu, 22, --timeleft, 8, new ItemStack(Material.SLIME_BALL));
+
+                removeCharge(l, energy);
 
                 progress.put(l, timeleft);
             } else {
@@ -89,7 +90,7 @@ public class Cyclotron extends Machine {
                 menu.consumeItem(INPUT_SLOTS[1]);
 
                 processing.add(l);
-                progress.put(l, 80);
+                progress.put(l, 8);
                 results.put(l, result.getItem());
             }
         }

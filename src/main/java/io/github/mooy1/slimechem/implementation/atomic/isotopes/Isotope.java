@@ -176,6 +176,8 @@ public class Isotope implements Ingredient, Atom {
         if (item == null) return null;
 
         String id = StackUtils.getItemID(item, false);
+        if (id == null) return null;
+
         for (Set<Isotope> isotopeSet : isotopes.values()) {
             for (Isotope isotope : isotopeSet) {
                 if (isotope.id.equals(id)) {

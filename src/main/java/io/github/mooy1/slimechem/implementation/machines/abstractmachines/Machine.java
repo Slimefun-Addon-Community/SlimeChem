@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 public abstract class Machine extends Container implements EnergyNetComponent {
     
-    private final int energy;
+    protected final int energy;
     private final int buffer;
     private final int[] inputSlots;
     private final int[] outputSlots;
