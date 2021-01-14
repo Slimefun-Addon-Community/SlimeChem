@@ -156,7 +156,7 @@ public final class Registry {
 
         new RTG1().setCapacity(32).setEnergyProduction(4).register(plugin);
         new RTG2().setCapacity(64).setEnergyProduction(8).register(plugin);
-        new Cyclotron().setCapacity(4080).setEnergyConsumption(2040).setProcessingSpeed(1).register(plugin);
+        new Cyclotron().register(plugin);
     }
 
     private static void registerItem(@Nonnull IngredientItem item, @Nonnull SlimeChem plugin) {

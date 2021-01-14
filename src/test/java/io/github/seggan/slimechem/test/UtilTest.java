@@ -23,8 +23,8 @@ public class UtilTest {
     @Test
     public void testResourceLoading() throws IOException {
         Asserts.assertEquals(
-            StringUtils.countMatches(StringUtil.getResourceAsString("isotopes.json"), "{"),
-            3097
+            3097,
+            StringUtils.countMatches(StringUtil.getResourceAsString("isotopes.json"), "{")
         );
     }
 

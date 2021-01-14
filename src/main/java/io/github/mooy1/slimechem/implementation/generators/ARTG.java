@@ -1,7 +1,6 @@
 package io.github.mooy1.slimechem.implementation.generators;
 
 import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
-import io.github.mooy1.slimechem.utils.Util;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemState;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
@@ -161,14 +160,14 @@ public abstract class ARTG extends AbstractEnergyProvider {
         }
 
         List<ItemStack> particles = new ArrayList<>();
-        particles.add(Util.getIsotopeItem(isotope.getDecayProduct().get()));
+        particles.add(isotope.getDecayProduct().get().getItem());
         if (giveParticles) {
             particles.addAll(isotope.getDecayType().getParticles());
         }
 
         MachineFuel machineFuel = new MachineFuel(
             40 - isotope.getRadiationLevel(),
-            Util.getIsotopeItem(isotope)
+            isotope.getItem()
         );
 
         ARTG.byproducts.put(machineFuel, particles.toArray(new ItemStack[0]));

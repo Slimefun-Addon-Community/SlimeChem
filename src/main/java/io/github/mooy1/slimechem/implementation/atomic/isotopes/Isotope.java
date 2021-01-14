@@ -1,5 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic.isotopes;
 
+import io.github.mooy1.infinitylib.items.StackUtils;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.attributes.Atom;
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
@@ -13,6 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,6 +51,8 @@ public class Isotope implements Ingredient, Atom {
     private final int radiationLevel;
 
     private final SlimefunItemStack item;
+    @Getter(AccessLevel.NONE)
+    private final String id;
 
     private Isotope(int mass, String abbr, DecayType decayType) {
         this.element = Element.getByAbbr(abbr);
@@ -70,16 +74,22 @@ public class Isotope implements Ingredient, Atom {
         }
 
         if (!Constants.isTestingEnvironment) {
-            this.item = new SlimefunItemStack(
-                String.format("ISOTOPE_%s_%d", element.name(), this.mass),
-                Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
-                "&b" + this.name,
-                "&7" + this.formula,
-                "&7Mass: " + this.mass,
-                this.isRadioactive() ? LoreBuilder.radioactive(Util.fromRadioactivityInt(this.radiationLevel)) : ""
-            );
+            if (this.isMainIsotope()) {
+                this.item = this.element.getItem();
+            } else {
+                this.item = new SlimefunItemStack(
+                    String.format("ISOTOPE_%s_%d", element.name(), this.mass),
+                    Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
+                    "&b" + this.name,
+                    "&7" + this.formula,
+                    "&7Mass: " + this.mass,
+                    this.isRadioactive() ? LoreBuilder.radioactive(Util.fromRadioactivityInt(this.radiationLevel)) : ""
+                );
+            }
+            this.id = this.item.getItemId();
         } else {
             this.item = null;
+            this.id = null;
         }
     }
 
@@ -159,6 +169,22 @@ public class Isotope implements Ingredient, Atom {
      */
     public boolean isMainIsotope() {
         return Math.round(this.element.getMass()) == this.mass;
+    }
+
+    @Nullable
+    public static Isotope getByItem(ItemStack item) {
+        if (item == null) return null;
+
+        String id = StackUtils.getItemID(item, false);
+        for (Set<Isotope> isotopeSet : isotopes.values()) {
+            for (Isotope isotope : isotopeSet) {
+                if (isotope.id.equals(id)) {
+                    return isotope;
+                }
+            }
+        }
+
+        return null;
     }
 
     @Override
