@@ -48,11 +48,12 @@ public class Cyclotron extends Machine {
     public void setupMenu(@Nonnull BlockMenuPreset preset) {
         preset.drawBackground(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 13, 31, 36, 37, 38, 39, 40, 41, 42, 43, 44});
         for (int i : BORDER_IN) {
-            preset.addItem(i, ChestMenuUtils.getInputSlotTexture());
+            preset.addItem(i, ChestMenuUtils.getInputSlotTexture(), ChestMenuUtils.getEmptyClickHandler());
         }
         for (int i : BORDER_OUT) {
-            preset.addItem(i, ChestMenuUtils.getOutputSlotTexture());
+            preset.addItem(i, ChestMenuUtils.getOutputSlotTexture(), ChestMenuUtils.getEmptyClickHandler());
         }
+        preset.addItem(22, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
     }
 
     @Override
@@ -61,7 +62,7 @@ public class Cyclotron extends Machine {
             int timeleft = progress.get(l);
 
             if (timeleft > 0) {
-                ChestMenuUtils.updateProgressbar(menu, 22, --timeleft, 8, new ItemStack(Material.SLIME_BALL));
+                ChestMenuUtils.updateProgressbar(menu, 22, timeleft--, 8, new ItemStack(Material.SLIME_BALL));
 
                 removeCharge(l, energy);
 

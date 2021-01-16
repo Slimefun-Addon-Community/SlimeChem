@@ -8,11 +8,11 @@ import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
 import io.github.mooy1.slimechem.implementation.attributes.Atom;
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
+import io.github.mooy1.slimechem.implementation.generators.RTG;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.mooy1.slimechem.implementation.machines.ChemicalDissolver;
 import io.github.mooy1.slimechem.implementation.machines.Cyclotron;
 import io.github.mooy1.slimechem.implementation.machines.NuclearFurnace;
-import io.github.mooy1.slimechem.implementation.machines.RTG;
 import io.github.mooy1.slimechem.implementation.subatomic.Boson;
 import io.github.mooy1.slimechem.implementation.subatomic.Lepton;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
@@ -147,10 +147,8 @@ public final class Registry {
         new ChemicalDissolver().register(plugin);
         new ChemicalCombiner().register(plugin);
         new NuclearFurnace().register(plugin);
-
-        for (RTG.Type type : RTG.Type.values()) {
-            new RTG(type).register(plugin);
-        }
+        new RTG(Items.RTG_1, new ItemStack[0], false).register(plugin);
+        new RTG(Items.RTG_2, new ItemStack[0], true).register(plugin);
 
         new Cyclotron().register(plugin);
     }
