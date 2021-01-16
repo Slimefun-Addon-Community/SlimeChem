@@ -2,6 +2,7 @@
 /.settings/
 /target/
 /.idea/
+/.github/
 *.iml
 .project
 .classpath
