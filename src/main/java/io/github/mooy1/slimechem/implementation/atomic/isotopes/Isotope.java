@@ -2,6 +2,7 @@ package io.github.mooy1.slimechem.implementation.atomic.isotopes;
 
 import io.github.mooy1.infinitylib.items.StackUtils;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
+import io.github.mooy1.slimechem.implementation.atomic.MoleculeIngredient;
 import io.github.mooy1.slimechem.implementation.attributes.Atom;
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.lists.Constants;
@@ -198,6 +199,18 @@ public class Isotope implements Ingredient, Atom {
     @Override
     public String getFormula(int i) {
         return formula + SubNum.fromInt(i);
+    }
+
+    @Nonnull
+    @Override
+    public MoleculeIngredient asIngredient(int amount) {
+        return new MoleculeIngredient(this, amount);
+    }
+
+    @Nonnull
+    @Override
+    public MoleculeIngredient asIngredient() {
+        return this.asIngredient(1);
     }
 
     @Override

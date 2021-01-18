@@ -81,7 +81,7 @@ public enum Molecule implements Ingredient {
         new MoleculeIngredient(Element.NITROGEN), new MoleculeIngredient(Element.OXYGEN, 2), new MoleculeIngredient(Element.SULFUR))
 
     ;
-    
+
     @Nonnull
     private final String name;
     @Nonnull
@@ -90,19 +90,19 @@ public enum Molecule implements Ingredient {
     private final MoleculeIngredient[] ingredients;
     @Nonnull
     private final SlimefunItemStack item;
-    
+
     Molecule(@Nonnull String name, @Nonnull MoleculeIngredient... ingredients) {
         this.name = name;
         this.ingredients = ingredients;
-        
+
         StringBuilder formula = new StringBuilder();
-        
+
         for (MoleculeIngredient ingredient : ingredients) {
             formula.append(ingredient.getFormula());
         }
-        
+
         this.formula = formula.toString();
-    
+
         this.item = new SlimefunItemStack(
                 "MOLECULE_" + this.name(),
                 Material.DRAGON_BREATH,
@@ -110,26 +110,26 @@ public enum Molecule implements Ingredient {
                 "&7" + formula
         );
     }
-    
+
     @Nonnull
     @Override
     public String getFormula(int i) {
         return (i != 1 ? "(" : "") + this.formula + (i != 1 ? ")" : "") + SubNum.fromInt(i);
     }
-    
+
     public int size() {
         return this.ingredients.length;
     }
-    
+
     @Nonnull
     public MoleculeIngredient getIngredient(int i) {
         return this.ingredients[i];
     }
-    
+
     @Nonnull
     public ItemStack[] getRecipe() {
         ItemStack[] recipe = new ItemStack[9];
-        
+
         for (int i = 0 ; i < size();) {
             ItemStack[] items = getIngredient(i).getNewItems();
             for (ItemStack item : items) {
@@ -138,15 +138,15 @@ public enum Molecule implements Ingredient {
                 if (i == size()) break;
             }
         }
-        
+
         return recipe;
     }
-    
+
     @Nonnull
     public MultiFilter toFilter(int size) {
         ItemFilter[] filter = new ItemFilter[size];
 
-        for (int i = 0 ; i < Math.min(size, size());) {
+        for (int i = 0; i < Math.min(size, size()); ) {
             ItemStack[] items = getIngredient(i).getNewItems();
             for (ItemStack item : items) {
                 filter[i] = new ItemFilter(item);
@@ -156,5 +156,16 @@ public enum Molecule implements Ingredient {
 
         return new MultiFilter(filter);
     }
-    
+
+    @Nonnull
+    @Override
+    public MoleculeIngredient asIngredient(int amount) {
+        return new MoleculeIngredient(this, amount);
+    }
+
+    @Nonnull
+    @Override
+    public MoleculeIngredient asIngredient() {
+        return this.asIngredient(1);
+    }
 }

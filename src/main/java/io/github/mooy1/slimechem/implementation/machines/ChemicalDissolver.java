@@ -48,35 +48,35 @@ public class ChemicalDissolver extends Machine {
 
     static {
         // Ores
-        addRecipe(Material.COAL_ORE, new int[] {90, 10},
-            new MoleculeIngredient(Element.CARBON, 12),
-            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5)
+        addRecipe(Material.COAL_ORE, new int[]{90, 10},
+            Element.CARBON.asIngredient(12),
+            Molecule.SILICON_DIOXIDE.asIngredient(5)
         );
-        addRecipe(Material.IRON_ORE, new int[] {50, 30, 10, 6, 4},
-            new MoleculeIngredient(Molecule.IRON_III_OXIDE, 4),
-            new MoleculeIngredient(Molecule.IRON_II_OXIDE, 4),
-            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5),
-            new MoleculeIngredient(Molecule.IRON_PERSULFIDE, 7),
-            new MoleculeIngredient(Molecule.COPPER_IRON_SULFIDE, 6)
+        addRecipe(Material.IRON_ORE, new int[]{50, 30, 10, 6, 4},
+            Molecule.IRON_III_OXIDE.asIngredient(4),
+            Molecule.IRON_II_OXIDE.asIngredient(4),
+            Molecule.SILICON_DIOXIDE.asIngredient(5),
+            Molecule.IRON_PERSULFIDE.asIngredient(7),
+            Molecule.COPPER_IRON_SULFIDE.asIngredient(6)
         );
-        addRecipe(Material.GOLD_ORE, new int[] {70, 20, 10},
-            new MoleculeIngredient(Molecule.GOLD_TELLURIDE, 4),
-            new MoleculeIngredient(Molecule.GOLD_ANTIMONIDE, 4),
-            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5)
+        addRecipe(Material.GOLD_ORE, new int[]{70, 20, 10},
+            Molecule.GOLD_TELLURIDE.asIngredient(4),
+            Molecule.GOLD_ANTIMONIDE.asIngredient(4),
+            Molecule.SILICON_DIOXIDE.asIngredient(5)
         );
-        addRecipe(Material.REDSTONE_ORE, new int[] {60, 20, 10, 10},
-            new MoleculeIngredient(Molecule.COPPER_I_OXIDE, 4),
-            new MoleculeIngredient(Molecule.PENTACOPPER_IRON_TETRASULFIDE, 3),
-            new MoleculeIngredient(Molecule.COPPER_II_OXIDE, 3),
-            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 5)
+        addRecipe(Material.REDSTONE_ORE, new int[]{60, 20, 10, 10},
+            Molecule.COPPER_I_OXIDE.asIngredient(4),
+            Molecule.PENTACOPPER_IRON_TETRASULFIDE.asIngredient(3),
+            Molecule.COPPER_II_OXIDE.asIngredient(3),
+            Molecule.SILICON_DIOXIDE.asIngredient(5)
         );
         addRecipe(Material.EMERALD_ORE, new int[]{90, 10},
-            new MoleculeIngredient(Molecule.BERYLLIUM_ALUMINUM_CYCLOSILICATE, 6),
-            new MoleculeIngredient(Molecule.SILICATE, 9)
+            Molecule.BERYLLIUM_ALUMINUM_CYCLOSILICATE.asIngredient(6),
+            Molecule.SILICATE.asIngredient(9)
         );
-        addRecipe(Material.ANCIENT_DEBRIS, new int[] {80, 20},
-            new MoleculeIngredient(Molecule.SEABORGIUM_III_OXIDE, 4),
-            new MoleculeIngredient(Molecule.SILICON_DIOXIDE, 25)
+        addRecipe(Material.ANCIENT_DEBRIS, new int[]{80, 20},
+            Molecule.SEABORGIUM_III_OXIDE.asIngredient(4),
+            Molecule.SILICON_DIOXIDE.asIngredient(25)
         );
 
         // Plant matter
@@ -85,41 +85,47 @@ public class ChemicalDissolver extends Machine {
         // Standard: 1 plank = 2 cellulose
         // So 1 stick = 1 cellulose, 1 log = 8 cellulose, etc
         for (Material mat : Tag.LOGS.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 8));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient(8));
         }
         for (Material mat : Tag.PLANKS.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 2));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient(2));
         }
         // Loss of 1 cellulose
         for (Material mat : Tag.SIGNS.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 4));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient(4));
         }
         for (Material mat : Tag.ITEMS_BOATS.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 10));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient(10));
         }
         for (Material mat : Tag.WOODEN_BUTTONS.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 2));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient(2));
         }
         for (Material mat : Tag.WOODEN_SLABS.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient());
         }
         for (Material mat : Tag.WOODEN_DOORS.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 2));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient(2));
         }
         for (Material mat : Tag.WOODEN_PRESSURE_PLATES.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 4));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient(4));
         }
         for (Material mat : Tag.WOODEN_STAIRS.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 3));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient(3));
         }
         // loss of 1 cellulose
         for (Material mat : Tag.WOODEN_FENCES.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 3));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient(3));
         }
         for (Material mat : Tag.FENCE_GATES.getValues()) {
-            addRecipe(mat, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE, 8));
+            addRecipe(mat, new int[]{100}, Molecule.CELLULOSE.asIngredient(8));
         }
-        addRecipe(Material.STICK, new int[]{100}, new MoleculeIngredient(Molecule.CELLULOSE));
+        addRecipe(Material.STICK, new int[]{100}, Molecule.CELLULOSE.asIngredient());
+
+        // Crops
+        addRecipe(Material.WHEAT, new int[]{90, 10},
+            Molecule.CELLULOSE.asIngredient(2),
+            Molecule.PROTEIN.asIngredient(2)
+        );
     }
     
     private static Map<Integer, MoleculeIngredient> makeRecipe(int[] chances, MoleculeIngredient... ingredients) {

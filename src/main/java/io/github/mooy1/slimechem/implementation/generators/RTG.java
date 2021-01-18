@@ -31,6 +31,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A class for the Radioisotope Thermoelectric Generator, which generates electricity from radioactive
+ * isotopes.
+ *
+ * @author Seggan
+ */
 public class RTG extends SlimefunItem implements EnergyNetProvider {
 
     private static final Map<Location, RTGFuel> processing = new HashMap<>();

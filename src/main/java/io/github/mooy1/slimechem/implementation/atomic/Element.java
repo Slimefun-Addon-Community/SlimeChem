@@ -221,6 +221,18 @@ public enum Element implements Ingredient, Atom {
         return this.symbol + SubNum.fromInt(i);
     }
 
+    @Nonnull
+    @Override
+    public MoleculeIngredient asIngredient(int amount) {
+        return new MoleculeIngredient(this, amount);
+    }
+
+    @Nonnull
+    @Override
+    public MoleculeIngredient asIngredient() {
+        return this.asIngredient(1);
+    }
+
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public enum Series {

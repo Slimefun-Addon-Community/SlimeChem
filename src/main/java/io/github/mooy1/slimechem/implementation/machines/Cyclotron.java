@@ -78,6 +78,7 @@ public class Cyclotron extends Machine {
         } else {
             Isotope first = Isotope.getByItem(menu.getItemInSlot(INPUT_SLOTS[0]));
             Isotope second = Isotope.getByItem(menu.getItemInSlot(INPUT_SLOTS[1]));
+            // TODO: add electron/neutron capture
             if (first == null) return;
             if (second == null) return;
 
