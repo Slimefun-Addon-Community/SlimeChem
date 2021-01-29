@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
  * 
  * @author TheBusyBiscuit
  * @author Mooy1
- * 
+ *
  */
 public final class SuperNum {
 

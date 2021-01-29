@@ -1,7 +1,13 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
-import io.github.mooy1.slimechem.utils.SubNum;
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
+import io.github.mooy1.slimechem.implementation.attributes.Atom;
+import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.implementation.subatomic.Nucleon;
+import io.github.mooy1.slimechem.lists.Constants;
+import io.github.mooy1.slimechem.utils.SubNum;
+import io.github.mooy1.slimechem.utils.Util;
+import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,19 +15,18 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
  * Enum of chemical elements: name, mass, number, symbol, series
- * 
+ *
  * @author Mooy1
- * 
  * @see Ingredient
  * @see Nucleon
- * 
  */
 @Getter
-public enum Element implements Ingredient {
+public enum Element implements Ingredient, Atom {
 
     HYDROGEN(1.0079, "Hydrogen", "H", 1, Series.NONMETALS),
     HELIUM(4.0026, "Helium", "He", 2, Series.NOBLE_GASES),
@@ -65,7 +70,7 @@ public enum Element implements Ingredient {
     ZIRCONIUM(91.224, "Zirconium", "Zr", 40, Series.TRANSITION_METALS),
     NIOBIUM(92.9064, "Niobium", "Nb", 41, Series.TRANSITION_METALS),
     MOLYBDENUM(95.94, "Molybdenum", "Mo", 42, Series.TRANSITION_METALS),
-    TECHNETIUM(98, "Technetium", "Tc", 43, Series.TRANSITION_METALS),
+    TECHNETIUM(98, "Technetium", "Tc", 43, Series.TRANSITION_METALS, 4),
     RUTHENIUM(101.07, "Ruthenium", "Ru", 44, Series.TRANSITION_METALS),
     RHODIUM(102.9055, "Rhodium", "Rh", 45, Series.TRANSITION_METALS),
     PALLADIUM(106.42, "Palladium", "Pd", 46, Series.TRANSITION_METALS),
@@ -83,7 +88,7 @@ public enum Element implements Ingredient {
     CERIUM(140.116, "Cerium", "Ce", 58, Series.LANTHANOIDS),
     PRASEODYMIUM(140.9077, "Praseodymium", "Pr", 59, Series.LANTHANOIDS),
     NEODYMIUM(144.24, "Neodymium", "Nd", 60, Series.LANTHANOIDS),
-    PROMETHIUM(145, "Promethium", "Pm", 61, Series.LANTHANOIDS),
+    PROMETHIUM(145, "Promethium", "Pm", 61, Series.LANTHANOIDS, 9),
     SAMARIUM(150.36, "Samarium", "Sm", 62, Series.LANTHANOIDS),
     EUROPIUM(151.964, "Europium", "Eu", 63, Series.LANTHANOIDS),
     GADOLINIUM(157.25, "Gadolinium", "Gd", 64, Series.LANTHANOIDS),
@@ -105,44 +110,45 @@ public enum Element implements Ingredient {
     MERCURY(200.59, "Mercury", "Hg", 80, Series.TRANSITION_METALS),
     THALLIUM(204.3833, "Thallium", "Tl", 81, Series.POST_TRANSITION_METALS),
     LEAD(207.2, "Lead", "Pb", 82, Series.POST_TRANSITION_METALS),
-    BISMUTH(208.9804, "Bismuth", "Bi", 83, Series.POST_TRANSITION_METALS),
-    POLONIUM(209, "Polonium", "Po", 84, Series.POST_TRANSITION_METALS),
-    ASTATINE(210, "Astatine", "At", 85, Series.METALLOIDS),
-    RADON(222, "Radon", "Rn", 86, Series.NOBLE_GASES),
-    FRANCIUM(223, "Francium", "Fr", 87, Series.ALKALI_METALS),
-    RADIUM(226, "Radium", "Ra", 88, Series.ALKALINE_EARTH_METALS),
-    ACTINIUM(227, "Actinium", "Ac", 89, Series.ACTINOIDS),
-    THORIUM(232.0381, "Thorium", "Th", 90, Series.ACTINOIDS),
-    PROTACTINIUM(231.0359, "Protactinium", "Pa", 91, Series.ACTINOIDS),
-    URANIUM(238.0289, "Uranium", "U", 92, Series.ACTINOIDS),
-    NEPTUNIUM(237, "Neptunium", "Np", 93, Series.ACTINOIDS),
-    PLUTONIUM(244, "Plutonium", "Pu", 94, Series.ACTINOIDS),
-    AMERICIUM(243, "Americium", "Am", 95, Series.ACTINOIDS),
-    CURIUM(247, "Curium", "Cm", 96, Series.ACTINOIDS),
-    BERKELIUM(247, "Berkelium", "Bk", 97, Series.ACTINOIDS),
-    CALIFORNIUM(251, "Californium", "Cf", 98, Series.ACTINOIDS),
-    EINSTEINIUM(252, "Einsteinium", "Es", 99, Series.ACTINOIDS),
-    FERMIUM(257, "Fermium", "Fm", 100, Series.ACTINOIDS),
-    MENDELEVIUM(258, "Mendelevium", "Md", 101, Series.ACTINOIDS),
-    NOBELIUM(259, "Nobelium", "No", 102, Series.ACTINOIDS),
-    LAWRENCIUM(266, "Lawrencium", "Lr", 103, Series.ACTINOIDS),
-    RUTHERFORDIUM(267, "Rutherfordium", "Rf", 104, Series.TRANSITION_METALS),
-    DUBNIUM(268, "Dubnium", "Db", 105, Series.TRANSITION_METALS),
-    SEABORGIUM(269, "Seaborgium", "Sg", 106, Series.TRANSITION_METALS),
-    BOHRIUM(270, "Bohrium", "Bh", 107, Series.TRANSITION_METALS),
-    HASSIUM(277, "Hassium", "Hs", 108, Series.TRANSITION_METALS),
-    MEITNERIUM(278, "Meitnerium", "Mt", 109, Series.UNKNOWN),
-    DARMSTADTIUM(281, "Darmstadtium", "Ds", 110, Series.UNKNOWN),
-    ROENTGENIUM(282, "Roentgenium", "Rg", 111, Series.UNKNOWN),
-    COPERNICIUM(285, "Copernicium", "Cn", 112, Series.UNKNOWN),
-    NIHONIUM(286, "Nihonium", "Nh", 113, Series.UNKNOWN),
-    FLEROVIUM(289, "Flerovium", "Fl", 114, Series.UNKNOWN),
-    MOSCOVIUM(290, "Moscovium", "Mc", 115, Series.UNKNOWN),
-    LIVERMORIUM(293, "Livermorium", "Lv", 116, Series.UNKNOWN),
-    TENNESSINE(294, "Tennessine", "Ts", 117, Series.UNKNOWN),
-    OGANESSON(294, "Oganesson", "Og", 118, Series.UNKNOWN),
-    MOOYIUM(315, "Mooyium", "My", 119, Series.CUSTOM);
-    
+    BISMUTH(208.9804, "Bismuth", "Bi", 83, Series.POST_TRANSITION_METALS, 1),
+    POLONIUM(209, "Polonium", "Po", 84, Series.POST_TRANSITION_METALS, 8),
+    ASTATINE(210, "Astatine", "At", 85, Series.METALLOIDS, 14),
+    RADON(222, "Radon", "Rn", 86, Series.NOBLE_GASES, 12),
+    FRANCIUM(223, "Francium", "Fr", 87, Series.ALKALI_METALS, 16),
+    RADIUM(226, "Radium", "Ra", 88, Series.ALKALINE_EARTH_METALS, 7),
+    ACTINIUM(227, "Actinium", "Ac", 89, Series.ACTINOIDS, 9),
+    THORIUM(232.0381, "Thorium", "Th", 90, Series.ACTINOIDS, 1),
+    PROTACTINIUM(231.0359, "Protactinium", "Pa", 91, Series.ACTINOIDS, 5),
+    URANIUM(238.0289, "Uranium", "U", 92, Series.ACTINOIDS, 2),
+    NEPTUNIUM(237, "Neptunium", "Np", 93, Series.ACTINOIDS, 4),
+    PLUTONIUM(244, "Plutonium", "Pu", 94, Series.ACTINOIDS, 3),
+    AMERICIUM(243, "Americium", "Am", 95, Series.ACTINOIDS, 6),
+    CURIUM(247, "Curium", "Cm", 96, Series.ACTINOIDS, 3),
+    BERKELIUM(247, "Berkelium", "Bk", 97, Series.ACTINOIDS, 7),
+    CALIFORNIUM(251, "Californium", "Cf", 98, Series.ACTINOIDS, 7),
+    EINSTEINIUM(252, "Einsteinium", "Es", 99, Series.ACTINOIDS, 9),
+    FERMIUM(257, "Fermium", "Fm", 100, Series.ACTINOIDS, 10),
+    MENDELEVIUM(258, "Mendelevium", "Md", 101, Series.ACTINOIDS, 11),
+    NOBELIUM(259, "Nobelium", "No", 102, Series.ACTINOIDS, 15),
+    LAWRENCIUM(266, "Lawrencium", "Lr", 103, Series.ACTINOIDS, 13),
+    RUTHERFORDIUM(267, "Rutherfordium", "Rf", 104, Series.TRANSITION_METALS, 15),
+    DUBNIUM(268, "Dubnium", "Db", 105, Series.TRANSITION_METALS, 12),
+    SEABORGIUM(269, "Seaborgium", "Sg", 106, Series.TRANSITION_METALS, 16),
+    BOHRIUM(270, "Bohrium", "Bh", 107, Series.TRANSITION_METALS, 17),
+    HASSIUM(277, "Hassium", "Hs", 108, Series.TRANSITION_METALS, 19),
+    MEITNERIUM(278, "Meitnerium", "Mt", 109, Series.UNKNOWN, 21),
+    DARMSTADTIUM(281, "Darmstadtium", "Ds", 110, Series.UNKNOWN, 19),
+    ROENTGENIUM(282, "Roentgenium", "Rg", 111, Series.UNKNOWN, 17),
+    COPERNICIUM(285, "Copernicium", "Cn", 112, Series.UNKNOWN, 18),
+    NIHONIUM(286, "Nihonium", "Nh", 113, Series.UNKNOWN, 20),
+    FLEROVIUM(289, "Flerovium", "Fl", 114, Series.UNKNOWN, 22),
+    MOSCOVIUM(290, "Moscovium", "Mc", 115, Series.UNKNOWN, 23),
+    LIVERMORIUM(293, "Livermorium", "Lv", 116, Series.UNKNOWN, 24),
+    TENNESSINE(294, "Tennessine", "Ts", 117, Series.UNKNOWN, 24),
+    OGANESSON(294, "Oganesson", "Og", 118, Series.UNKNOWN, 25),
+    MOOYIUM(315, "Mooyium", "My", 119, Series.CUSTOM),
+    SEGGANESSON(336, "Segganesson", "Gg", 120, Series.CUSTOM);
+
     private final double mass;
     @Nonnull
     private final String name;
@@ -152,31 +158,58 @@ public enum Element implements Ingredient {
     @Nonnull
     private final Series series;
     private final int neutrons;
-    @Nonnull
+    private final boolean radioactive;
+    private final int radiationLevel;
     private final SlimefunItemStack item;
-    
-    Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series) {
+
+    Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series, int radiationLevel) {
         this.mass = mass;
         this.name = name;
         this.symbol = symbol;
         this.number = number;
         this.series = series;
         this.neutrons = (int) Math.round(mass) - number;
-        this.item = new SlimefunItemStack(
+        this.radioactive = radiationLevel != 0;
+
+        this.radiationLevel = radiationLevel;
+
+        if (!Constants.isTestingEnvironment) {
+            this.item = new SlimefunItemStack(
                 "ELEMENT_" + this.name(),
                 Objects.requireNonNull(Material.getMaterial(series.getColor() + "_DYE")),
                 "&b" + name,
                 "&7" + symbol + " " + number,
-                "&7Mass: " + mass
-        );
+                "&7Mass: " + mass,
+                this.isRadioactive() ? LoreBuilder.radioactive(Util.fromRadioactivityInt(this.radiationLevel)) : ""
+            );
+        } else {
+            this.item = null;
+        }
     }
 
-    @Nonnull
+    Element(double mass, @Nonnull String name, @Nonnull String symbol, int number, @Nonnull Series series) {
+        this(mass, name, symbol, number, series, 0);
+    }
+
+    @Nullable
     public static Element getByNumber(int i) {
         for (Element e : values()) {
             if (e.getNumber() == i) return e;
         }
-        return HYDROGEN;
+        return null;
+    }
+
+    @Nonnull
+    public static Element getByAbbr(String abbr) {
+        for (Element e : values()) {
+            if (e.symbol.equals(abbr)) return e;
+        }
+        throw new IllegalArgumentException("Invalid abbreviation, got: " + abbr);
+    }
+
+    @Nonnull
+    public Isotope getCorrespondingIsotope() {
+        return Objects.requireNonNull(Isotope.getIsotope((int) Math.round(this.mass), this), () -> "For element " + this.name);
     }
 
     @Nonnull
@@ -185,10 +218,22 @@ public enum Element implements Ingredient {
         return this.symbol + SubNum.fromInt(i);
     }
 
+    @Nonnull
+    @Override
+    public MoleculeIngredient asIngredient(int amount) {
+        return new MoleculeIngredient(this, amount);
+    }
+
+    @Nonnull
+    @Override
+    public MoleculeIngredient asIngredient() {
+        return this.asIngredient(1);
+    }
+
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public enum Series {
-        
+
         ALKALI_METALS("Alkali Metals", "ORANGE"),
         ALKALINE_EARTH_METALS("Alkaline Earth Metals", "YELLOW"),
         LANTHANOIDS("Lanthanoids", "LIME"),
@@ -200,11 +245,11 @@ public enum Element implements Ingredient {
         NOBLE_GASES("Noble Gases", "PINK"),
         UNKNOWN("Unknown", "PURPLE"),
         CUSTOM("Custom", "MAGENTA");
-    
+
         @Nonnull
         private final String name;
         @Nonnull
         private final String color;
-        
+
     }
 }

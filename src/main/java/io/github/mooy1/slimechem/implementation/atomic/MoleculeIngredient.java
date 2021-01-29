@@ -1,5 +1,9 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
+import io.github.mooy1.infinitylib.filter.FilterType;
+import io.github.mooy1.infinitylib.filter.MultiFilter;
+import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
+import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import lombok.Getter;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import org.bukkit.inventory.ItemStack;
@@ -40,9 +44,40 @@ public class MoleculeIngredient {
         this.ingredient = ingredient;
         this.amount = 1;
     }
+
+    /**
+     * Returns more than 1 item if the amount is greater then 64
+     */
+    @Nonnull
+    public ItemStack[] getNewItems() {
+        int size = (int) Math.ceil(this.amount / 64f);
+        ItemStack[] items = new ItemStack[size];
+        for (int i = 0 ; i < size - 1 ; i++) {
+            items[i] = new CustomItem(this.ingredient.getItem(), 64);
+        }
+        items[size - 1] = new CustomItem(this.getIngredient().getItem(), this.amount % 64);
+        return items;
+    }
     
-    public ItemStack getNewItem() {
-        return new CustomItem(ingredient.getItem(), amount);
+    @Nonnull
+    public static MultiFilter getMultiFilter(@Nonnull MoleculeIngredient[] array, int size) {
+        ItemStack[] stacks = new ItemStack[size];
+
+        int i = 0;
+        for (MoleculeIngredient ingredient : array) {
+            if (ingredient != null) {
+                for (ItemStack item : ingredient.getNewItems()) {
+                    stacks[i] = item;
+                    i++;
+                    if (i == size) break;
+                }
+            } else {
+                i++;
+            }
+            if (i == size) break;
+        }
+        
+        return new MultiFilter(FilterType.MIN_AMOUNT, stacks);
     }
     
 }

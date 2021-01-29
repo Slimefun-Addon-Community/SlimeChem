@@ -8,16 +8,19 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
+import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class Machine extends Container implements EnergyNetComponent {
     
-    private final int energy;
+    protected final int energy;
     private final int buffer;
     private final int[] inputSlots;
     private final int[] outputSlots;
@@ -32,17 +35,30 @@ public abstract class Machine extends Container implements EnergyNetComponent {
         registerBlockHandler(getId(), (p, b, item1, reason) -> {
             BlockMenu menu = BlockStorage.getInventory(b);
             if (menu != null) {
-                menu.dropItems(b.getLocation(), inputSlots);
-                menu.dropItems(b.getLocation(), outputSlots);
+                menu.dropItems(b.getLocation(), this.inputSlots);
+                menu.dropItems(b.getLocation(), this.outputSlots);
+                breakHandler(p, b, menu);
             }
             return true;
         });
+        
+    }
+
+    
+    public void breakHandler(@Nonnull Player p, @Nonnull Block b, @Nonnull BlockMenu menu) {
+        // can be overridden
     }
     
+    @Override
     public void onNewInstance(@Nonnull BlockMenu menu, @Nonnull Block b) {
-        //can be overridden
+        // can be overridden
     }
-    
+
+    @Override
+    public void onMenuItemChange(@Nonnull DirtyChestMenu menu, int slot, @Nullable ItemStack previous, @Nullable ItemStack next) {
+        // can be overridden
+    }
+
     public abstract void setupMenu(@Nonnull BlockMenuPreset preset);
     
     public void tick(@Nonnull Block b) {
@@ -50,7 +66,7 @@ public abstract class Machine extends Container implements EnergyNetComponent {
         BlockMenu menu = BlockStorage.getInventory(l);
         if (menu == null) return;
         
-        if (getCharge(l) < energy) {
+        if (getCharge(l) < this.energy) {
             return;
         }
 
@@ -73,8 +89,8 @@ public abstract class Machine extends Container implements EnergyNetComponent {
     @Nonnull
     @Override
     public int[] getTransportSlots(@Nonnull ItemTransportFlow flow) {
-        if (flow == ItemTransportFlow.INSERT) return inputSlots;
-        if (flow == ItemTransportFlow.WITHDRAW) return outputSlots;
+        if (flow == ItemTransportFlow.INSERT) return this.inputSlots;
+        if (flow == ItemTransportFlow.WITHDRAW) return this.outputSlots;
         return new int[0];
     }
     

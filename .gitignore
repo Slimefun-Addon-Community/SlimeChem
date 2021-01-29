@@ -2,8 +2,10 @@
 /.settings/
 /target/
 /.idea/
+/.github/
 *.iml
 .project
 .classpath
 dependency-reduced-pom.xml
 .DS_Store
+Capture.JPG

@@ -10,4 +10,5 @@ package io.github.mooy1.slimechem.implementation.subatomic;
  * 
  */
 public interface Fermion {
+    
 }
