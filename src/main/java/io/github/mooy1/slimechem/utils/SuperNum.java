@@ -6,11 +6,11 @@ import javax.annotation.Nonnull;
  * Superscript numbers and getter
  * 
  * @author Mooy1
- * 
+ *
+ * TODO: make better 
  */
 public final class SuperNum {
     
-    //I tried unicode but it messes up
     public static final String ZERO = "⁰"; 
     public static final String ONE = "¹";
     public static final String TWO = "²";

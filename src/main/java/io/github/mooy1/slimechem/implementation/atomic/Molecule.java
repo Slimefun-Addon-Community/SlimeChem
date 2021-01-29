@@ -1,6 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
-import io.github.mooy1.infinitylib.filter.ItemFilter;
+import io.github.mooy1.infinitylib.filter.FilterType;
 import io.github.mooy1.infinitylib.filter.MultiFilter;
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
 import io.github.mooy1.slimechem.utils.SubNum;
@@ -144,17 +144,17 @@ public enum Molecule implements Ingredient {
 
     @Nonnull
     public MultiFilter toFilter(int size) {
-        ItemFilter[] filter = new ItemFilter[size];
+        ItemStack[] stacks = new ItemStack[size];
 
         for (int i = 0; i < Math.min(size, size()); ) {
             ItemStack[] items = getIngredient(i).getNewItems();
             for (ItemStack item : items) {
-                filter[i] = new ItemFilter(item);
+                stacks[i] = item;
                 i++;
             }
         }
 
-        return new MultiFilter(filter);
+        return new MultiFilter(FilterType.MIN_AMOUNT, stacks);
     }
 
     @Nonnull

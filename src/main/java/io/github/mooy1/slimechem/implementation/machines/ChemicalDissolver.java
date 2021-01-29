@@ -187,7 +187,7 @@ public class ChemicalDissolver extends Machine {
             
             if (item != null) {
 
-                Ingredient ingredient = Registry.getItems().get(item);
+                Ingredient ingredient = Registry.getITEMS().get(item);
 
                 if (ingredient != null) {
                     if (ingredient instanceof Molecule) {

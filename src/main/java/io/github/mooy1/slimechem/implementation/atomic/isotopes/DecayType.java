@@ -44,39 +44,39 @@ public enum DecayType {
     void setParticles() {
         switch (this) {
             case ALPHA:
-                particles.add(Element.HELIUM.getItem());
+                this.particles.add(Element.HELIUM.getItem());
                 break;
             case BETA_PLUS:
             case BETA_MINUS:
-                particles.addAll(Arrays.asList(Lepton.ELECTRON.getItem(), Lepton.ELECTRON_NEUTRINO.getItem()));
+                this.particles.addAll(Arrays.asList(Lepton.ELECTRON.getItem(), Lepton.ELECTRON_NEUTRINO.getItem()));
                 break;
             case DOUBLE_BETA_MINUS:
-                particles.addAll(Arrays.asList(new SlimefunItemStack(Lepton.ELECTRON.getItem(), 2),
+                this.particles.addAll(Arrays.asList(new SlimefunItemStack(Lepton.ELECTRON.getItem(), 2),
                     new SlimefunItemStack(Lepton.ELECTRON_NEUTRINO.getItem(), 2)));
                 break;
             case PROTON:
-                particles.add(Element.HYDROGEN.getItem());
+                this.particles.add(Element.HYDROGEN.getItem());
                 break;
             case PROTON_2:
-                particles.add(new SlimefunItemStack(Element.HYDROGEN.getItem(), 2));
+                this.particles.add(new SlimefunItemStack(Element.HYDROGEN.getItem(), 2));
                 break;
             case PROTON_3:
-                particles.add(new SlimefunItemStack(Element.HYDROGEN.getItem(), 3));
+                this.particles.add(new SlimefunItemStack(Element.HYDROGEN.getItem(), 3));
                 break;
             case NEUTRON:
-                particles.add(Nucleon.NEUTRON.getItem());
+                this.particles.add(Nucleon.NEUTRON.getItem());
                 break;
             case NEUTRON_2:
-                particles.add(new SlimefunItemStack(Nucleon.NEUTRON.getItem(), 2));
+                this.particles.add(new SlimefunItemStack(Nucleon.NEUTRON.getItem(), 2));
                 break;
             case NEUTRON_3:
-                particles.add(new SlimefunItemStack(Nucleon.NEUTRON.getItem(), 3));
+                this.particles.add(new SlimefunItemStack(Nucleon.NEUTRON.getItem(), 3));
                 break;
             case NEUTRON_4:
-                particles.add(new SlimefunItemStack(Nucleon.NEUTRON.getItem(), 4));
+                this.particles.add(new SlimefunItemStack(Nucleon.NEUTRON.getItem(), 4));
                 break;
             case ELECTRON_CAPTURE:
-                particles.addAll(Arrays.asList(Lepton.ELECTRON_NEUTRINO.getItem(), Boson.PHOTON.getItem()));
+                this.particles.addAll(Arrays.asList(Lepton.ELECTRON_NEUTRINO.getItem(), Boson.PHOTON.getItem()));
                 break;
         }
     }

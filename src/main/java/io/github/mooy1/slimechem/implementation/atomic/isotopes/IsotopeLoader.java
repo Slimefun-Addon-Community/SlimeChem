@@ -25,7 +25,7 @@ public class IsotopeLoader {
             }
         }
         try {
-            isotopeJSON = StringUtil.getResourceAsString("isotopes.json");
+            this.isotopeJSON = StringUtil.getResourceAsString("isotopes.json");
         } catch (IOException e) {
             throw new JsonIOException("Failed to load isotope file", e);
         }
@@ -33,9 +33,9 @@ public class IsotopeLoader {
 
     public void load() {
 
-        decayProductMap.clear();
+        this.decayProductMap.clear();
 
-        JsonArray jsonArray = new JsonParser().parse(isotopeJSON).getAsJsonArray();
+        JsonArray jsonArray = new JsonParser().parse(this.isotopeJSON).getAsJsonArray();
 
         for (int i = 0; i < jsonArray.size(); i++) {
             JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
@@ -52,7 +52,7 @@ public class IsotopeLoader {
             }
             Isotope isotope = Isotope.addIsotope(mass, abbr, decayType);
             if (decayType != DecayType.STABLE) {
-                decayProductMap.put(isotope, new NumberAndString(
+                this.decayProductMap.put(isotope, new NumberAndString(
                     jsonObject.get("pmass").getAsInt(),
                     jsonObject.get("pelement").getAsString()
                 ));
@@ -61,8 +61,8 @@ public class IsotopeLoader {
     }
 
     public void loadDecayProducts() {
-        for (Isotope isotope : decayProductMap.keySet()) {
-            NumberAndString decayData = decayProductMap.get(isotope);
+        for (Isotope isotope : this.decayProductMap.keySet()) {
+            NumberAndString decayData = this.decayProductMap.get(isotope);
 
             try {
                 isotope.loadDecayProduct(decayData.getNumber(), decayData.getString());

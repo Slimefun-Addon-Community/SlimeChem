@@ -28,7 +28,7 @@ public enum Boson implements Itemable {
     Boson() {
         String name = this.toString();
         if (!Constants.isTestingEnvironment) {
-            item = new SlimefunItemStack(
+            this.item = new SlimefunItemStack(
                 name,
                 Material.LIGHT_BLUE_DYE,
                 "&7" + StringUtil.enumNameToTitleCaseString(name),
@@ -36,7 +36,7 @@ public enum Boson implements Itemable {
                 "&7A force-carrying particle"
             );
         } else {
-            item = null;
+            this.item = null;
         }
     }
 }

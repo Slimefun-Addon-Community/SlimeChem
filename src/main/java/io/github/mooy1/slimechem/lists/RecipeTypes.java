@@ -2,13 +2,14 @@ package io.github.mooy1.slimechem.lists;
 
 import io.github.mooy1.slimechem.SlimeChem;
 import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
+import lombok.experimental.UtilityClass;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
-import me.mrCookieSlime.Slimefun.cscorelib2.skull.SkullItem;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 
-public class RecipeTypes {
+@UtilityClass
+public final class RecipeTypes {
     
     private static final SlimeChem instance = SlimeChem.getInstance();
 

@@ -1,6 +1,6 @@
 package io.github.mooy1.slimechem.implementation.atomic;
 
-import io.github.mooy1.infinitylib.filter.ItemFilter;
+import io.github.mooy1.infinitylib.filter.FilterType;
 import io.github.mooy1.infinitylib.filter.MultiFilter;
 import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
 import io.github.mooy1.slimechem.implementation.attributes.Ingredient;
@@ -61,24 +61,23 @@ public class MoleculeIngredient {
     
     @Nonnull
     public static MultiFilter getMultiFilter(@Nonnull MoleculeIngredient[] array, int size) {
-        ItemFilter[] multi = new ItemFilter[size];
+        ItemStack[] stacks = new ItemStack[size];
 
         int i = 0;
         for (MoleculeIngredient ingredient : array) {
             if (ingredient != null) {
                 for (ItemStack item : ingredient.getNewItems()) {
-                    multi[i] = new ItemFilter(item);
+                    stacks[i] = item;
                     i++;
                     if (i == size) break;
                 }
             } else {
-                multi[i] = null;
                 i++;
             }
             if (i == size) break;
         }
         
-        return new MultiFilter(multi);
+        return new MultiFilter(FilterType.MIN_AMOUNT, stacks);
     }
     
 }

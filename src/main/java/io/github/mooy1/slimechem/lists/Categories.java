@@ -7,7 +7,7 @@ import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 
-public class Categories {
+public final class Categories {
     
     private static final SlimeChem instance = SlimeChem.getInstance();
     

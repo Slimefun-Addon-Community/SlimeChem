@@ -209,10 +209,7 @@ public enum Element implements Ingredient, Atom {
 
     @Nonnull
     public Isotope getCorrespondingIsotope() {
-        return Objects.requireNonNull(
-            Isotope.getIsotope((int) Math.round(this.mass), this),
-            "For element " + this.name
-        );
+        return Objects.requireNonNull(Isotope.getIsotope((int) Math.round(this.mass), this), () -> "For element " + this.name);
     }
 
     @Nonnull

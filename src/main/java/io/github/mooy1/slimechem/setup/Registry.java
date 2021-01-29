@@ -1,8 +1,6 @@
 package io.github.mooy1.slimechem.setup;
 
-import com.google.common.collect.Maps;
 import io.github.mooy1.slimechem.SlimeChem;
-import io.github.mooy1.slimechem.implementation.MachineMaterial;
 import io.github.mooy1.slimechem.implementation.atomic.Element;
 import io.github.mooy1.slimechem.implementation.atomic.Molecule;
 import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
@@ -32,6 +30,7 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -39,16 +38,13 @@ import java.util.Set;
 import java.util.logging.Level;
 
 public final class Registry {
-
-    private static final int registrySize = Element.values().length + Isotope.getIsotopes().size() + Molecule.values().length;
     
     @Getter
-    private static final Map<SlimefunItem, Ingredient> items = Maps.newHashMapWithExpectedSize(registrySize);
+    private static final Map<SlimefunItem, Ingredient> ITEMS = new HashMap<>();
     @Getter
-    private static final Map<String, Ingredient> ids = Maps.newHashMapWithExpectedSize(registrySize);
-
+    private static final Map<String, Ingredient> IDS = new HashMap<>();
     @Getter
-    private static final Set<Atom> radioactiveItems = new HashSet<>((Element.values().length / 3) + Isotope.getIsotopes().size());
+    private static final Set<Atom> radioactiveItems = new HashSet<>();
 
     public static void setup(SlimeChem plugin) {
 
@@ -137,13 +133,7 @@ public final class Registry {
         for (Nucleon nucleon : Nucleon.values()) {
             new SlimefunItem(Categories.SUBATOMIC, nucleon.getItem(), RecipeType.NULL, new ItemStack[0]);
         }
-
-        IngredientItem.setupInteractions();
-
-        for (MachineMaterial m : MachineMaterial.values()) {
-            new SlimefunItem(Categories.MACHINES, m.getItem(), m.getRecipeType(), m.getRecipe()).register(plugin);
-        }
-
+        
         new ChemicalDissolver().register(plugin);
         new ChemicalCombiner().register(plugin);
         new NuclearFurnace().register(plugin);
@@ -154,14 +144,14 @@ public final class Registry {
     }
 
     private static void registerItem(@Nonnull IngredientItem item, @Nonnull SlimeChem plugin) {
-        items.put(item, item.getIngredient());
-        ids.put(item.getId(), item.getIngredient());
+        ITEMS.put(item, item.getIngredient());
+        IDS.put(item.getId(), item.getIngredient());
         item.register(plugin);
     }
 
     private static void registerItem(@Nonnull RadioactiveItem item, @Nonnull SlimeChem plugin) {
-        items.put(item, item.getIngredient());
-        ids.put(item.getId(), item.getIngredient());
+        ITEMS.put(item, item.getIngredient());
+        IDS.put(item.getId(), item.getIngredient());
         item.register(plugin);
     }
 

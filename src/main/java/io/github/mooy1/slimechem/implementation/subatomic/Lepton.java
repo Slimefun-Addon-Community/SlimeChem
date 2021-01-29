@@ -27,7 +27,7 @@ public enum Lepton implements Fermion, Itemable {
     Lepton() {
         String name = this.toString();
         if (!Constants.isTestingEnvironment) {
-            item = new SlimefunItemStack(
+            this.item = new SlimefunItemStack(
                 name,
                 Material.YELLOW_DYE,
                 "&7" + StringUtil.enumNameToTitleCaseString(name),
@@ -35,7 +35,7 @@ public enum Lepton implements Fermion, Itemable {
                 "&7This particle does not interact via the strong force"
             );
         } else {
-            item = null;
+            this.item = null;
         }
     }
 }

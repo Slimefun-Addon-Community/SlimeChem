@@ -62,7 +62,7 @@ public class Isotope implements Ingredient, Atom {
         this.protons = this.element.getNumber();
         this.neutrons = mass - this.protons;
 
-        this.name = element.getName() + "-" + this.mass;
+        this.name = this.element.getName() + "-" + this.mass;
         this.formula = SuperNum.fromInt(this.mass) + abbr;
 
         this.decayType = decayType;
@@ -79,8 +79,8 @@ public class Isotope implements Ingredient, Atom {
                 this.item = this.element.getItem();
             } else {
                 this.item = new SlimefunItemStack(
-                    String.format("ISOTOPE_%s_%d", element.name(), this.mass),
-                    Objects.requireNonNull(Material.getMaterial(element.getSeries().getColor() + "_DYE")),
+                    String.format("ISOTOPE_%s_%d", this.element.name(), this.mass),
+                    Objects.requireNonNull(Material.getMaterial(this.element.getSeries().getColor() + "_DYE")),
                     "&b" + this.name,
                     "&7" + this.formula,
                     "&7Mass: " + this.mass,
@@ -117,12 +117,12 @@ public class Isotope implements Ingredient, Atom {
     public void loadDecayProduct(int mass, String abbr) {
         for (Isotope isotope : isotopes.get(Element.getByAbbr(abbr))) {
             if (isotope.getMass() == mass) {
-                decayProduct = isotope;
+                this.decayProduct = isotope;
                 return;
             }
         }
-        if (decayProduct == null) {
-            isotopes.get(element).remove(this);
+        if (this.decayProduct == null) {
+            isotopes.get(this.element).remove(this);
             if (Constants.isTestingEnvironment) {
                 System.out.println(this);
             }
@@ -137,17 +137,17 @@ public class Isotope implements Ingredient, Atom {
      */
     @Nonnull
     public Optional<Isotope> getDecayProduct() {
-        if (decayType == DecayType.STABLE) return Optional.empty();
+        if (this.decayType == DecayType.STABLE) return Optional.empty();
 
-        if (decayProduct == null) {
+        if (this.decayProduct == null) {
             throw new IllegalStateException("Decay product not initialized!");
         } else {
-            return Optional.of(decayProduct);
+            return Optional.of(this.decayProduct);
         }
     }
 
     public boolean isRadioactive() {
-        return decayType != DecayType.STABLE;
+        return this.decayType != DecayType.STABLE;
     }
 
     /**
@@ -176,7 +176,7 @@ public class Isotope implements Ingredient, Atom {
     public static Isotope getByItem(ItemStack item) {
         if (item == null) return null;
 
-        String id = StackUtils.getItemID(item, false);
+        String id = StackUtils.getID(item);
         if (id == null) return null;
 
         for (Set<Isotope> isotopeSet : isotopes.values()) {
@@ -192,13 +192,13 @@ public class Isotope implements Ingredient, Atom {
 
     @Override
     public String toString() {
-        return element.getName() + '-' + mass;
+        return this.element.getName() + '-' + this.mass;
     }
 
     @Nonnull
     @Override
     public String getFormula(int i) {
-        return formula + SubNum.fromInt(i);
+        return this.formula + SubNum.fromInt(i);
     }
 
     @Nonnull
@@ -215,7 +215,7 @@ public class Isotope implements Ingredient, Atom {
 
     @Override
     public int getNumber() {
-        return protons;
+        return this.protons;
     }
 
     @Override
