@@ -1,9 +1,9 @@
 package io.github.seggan.slimechem.test;
 
-import io.github.mooy1.slimechem.implementation.atomic.Element;
-import io.github.mooy1.slimechem.implementation.atomic.isotopes.Isotope;
-import io.github.mooy1.slimechem.implementation.atomic.isotopes.IsotopeLoader;
-import io.github.mooy1.slimechem.lists.Constants;
+import io.github.addoncommunity.slimechem.implementation.atomic.Element;
+import io.github.addoncommunity.slimechem.implementation.atomic.isotopes.Isotope;
+import io.github.addoncommunity.slimechem.implementation.atomic.isotopes.IsotopeLoader;
+import io.github.addoncommunity.slimechem.lists.Constants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

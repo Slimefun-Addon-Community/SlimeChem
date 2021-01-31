@@ -1,9 +1,9 @@
 package io.github.seggan.slimechem.test;
 
-import io.github.mooy1.slimechem.implementation.atomic.Element;
-import io.github.mooy1.slimechem.lists.Constants;
-import io.github.mooy1.slimechem.utils.StringUtil;
-import io.github.mooy1.slimechem.utils.Util;
+import io.github.addoncommunity.slimechem.implementation.atomic.Element;
+import io.github.addoncommunity.slimechem.lists.Constants;
+import io.github.addoncommunity.slimechem.utils.StringUtil;
+import io.github.addoncommunity.slimechem.utils.Util;
 import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
