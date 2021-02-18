@@ -3,7 +3,6 @@ package io.github.addoncommunity.slimechem.lists;
 import io.github.addoncommunity.slimechem.implementation.machines.ChemicalCombiner;
 import io.github.addoncommunity.slimechem.implementation.machines.ChemicalDissolver;
 import io.github.mooy1.infinitylib.presets.LorePreset;
-import io.github.addoncommunity.slimechem.SlimeChem;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
@@ -11,8 +10,6 @@ import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import lombok.experimental.UtilityClass;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
-
-import java.util.Locale;
 
 @UtilityClass
 public final class Items {
@@ -63,21 +60,6 @@ public final class Items {
         LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
         LoreBuilder.powerPerSecond(2040),
         LoreBuilder.powerCharged(0, 4080)
-    );
-
-    public static final SlimefunItemStack ADDON_INFO = new SlimefunItemStack(
-        SlimeChem.getInstance().getName().toUpperCase(Locale.ROOT) + "_ADDON_INFO",
-        Material.NETHER_STAR,
-        "&bAddon Info",
-        "&fVersion: &7" + SlimeChem.getInstance().getPluginVersion(),
-        "",
-        "&fMooy's Discord: &b@&7Riley&8#5911",
-        "&fSeggan's Discord: &b@&7Seggan&8#8111",
-        "&7discord.gg/slimefun",
-            "",
-            "&fMooy's Github: &b@&8&7Mooy1",
-            "&fSeggan's Github: &b@&8&7Seggan",
-            "&7" + SlimeChem.getInstance().getBugTrackerURL()
     );
     
     public static final SlimefunItemStack NUCLEAR_FURNACE = new SlimefunItemStack(

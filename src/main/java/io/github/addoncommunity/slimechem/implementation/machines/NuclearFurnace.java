@@ -3,14 +3,15 @@ package io.github.addoncommunity.slimechem.implementation.machines;
 import io.github.addoncommunity.slimechem.implementation.atomic.isotopes.Isotope;
 import io.github.addoncommunity.slimechem.implementation.attributes.Atom;
 import io.github.addoncommunity.slimechem.lists.Categories;
-import io.github.mooy1.infinitylib.items.StackUtils;
-import io.github.addoncommunity.slimechem.implementation.machines.abstractmachines.Container;
 import io.github.addoncommunity.slimechem.lists.Items;
 import io.github.addoncommunity.slimechem.setup.Registry;
+import io.github.mooy1.infinitylib.abstracts.AbstractTicker;
+import io.github.mooy1.infinitylib.items.StackUtils;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
@@ -35,7 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NuclearFurnace extends Container implements RecipeDisplayItem {
+public class NuclearFurnace extends AbstractTicker implements RecipeDisplayItem {
 
     private static final int[] BACKGROUND = {0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26};
     private static final int FUEL = 21;
@@ -121,10 +122,7 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
     }
 
     @Override
-    public void tick(@Nonnull Block b) {
-        BlockMenu menu = BlockStorage.getInventory(b);
-        if (menu == null) return;
-
+    protected void tick(@Nonnull BlockMenu menu, @Nonnull Block b, @Nonnull Config config) {
         ItemStack input = menu.getItemInSlot(INPUT);
 
         if (input == null) return;
@@ -135,16 +133,17 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
             fuel = addFuel(menu, menu.getItemInSlot(FUEL));
             if (fuel < 1) return;
         }
-        
-        process(b, menu, input, fuel);
 
+        process(b, menu, input, fuel);
     }
 
     /**
      * returns amount of fuel added
      */
     private int addFuel(@Nonnull BlockMenu menu, @Nullable ItemStack fuel) {
-        String id = StackUtils.getItemID(fuel, false);
+        if (fuel == null) return 0;
+        
+        String id = StackUtils.getID(fuel);
 
         if (id == null) return 0;
 
@@ -171,23 +170,14 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
         menu.replaceExistingItem(STATUS, getFuelItem(fuel), false);
         
     }
-
+    
     @Nonnull
     @Override
-    public int[] getTransportSlots(@Nonnull ItemTransportFlow flow) {
+    public int[] getTransportSlots(@Nonnull DirtyChestMenu menu, @Nonnull ItemTransportFlow flow, ItemStack item) {
         if (flow == ItemTransportFlow.WITHDRAW) {
             return new int[] {OUTPUT};
         }
-        return new int[] {INPUT};
-    }
-
-    @Nonnull
-    @Override
-    public int[] getTransportSlots(DirtyChestMenu menu, ItemTransportFlow flow, ItemStack item) {
-        if (flow == ItemTransportFlow.WITHDRAW) {
-            return new int[] {OUTPUT};
-        }
-        String id = StackUtils.getItemID(item, false);
+        String id = StackUtils.getID(item);
         if (id == null) {
             if (this.recipes.containsKey(item.getType())) {
                 return new int[] {INPUT};
@@ -211,7 +201,7 @@ public class NuclearFurnace extends Container implements RecipeDisplayItem {
     }
 
     @Nonnull
-    private ItemStack getFuelItem(int fuel) {
+    private static ItemStack getFuelItem(int fuel) {
         return new CustomItem(
                 fuel < 1 ? Material.GRAY_STAINED_GLASS_PANE :
                         fuel < 36 ? Material.RED_STAINED_GLASS_PANE :

@@ -31,12 +31,12 @@ import java.util.UUID;
  * @author Mooy1
  * 
  */
-public class ElementCategory extends FlexCategory {
+public final class ElementCategory extends FlexCategory {
 
     private final ItemStack BACKGROUND = new CustomItem(Material.BLACK_STAINED_GLASS_PANE, "");
     private final ChestMenu[] menus = new ChestMenu[4];
     private final Map<UUID, Integer> history = new HashMap<>();
-    private final SlimefunGuideImplementation implementation = SlimefunPlugin.getRegistry().getGuideLayout(SlimefunGuideMode.SURVIVAL_MODE);
+    private final SlimefunGuideImplementation implementation = SlimefunPlugin.getRegistry().getSlimefunGuide(SlimefunGuideMode.SURVIVAL_MODE);
     
     public ElementCategory(SlimeChem plugin) {
         super(new NamespacedKey(plugin, "periodic_table"), new CustomItem(Material.DIAMOND, "Periodic Table"), 3);

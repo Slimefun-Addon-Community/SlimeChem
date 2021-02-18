@@ -50,8 +50,6 @@ public final class Registry {
 
         new ElementCategory(plugin).register(plugin);
 
-        new SlimefunItem(Categories.MACHINES, Items.ADDON_INFO, RecipeType.NULL, null);
-
         for (Element element : Element.values()) {
             if (element.isRadioactive()) {
                 radioactiveItems.add(element);

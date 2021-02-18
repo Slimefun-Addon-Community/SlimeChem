@@ -2,8 +2,6 @@ package io.github.addoncommunity.slimechem.implementation.atomic;
 
 import io.github.addoncommunity.slimechem.implementation.attributes.Ingredient;
 import io.github.addoncommunity.slimechem.utils.SubNum;
-import io.github.mooy1.infinitylib.filter.FilterType;
-import io.github.mooy1.infinitylib.filter.MultiFilter;
 import lombok.Getter;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
@@ -141,22 +139,7 @@ public enum Molecule implements Ingredient {
 
         return recipe;
     }
-
-    @Nonnull
-    public MultiFilter toFilter(int size) {
-        ItemStack[] stacks = new ItemStack[size];
-
-        for (int i = 0; i < Math.min(size, size()); ) {
-            ItemStack[] items = getIngredient(i).getNewItems();
-            for (ItemStack item : items) {
-                stacks[i] = item;
-                i++;
-            }
-        }
-
-        return new MultiFilter(FilterType.MIN_AMOUNT, stacks);
-    }
-
+    
     @Nonnull
     @Override
     public MoleculeIngredient asIngredient(int amount) {

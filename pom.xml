@@ -44,6 +44,10 @@
                 <configuration>
                     <relocations>
                         <relocation>
+                            <pattern>io.github.mooy1.infinitylib</pattern>
+                            <shadedPattern>io.github.addoncommunity.slimechem.infinitylib</shadedPattern>
+                        </relocation>
+                        <relocation>
                             <pattern>org.bstats</pattern>
                             <shadedPattern>io.github.addoncommunity.slimechem.bstats</shadedPattern>
                         </relocation>
@@ -79,10 +83,6 @@
     </build>
 
     <repositories>
-        <repository>
-            <id>paper-repo</id>
-            <url>https://repo.destroystokyo.com/repository/maven-public/</url>
-        </repository>
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
@@ -137,7 +137,7 @@
         <dependency>
             <groupId>io.github.mooy1</groupId>
             <artifactId>InfinityLib</artifactId>
-            <version>43cc199</version>
+            <version>62e7d30</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

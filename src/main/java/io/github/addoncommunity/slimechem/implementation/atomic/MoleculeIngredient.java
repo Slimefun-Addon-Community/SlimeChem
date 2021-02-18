@@ -1,7 +1,5 @@
 package io.github.addoncommunity.slimechem.implementation.atomic;
 
-import io.github.mooy1.infinitylib.filter.FilterType;
-import io.github.mooy1.infinitylib.filter.MultiFilter;
 import io.github.addoncommunity.slimechem.implementation.atomic.isotopes.Isotope;
 import io.github.addoncommunity.slimechem.implementation.attributes.Ingredient;
 import lombok.Getter;
@@ -57,27 +55,6 @@ public class MoleculeIngredient {
         }
         items[size - 1] = new CustomItem(this.getIngredient().getItem(), this.amount % 64);
         return items;
-    }
-    
-    @Nonnull
-    public static MultiFilter getMultiFilter(@Nonnull MoleculeIngredient[] array, int size) {
-        ItemStack[] stacks = new ItemStack[size];
-
-        int i = 0;
-        for (MoleculeIngredient ingredient : array) {
-            if (ingredient != null) {
-                for (ItemStack item : ingredient.getNewItems()) {
-                    stacks[i] = item;
-                    i++;
-                    if (i == size) break;
-                }
-            } else {
-                i++;
-            }
-            if (i == size) break;
-        }
-        
-        return new MultiFilter(FilterType.MIN_AMOUNT, stacks);
     }
     
 }

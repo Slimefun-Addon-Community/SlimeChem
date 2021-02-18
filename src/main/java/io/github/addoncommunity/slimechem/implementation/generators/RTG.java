@@ -1,7 +1,7 @@
 package io.github.addoncommunity.slimechem.implementation.generators;
 
-import io.github.addoncommunity.slimechem.lists.Categories;
 import io.github.addoncommunity.slimechem.implementation.atomic.isotopes.Isotope;
+import io.github.addoncommunity.slimechem.lists.Categories;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
@@ -17,7 +17,6 @@ import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -160,7 +159,7 @@ public class RTG extends SlimefunItem implements EnergyNetProvider {
             }
 
             int time = 25 - isotope.getRadiationLevel();
-            Bukkit.getLogger().info(Integer.toString(time));
+            
             if (time < 1) {
                 time = 1;
             }

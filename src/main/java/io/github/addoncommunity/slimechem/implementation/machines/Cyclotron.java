@@ -2,12 +2,17 @@ package io.github.addoncommunity.slimechem.implementation.machines;
 
 import io.github.addoncommunity.slimechem.implementation.atomic.Element;
 import io.github.addoncommunity.slimechem.implementation.atomic.isotopes.Isotope;
-import io.github.addoncommunity.slimechem.implementation.machines.abstractmachines.Machine;
+import io.github.addoncommunity.slimechem.lists.Categories;
 import io.github.addoncommunity.slimechem.lists.Items;
+import io.github.mooy1.infinitylib.abstracts.AbstractMachine;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
+import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
+import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
+import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,7 +25,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class Cyclotron extends Machine {
+public class Cyclotron extends AbstractMachine {
 
     private static final int[] BORDER_IN = {9, 10, 11, 12, 18, 21, 27, 28, 29, 30};
     private static final int[] BORDER_OUT = {14, 15, 16, 17, 23, 26, 32, 33, 34, 35};
@@ -33,7 +38,9 @@ public class Cyclotron extends Machine {
     private static final Set<Location> processing = new HashSet<>();
 
     public Cyclotron() {
-        super(Items.CYCLOTRON, 4092, 8184, INPUT_SLOTS, OUTPUT_SLOTS, new ItemStack[0]);
+        super(Categories.MACHINES, Items.CYCLOTRON, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                
+        }, 0, 2040);
 
         registerBlockHandler(getId(), (p, b, sfitem, reason) -> {
             Location l = b.getLocation();
@@ -56,15 +63,26 @@ public class Cyclotron extends Machine {
         preset.addItem(22, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
     }
 
+    @Nonnull
     @Override
-    public void process(@Nonnull BlockMenu menu, @Nonnull Block b, @Nonnull Location l) {
+    protected int[] getTransportSlots(@Nonnull DirtyChestMenu dirtyChestMenu, @Nonnull ItemTransportFlow itemTransportFlow, ItemStack itemStack) {
+        if (itemTransportFlow == ItemTransportFlow.INSERT) {
+            return INPUT_SLOTS;
+        } else if (itemTransportFlow == ItemTransportFlow.WITHDRAW) {
+            return OUTPUT_SLOTS;
+        } else {
+            return new int[0];
+        }
+    }
+
+    @Override
+    protected boolean process(@Nonnull BlockMenu menu, @Nonnull Block block, @Nonnull Config config) {
+        Location l = block.getLocation();
         if (processing.contains(l)) {
             int timeleft = progress.get(l);
 
             if (timeleft > 0) {
                 ChestMenuUtils.updateProgressbar(menu, 22, timeleft--, 8, new ItemStack(Material.SLIME_BALL));
-
-                removeCharge(l, energy);
 
                 progress.put(l, timeleft);
             } else {
@@ -79,11 +97,11 @@ public class Cyclotron extends Machine {
             Isotope first = Isotope.getByItem(menu.getItemInSlot(INPUT_SLOTS[0]));
             Isotope second = Isotope.getByItem(menu.getItemInSlot(INPUT_SLOTS[1]));
             // TODO: add electron/neutron capture
-            if (first == null) return;
-            if (second == null) return;
+            if (first == null) return false;
+            if (second == null) return false;
 
             Element element = Element.getByNumber(first.getNumber() + second.getNumber());
-            if (element == null) return;
+            if (element == null) return false;
 
             Isotope result = Isotope.getIsotope((int) Math.round(first.getMass() + second.getMass()), element);
 
@@ -96,5 +114,13 @@ public class Cyclotron extends Machine {
                 results.put(l, result.getItem());
             }
         }
+        
+        return true;
     }
+
+    @Override
+    public int getCapacity() {
+        return 4080;
+    }
+
 }
